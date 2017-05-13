@@ -7,16 +7,5 @@ services:
       - "8100:8100"
       - "35729:35729"
     volumes:
-     - .:/opt/culturaaccesible
-
-    links:
-      - selenium
-    command: bash -c "cd /opt/app/culturaaccesible && ionic serve"
-
-  selenium:
-    container_name: selenium-app-cuac
-    image: selenium/standalone-chrome
-    ports:
-        - "4444:4444"
-    logging:
-      driver: none
+      - .:/opt/app
+    command: bash -c "cd /opt/app/culturaaccesible && ionic serve --all"
