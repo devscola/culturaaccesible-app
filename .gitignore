@@ -20,3 +20,4 @@ public/vendor/
 .DS_Store
 /.ionic/
 .bash_history
+.npm
