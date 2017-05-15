@@ -7,4 +7,4 @@ RUN mkdir -p $HOME
 WORKDIR $HOME
 
 RUN apt-get update
-RUN npm install -g ionic cordova && cordova telemetry off
+RUN npm install -g ionic cordova
