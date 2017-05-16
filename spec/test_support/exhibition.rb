@@ -13,6 +13,10 @@ module Page
       has_content?('Exhibitions List')
     end
 
+    def has_items?
+      has_css?('#exhibition-list') && has_css?('.exhibition-item')
+    end
+
     private
 
     def go_to_list_page()
