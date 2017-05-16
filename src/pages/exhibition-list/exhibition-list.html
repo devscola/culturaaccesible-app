@@ -10,13 +10,13 @@
 <ion-content>
   <ion-list id="exhibition-list">
     <ion-card class="exhibition-item" *ngFor="let exhibition of exhibitions">
-      <img src="{{exhibition.picture}}"/>
+      <img src="http://www.biografiasyvidas.com/biografia/g/fotos/gogh_noche_estrellada_2.jpg"/>
       <div class="info">
         <ion-card-header>
           {{exhibition.name}}
         </ion-card-header>
         <ion-card-content>
-          {{exhibition.shortDescription}}
+          {{exhibition.short_description}}
         </ion-card-content>
       </div>
     </ion-card>

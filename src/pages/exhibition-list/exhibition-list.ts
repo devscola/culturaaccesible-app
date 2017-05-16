@@ -10,8 +10,23 @@ import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions'
 })
 export class ExhibitionList {
   exhibitions: Array<Object>
+  allExhibitions: Array<Object>
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: ExhibitionsProvider) {
-    this.exhibitions = this.service.retrieveList();
+    this.service.retrieveList().subscribe(exhibitions => {
+        this.allExhibitions = exhibitions
+        this.filterExhibitions()
+    })
+  }
+
+  filterExhibitions() {
+    let activeExhibitions: Array<Object> = []
+
+    for (let exhibition of this.allExhibitions) {
+        if (exhibition['show']) {
+            activeExhibitions.push(exhibition)
+        }
+    }
+    this.exhibitions = activeExhibitions
   }
 }
