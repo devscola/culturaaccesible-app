@@ -1,0 +1,15 @@
+page-exhibition-list {
+  ion-card{
+    text-align: center;
+  }
+  ion-card img {
+    display: inline-block;
+    width: 48%;
+  }
+
+  .info{
+    text-align: left;
+    display: inline-block;
+    width: 48%;
+  }
+}

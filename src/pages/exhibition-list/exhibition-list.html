@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Exhibitions List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list id="exhibition-list">
+    <ion-card class="exhibition-item" *ngFor="let exhibition of exhibitions">
+      <img src="{{exhibition.picture}}"/>
+      <div class="info">
+        <ion-card-header>
+          {{exhibition.name}}
+        </ion-card-header>
+        <ion-card-content>
+          {{exhibition.shortDescription}}
+        </ion-card-content>
+      </div>
+    </ion-card>
+  </ion-list>
+</ion-content>
