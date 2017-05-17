@@ -30,6 +30,7 @@ module Page
 
     def go_to_list_page
       find('.bar-button-menutoggle').click
+      sleep 1
       find('#exhibitions').click
     end
 

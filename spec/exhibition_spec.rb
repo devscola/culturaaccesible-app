@@ -15,7 +15,7 @@ feature 'Exhibition list' do
   end
 end
 
-xfeature 'Exhibition detail' do
+feature 'Exhibition detail' do
   scenario 'shows exhibition info' do
     list = Page::Exhibition.new
     result = list.has_extended_description?
