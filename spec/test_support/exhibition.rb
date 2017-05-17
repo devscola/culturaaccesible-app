@@ -20,13 +20,13 @@ module Page
     private
 
     def go_to_list_page()
-      page.find('.bar-button-menutoggle').click
-      page.find('#exhibitions').click
+      find('.bar-button-menutoggle').click
+      find('#exhibitions').click
     end
 
     def validate!
-      page.assert_selector('.bar-button-menutoggle')
-      page.assert_selector('#exhibitions')
+      assert_selector('.bar-button-menutoggle')
+      assert_selector('#exhibitions')
     end
   end
 end
