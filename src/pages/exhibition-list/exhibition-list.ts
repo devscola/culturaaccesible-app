@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions'
+import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions';
+import { ExhibitionDetail } from '../exhibition-detail/exhibition-detail'
 
 
 @IonicPage()
@@ -28,5 +29,9 @@ export class ExhibitionList {
         }
     }
     this.exhibitions = activeExhibitions
+  }
+
+  goToDetail(exhibition) {
+    this.navCtrl.push(ExhibitionDetail, {exhibition: exhibition})
   }
 }

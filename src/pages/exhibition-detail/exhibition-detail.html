@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Exhibition detail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <h2>{{exhibition.name}}</h2>
+  <p>Open from: {{exhibition.date_start}} - to: {{exhibition.date_finish}}</p>
+  <p id="extended-description">{{exhibition.description}}</p>
+</ion-content>

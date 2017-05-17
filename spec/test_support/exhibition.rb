@@ -5,21 +5,30 @@ module Page
     def initialize
       url = '/'
       visit(url)
-      go_to_list_page()
+      go_to_list_page
       validate!
     end
 
     def title?
-      has_content?('Exhibitions List')
+      has_content?('Exhibitions list')
     end
 
     def has_items?
       has_css?('#exhibition-list') && has_css?('.exhibition-item')
     end
 
+    def go_to_detail
+      find('.exhibition-item', :match => :first).click
+    end
+
+    def has_extended_description?
+      go_to_detail
+      has_css?('#extended-description')
+    end
+
     private
 
-    def go_to_list_page()
+    def go_to_list_page
       find('.bar-button-menutoggle').click
       find('#exhibitions').click
     end
