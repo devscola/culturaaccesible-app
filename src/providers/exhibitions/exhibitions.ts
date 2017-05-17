@@ -9,8 +9,8 @@ export class ExhibitionsProvider {
   constructor(private http: Http) {}
 
   retrieveList() {
-    let url = 'http://localhost:4567/api/exhibition/list';
-    return this.http.post(url, '').map(exhibitions => 
+    let url = 'https://cuac-fake-api.herokuapp.com/api/exhibition/list';
+    return this.http.post(url, '').map(exhibitions =>
       exhibitions.json()
     )
   }
