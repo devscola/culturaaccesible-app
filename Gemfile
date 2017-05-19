@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '>= 2.4.0'
+ruby '>= 2.3.0'
 
 gem 'capybara', '~> 2.12.0'
 gem 'rspec', '~> 3.5.0'
