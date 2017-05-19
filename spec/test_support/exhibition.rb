@@ -36,7 +36,7 @@ module Page
 
     def validate!
       assert_selector('.bar-button-menutoggle')
-      assert_selector('#exhibitions')
+      assert_selector('#exhibitions', visible: false)
     end
   end
 end
