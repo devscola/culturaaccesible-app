@@ -14,29 +14,29 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ExhibitionsProvider } from '../providers/exhibitions/exhibitions';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-    ExhibitionList,
-    ExhibitionDetail
-  ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp),
-    HttpModule
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    ExhibitionList,
-    ExhibitionDetail
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ExhibitionsProvider
-  ]
+    declarations: [
+        MyApp,
+        HomePage,
+        ExhibitionList,
+        ExhibitionDetail
+    ],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(MyApp),
+        HttpModule
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        HomePage,
+        ExhibitionList,
+        ExhibitionDetail
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
+        ExhibitionsProvider
+    ]
 })
 export class AppModule {}

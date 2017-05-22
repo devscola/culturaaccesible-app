@@ -13,5 +13,4 @@ export class ExhibitionDetail {
     constructor(public navCtrl: NavController, public navParams: NavParams, private service: ExhibitionsProvider) {
         this.exhibition = navParams.get("exhibition")
     }
-
 }
