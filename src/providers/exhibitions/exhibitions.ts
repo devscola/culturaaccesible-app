@@ -4,14 +4,14 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ExhibitionsProvider {
-  exhibitions: Array<Object>;
+    exhibitions: Array<Object>;
 
-  constructor(private http: Http) {}
+    constructor(private http: Http) {}
 
-  retrieveList() {
-    let url = 'https://cuac-fake-api.herokuapp.com/api/exhibition/list';
-    return this.http.post(url, '').map(exhibitions =>
-      exhibitions.json()
-    )
-  }
+    retrieveList() {
+        let url = 'https://cuac-fake-api.herokuapp.com/api/exhibition/list';
+        return this.http.post(url, '').map(exhibitions =>
+            exhibitions.json()
+            )
+    }
 }
