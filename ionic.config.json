@@ -1,4 +1,5 @@
 {
-    "name": "feedback-cultural",
-    "type": "ionic-angular"
+  "name": "feedback-cultural",
+  "type": "ionic-angular",
+  "app_id": ""
 }
