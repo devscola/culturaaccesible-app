@@ -18,7 +18,7 @@ module Page
     end
 
     def go_to_detail
-      find('.exhibition-item', :match => :first).click
+      find('.exhibition-item', :match => :first, wait: 2).click
     end
 
     def has_extended_description?
