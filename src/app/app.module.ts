@@ -9,17 +9,20 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ExhibitionList } from '../pages/exhibition-list/exhibition-list';
 import { ExhibitionDetail } from '../pages/exhibition-detail/exhibition-detail';
+import { MuseumDetail } from '../pages/museum-detail/museum-detail';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ExhibitionsProvider } from '../providers/exhibitions/exhibitions';
+import { MuseumProvider } from '../providers/museum/museum';
 
 @NgModule({
     declarations: [
         MyApp,
         HomePage,
         ExhibitionList,
-        ExhibitionDetail
+        ExhibitionDetail,
+        MuseumDetail
     ],
     imports: [
         BrowserModule,
@@ -32,13 +35,15 @@ import { ExhibitionsProvider } from '../providers/exhibitions/exhibitions';
         MyApp,
         HomePage,
         ExhibitionList,
-        ExhibitionDetail
+        ExhibitionDetail,
+        MuseumDetail
     ],
     providers: [
         StatusBar,
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
-        ExhibitionsProvider
+        ExhibitionsProvider,
+        MuseumProvider
     ]
 })
 export class AppModule {}

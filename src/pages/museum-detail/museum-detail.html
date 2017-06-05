@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Museum detail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div class="map-link" *ngIf="hasLocation">
+    <a href="{{museum.link}}">Ver mapa</a>
+  </div>
+</ion-content>
