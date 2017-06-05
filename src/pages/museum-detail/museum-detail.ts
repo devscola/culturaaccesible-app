@@ -8,7 +8,7 @@ import { MuseumProvider } from '../../providers/museum/museum'
   templateUrl: 'museum-detail.html',
 })
 export class MuseumDetail {
-  museum;
+  museum: Object = {};
   coordinates;
   iosMapLink;
   hasLocation: boolean = false;
@@ -18,10 +18,9 @@ export class MuseumDetail {
               private museumProvider: MuseumProvider) {
     this.museumProvider.retrieveList().subscribe(list => {
       this.museum = list[0]
-      this.hasLocation = this.museum.link
-      this.coordinates = this.museum.link.split('@')[1].split(',')[0] + this.museum.link.split('@')[1].split(',')[1]
+      this.hasLocation = list[0].link
+      this.coordinates = list[0].link.split('@')[1].split(',')[0] + list[0].link.split('@')[1].split(',')[1]
       this.iosMapLink = "http://maps.apple.com/?q=" + this.coordinates
-      console.log(this.coordinates)
     })
   }
 
