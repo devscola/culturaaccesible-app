@@ -8,16 +8,20 @@ import { MuseumProvider } from '../../providers/museum/museum'
   templateUrl: 'museum-detail.html',
 })
 export class MuseumDetail {
-  museum;
+  museum: Object = {};
   hasLocation: boolean = false;
+  differentRegionCity: boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private museumProvider: MuseumProvider) {
-    this.museumProvider.retrieveList().subscribe(list => {
-      this.museum = list[0]
-      this.hasLocation = this.museum.link
-    })
-  }
+              private museumProvider: MuseumProvider) {}
+
+    ionViewDidLoad() {
+        this.museumProvider.retrieveList().subscribe(list => {
+            this.museum = list[0];
+            this.hasLocation = list[0].link;
+            this.differentRegionCity = (list[0].city != list[0].region);
+        })
+    }
 
 }

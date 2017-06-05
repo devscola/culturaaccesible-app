@@ -9,7 +9,12 @@
 
 
 <ion-content padding>
-  <div class="map-link" *ngIf="hasLocation">
-    <a href="{{museum.link}}">Ver mapa</a>
-  </div>
+    <h4>{{museum.name}}</h4>
+    <div class="museum-info">
+        <p>{{museum.street}}, {{museum.postal}}, <span *ngIf="differentRegionCity">{{museum.city}},</span> {{museum.region}}.</p>
+    </div>
+    <div class="map-link" *ngIf="hasLocation">
+        <ion-icon name="pin"></ion-icon>
+        <a href="{{museum.link}}">Ver mapa</a>
+    </div>
 </ion-content>
