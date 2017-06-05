@@ -9,6 +9,8 @@ import { MuseumProvider } from '../../providers/museum/museum'
 })
 export class MuseumDetail {
   museum;
+  coordinates;
+  iosMapLink;
   hasLocation: boolean = false;
 
   constructor(public navCtrl: NavController,
@@ -17,6 +19,9 @@ export class MuseumDetail {
     this.museumProvider.retrieveList().subscribe(list => {
       this.museum = list[0]
       this.hasLocation = this.museum.link
+      this.coordinates = this.museum.link.split('@')[1].split(',')[0] + this.museum.link.split('@')[1].split(',')[1]
+      this.iosMapLink = "http://maps.apple.com/?q=" + this.coordinates
+      console.log(this.coordinates)
     })
   }
 
