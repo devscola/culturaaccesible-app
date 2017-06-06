@@ -15,7 +15,7 @@
     </div>
     <div class="map-link" *ngIf="hasLocation">
       <ion-icon name="pin"></ion-icon>
-      <a href="{{museum.link}}">Ver mapa</a>
-      <a href="{{iosMapLink}}">Ver mapa en maps</a>
+      <a showWhen="android" href="{{museum.link}}">Show map</a>
+      <a showWhen="ios" href="{{iosMapLink}}">Show map</a>
     </div>
 </ion-content>
