@@ -20,6 +20,9 @@ module Page
     def has_schedule?
       has_css?('.schedule')
     end
+    def has_price?
+      has_css?('.price')
+    end
 
     private
 
