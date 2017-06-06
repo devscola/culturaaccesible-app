@@ -22,4 +22,9 @@ feature 'Museum detail' do
     current = Page::Museum.new
     expect(current.has_price?).to be true
   end
+
+  scenario 'has price' do
+    current = Page::Museum.new
+    expect(current.has_price?).to be true
+  end
 end

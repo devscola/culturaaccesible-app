@@ -29,17 +29,34 @@
     </div>
     <div class="price">
         <ion-icon name="pricetags"></ion-icon>
-        <div class="price-section">
+        <div>
             <strong>Free entrance: </strong>
             <span *ngFor="let free of museum.freeEntrance">{{free}} </span>
         </div>
-        <div class="price-section">
+        <div>
             <strong>General: </strong>
             <span *ngFor="let general of museum.general">{{general}} </span>
         </div>
-        <div class="price-section">
+        <div>
             <strong>Reduced: </strong>
             <span *ngFor="let reduced of museum.reduced">{{reduced}} </span>
+        </div>
+    </div>
+    <div class="contact">
+        <div>
+            <ion-icon name="call"></ion-icon>
+            <strong>Phone: </strong>
+            <span *ngFor="let phone of museum.phone"><a href="tel:{{phone}}">{{phone}}</a> </span>
+        </div>
+        <div>
+            <ion-icon name="link"></ion-icon>
+            <strong>Web: </strong>
+            <span *ngFor="let web of museum.web"><a href="{{web}}">{{web}}</a> </span>
+        </div>
+        <div>
+            <ion-icon name="mail"></ion-icon>
+            <strong>Email: </strong>
+            <span *ngFor="let email of museum.email"><a href="mailto:{{email}}">{{email}}</a> </span>
         </div>
     </div>
 </ion-content>
