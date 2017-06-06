@@ -12,4 +12,9 @@ feature 'Museum detail' do
     current = Page::Museum.new
     expect(current.has_map_link?).to be true
   end
+
+  scenario 'has schedule' do
+    current = Page::Museum.new
+    expect(current.has_schedule?).to be true
+  end
 end

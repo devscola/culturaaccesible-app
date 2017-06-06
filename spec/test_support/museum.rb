@@ -14,7 +14,11 @@ module Page
     end
 
     def has_map_link?
-      has_content?('Ver mapa')
+      has_css?('.map')
+    end
+
+    def has_schedule?
+      has_css?('.schedule')
     end
 
     private

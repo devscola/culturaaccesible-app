@@ -12,6 +12,32 @@ export class MuseumDetail {
   coordinates;
   iosMapLink;
   hasLocation: boolean = false;
+  schedule = [
+    {
+      "day": "MON",
+      "hours": ["09:00-20:00", "09:00-20:00"]
+    },
+    {
+      "day": "TUE",
+      "hours": ["09:00-20:00", "09:00-20:00"]
+    },
+    {
+      "day": "WED",
+      "hours": ["09:00-20:00", "09:00-20:00"]
+    },
+    {
+      "day": "THU",
+      "hours": ["09:00-20:00", "09:00-20:00"]
+    },
+    {
+      "day": "FRI",
+      "hours": ["09:00-20:00", "09:00-20:00"]
+    },
+    {
+      "day": "SAT",
+      "hours": ["09:00-22:00", "09:00-22:00"]
+    }
+  ]
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
