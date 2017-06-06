@@ -57,12 +57,9 @@ export class MuseumDetail {
     constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private museumProvider: MuseumProvider) {
-        this.museumProvider.retrieveList().subscribe(list => {
-            this.museum = this.fakeMuseum;
-            this.hasLocation = this.fakeMuseum.link.length > 0;
-            this.coordinates = this.fakeMuseum.link.split('@')[1].split(',')[0] + ',' + this.fakeMuseum.link.split('@')[1].split(',')[1];
-            this.iosMapLink = "http://maps.apple.com/?q=" + this.coordinates;
-        })
+        this.museum = this.fakeMuseum;
+        this.hasLocation = this.fakeMuseum.link.length > 0;
+        this.coordinates = this.fakeMuseum.link.split('@')[1].split(',')[0] + ',' + this.fakeMuseum.link.split('@')[1].split(',')[1];
+        this.iosMapLink = "http://maps.apple.com/?q=" + this.coordinates;
     }
-
 }
