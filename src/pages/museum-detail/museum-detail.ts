@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MuseumProvider } from '../../providers/museum/museum'
+import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -10,7 +11,9 @@ import { MuseumProvider } from '../../providers/museum/museum'
 export class MuseumDetail {
     museum: Object = {};
     coordinates;
+    searchQuote;
     iosMapLink;
+    iosGoogleMapLink;
     hasLocation: boolean = false;
     fakeMuseum = {
         "name": "MUVIM",
@@ -55,11 +58,14 @@ export class MuseumDetail {
     };
 
     constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private museumProvider: MuseumProvider) {
+                public navParams: NavParams,
+                private museumProvider: MuseumProvider,
+                private domSanitizer: DomSanitizer) {
         this.museum = this.fakeMuseum;
         this.hasLocation = this.fakeMuseum.link.length > 0;
+        this.searchQuote = this.fakeMuseum.link.split('@')[0].split('/')[5]
         this.coordinates = this.fakeMuseum.link.split('@')[1].split(',')[0] + ',' + this.fakeMuseum.link.split('@')[1].split(',')[1];
         this.iosMapLink = "http://maps.apple.com/?q=" + this.coordinates;
+        this.iosGoogleMapLink = this.domSanitizer.bypassSecurityTrustResourceUrl("comgooglemaps://?q=" + this.searchQuote + "?center=" + this.coordinates + "&zoom=14&views=traffic")
     }
 }

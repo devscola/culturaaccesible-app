@@ -5,6 +5,7 @@
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html"/>
     <access origin="*"/>
+    <access origin="comgooglemaps://*" launch-external="yes"/>
     <allow-navigation href="http://ionic.local/*"/>
     <allow-intent href="http://*/*"/>
     <allow-intent href="https://*/*"/>
@@ -12,6 +13,7 @@
     <allow-intent href="sms:*"/>
     <allow-intent href="mailto:*"/>
     <allow-intent href="geo:*"/>
+    <allow-intent href="comgooglemaps:*"/>
     <preference name="webviewbounce" value="false"/>
     <preference name="UIWebViewBounce" value="false"/>
     <preference name="DisallowOverscroll" value="true"/>
