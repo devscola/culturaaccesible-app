@@ -9,14 +9,16 @@
 
 
 <ion-content padding>
-    <h4>{{museum.name}}</h4>
+    <h4 id="name">{{museum.name}}</h4>
     <ion-icon name="pin"></ion-icon>
-    <div>
-        <p>{{museum.street}}, {{museum.postal}}, <span *ngIf="differentRegionCity">{{museum.city}},</span> {{museum.region}}.</p>
-    </div>
-    <div *ngIf="hasLocation" class="map">
-        <a showWhen="android, windows" href="{{museum.link}}">Show map</a>
-        <a showWhen="ios" href="{{iosMapLink}}">Show map</a>
+    <div id="info">
+        <div>
+            <p>{{museum.street}}, {{museum.postal}}, <span *ngIf="differentRegionCity">{{museum.city}},</span> {{museum.region}}.</p>
+        </div>
+        <div *ngIf="hasLocation" class="map">
+            <a showWhen="android, windows" href="{{museum.link}}">Show map</a>
+            <a showWhen="ios" href="{{iosMapLink}}">Show map</a>
+        </div>
     </div>
     <div class="schedule">
         <ion-icon name="time"></ion-icon>

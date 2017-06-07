@@ -13,22 +13,6 @@ module Page
       has_content?('Museum detail')
     end
 
-    def has_map_link?
-      has_css?('.map')
-    end
-
-    def has_schedule?
-      has_css?('.schedule')
-    end
-
-    def has_price?
-      has_css?('.price')
-    end
-
-    def has_contact?
-      has_css?('.contact')
-    end
-
     private
 
     def go_to_museum_detail
@@ -40,6 +24,8 @@ module Page
     def validate!
       assert_selector('.bar-button-menutoggle')
       assert_selector('#museum', visible: false)
+      assert_selector('#name')
+      assert_selector('#info')
     end
   end
 end

@@ -14,7 +14,7 @@ module Page
     end
 
     def has_items?
-      has_css?('#exhibition-list') && has_css?('.exhibition-item')
+      has_css?('#exhibition-list', wait:2) && has_css?('.exhibition-item', wait:2)
     end
 
     def go_to_detail
@@ -23,7 +23,7 @@ module Page
 
     def has_extended_description?
       go_to_detail
-      has_css?('#extended-description')
+      has_css?('#extended-description', wait: 2)
     end
 
     private
