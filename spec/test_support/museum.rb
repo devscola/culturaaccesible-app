@@ -9,8 +9,12 @@ module Page
       validate!
     end
 
-    def title?
-      has_content?('Museum detail')
+    def title?(title = 'Museum detail')
+      has_content?(title)
+    end
+
+    def enter_museum
+      find('.enter').click
     end
 
     private

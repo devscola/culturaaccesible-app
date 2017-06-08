@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MuseumProvider } from '../../providers/museum/museum'
+import { ExhibitionList } from '../exhibition-list/exhibition-list';
 
 @IonicPage()
 @Component({
@@ -61,5 +62,9 @@ export class MuseumDetail {
         this.hasLocation = this.fakeMuseum.link.length > 0;
         this.coordinates = this.fakeMuseum.link.split('@')[1].split(',')[0] + ',' + this.fakeMuseum.link.split('@')[1].split(',')[1];
         this.iosMapLink = "http://maps.apple.com/?q=" + this.coordinates;
+    }
+
+    goToExhibitions() {
+        this.navCtrl.push(ExhibitionList)
     }
 }
