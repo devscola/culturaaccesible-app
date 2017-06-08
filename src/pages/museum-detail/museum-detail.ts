@@ -26,7 +26,7 @@ export class MuseumDetail {
         "schedule": [
         {
             "day": "MON",
-            "hours": null
+            "hours": []
         },
         {
             "day": "TUE",
@@ -46,12 +46,12 @@ export class MuseumDetail {
         },
         {
             "day": "SAT",
-            "hours": ["09:00-22:00", "09:00-22:00"]
+            "hours": []
         }
         ],
         "freeEntrance": ["Niños", "Sabados y festivos"],
         "general": ["10 euros"],
-        "reduced": null,
+        "reduced": [],
         "phone": ["964001122", "964003344"],
         "email": ["muvim@museum.com"],
         "web": ["http://www.google.com"],
@@ -64,13 +64,35 @@ export class MuseumDetail {
         private domSanitizer: DomSanitizer) {
         this.museum = this.fakeMuseum;
         this.hasLocation = this.fakeMuseum.link.length > 0;
-        this.searchQuote = this.fakeMuseum.link.split('@')[0].split('/')[5]
+        this.composeMapLinks();
+    }
+
+    extractSearchQuote() {
+        this.searchQuote = this.fakeMuseum.link.split('@')[0].split('/')[5];
+    }
+
+    extractCoordinates() {
         this.coordinates = this.fakeMuseum.link.split('@')[1].split(',')[0] + ',' + this.fakeMuseum.link.split('@')[1].split(',')[1];
+    }
+
+    composeMapLinks() {
+        this.extractSearchQuote();
+        this.extractCoordinates();
         this.iosMapLink = "http://maps.apple.com/?q=" + this.coordinates;
         this.iosGoogleMapLink = this.domSanitizer.bypassSecurityTrustResourceUrl("comgooglemaps://?q=" + this.searchQuote + "?center=" + this.coordinates + "&zoom=14&views=traffic")
     }
 
     goToExhibitions() {
-        this.navCtrl.push(ExhibitionList)
+        this.navCtrl.push(ExhibitionList);
     }
+
+    isEmpty(key) {
+        return !(key.length === 0);
+    }
+
 }
+
+
+
+
+
