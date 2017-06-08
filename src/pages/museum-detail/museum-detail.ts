@@ -23,7 +23,7 @@ export class MuseumDetail {
         "schedule": [
         {
            "day": "MON",
-           "hours": ["09:00-20:00", "09:00-20:00"]
+           "hours": null
         },
         {
            "day": "TUE",
@@ -48,7 +48,7 @@ export class MuseumDetail {
         ],
         "freeEntrance": ["Niños", "Sabados y festivos"],
         "general": ["10 euros"],
-        "reduced": ["7 euros"],
+        "reduced": null,
         "phone": ["964001122", "964003344"],
         "email": ["muvim@museum.com"],
         "web": ["http://www.google.com"],
