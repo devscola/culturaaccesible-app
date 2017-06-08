@@ -49,12 +49,16 @@ export class MuseumDetail {
             "hours": []
         }
         ],
-        "freeEntrance": ["Niños", "Sabados y festivos"],
-        "general": ["10 euros"],
-        "reduced": [],
-        "phone": ["964001122", "964003344"],
-        "email": ["muvim@museum.com"],
-        "web": ["http://www.google.com"],
+        "price" : {
+            "freeEntrance": ["Niños", "Sabados y festivos"],
+            "general": ["10 euros"],
+            "reduced": []
+        },
+        "contact" : {
+            "phone": ["964001122", "964003344"],
+            "email": ["muvim@museum.com"],
+            "web": ["http://www.google.com"]
+        },
         "description": "Exposición permanente. Precisa de reserva previa."
     };
 
@@ -87,6 +91,9 @@ export class MuseumDetail {
     }
 
     isEmpty(key) {
+        if(typeof(key) == 'object') {
+            return !(Object.keys(key).length === 0)
+        }
         return !(key.length === 0);
     }
 

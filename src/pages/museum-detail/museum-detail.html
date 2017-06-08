@@ -36,36 +36,36 @@
             </div>
         </div>
     </div>
-    <div class="price">
+    <div class="price" *ngIf="isEmpty(museum.price)">
         <ion-icon name="pricetags"></ion-icon>
-        <div *ngIf="isEmpty(museum.freeEntrance)">
+        <div *ngIf="isEmpty(museum.price.freeEntrance)">
             <strong>Free entrance: </strong>
-            <span *ngFor="let free of museum.freeEntrance">{{free}} </span>
+            <span *ngFor="let free of museum.price.freeEntrance">{{free}} </span>
         </div>
-        <div *ngIf="isEmpty(museum.general)">
+        <div *ngIf="isEmpty(museum.price.general)">
             <strong>General: </strong>
-            <span *ngFor="let general of museum.general">{{general}} </span>
+            <span *ngFor="let general of museum.price.general">{{general}} </span>
         </div>
-        <div *ngIf="isEmpty(museum.reduced)">
+        <div *ngIf="isEmpty(museum.price.reduced)">
             <strong>Reduced: </strong>
-            <span *ngFor="let reduced of museum.reduced">{{reduced}} </span>
+            <span *ngFor="let reduced of museum.price.reduced">{{reduced}} </span>
         </div>
     </div>
-    <div class="contact">
-        <div *ngIf="isEmpty(museum.phone)">
+    <div class="contact" *ngIf="isEmpty(museum.contact)">
+        <div *ngIf="isEmpty(museum.contact.phone)">
             <ion-icon name="call"></ion-icon>
             <strong>Phone: </strong>
-            <span *ngFor="let phone of museum.phone"><a href="tel:{{phone}}">{{phone}}</a> </span>
+            <span *ngFor="let phone of museum.contact.phone"><a href="tel:{{phone}}">{{phone}}</a> </span>
         </div>
-        <div *ngIf="isEmpty(museum.web)">
+        <div *ngIf="isEmpty(museum.contact.web)">
             <ion-icon name="link"></ion-icon>
             <strong>Web: </strong>
-            <span *ngFor="let web of museum.web"><a href="{{web}}">{{web}}</a> </span>
+            <span *ngFor="let web of museum.contact.web"><a href="{{web}}">{{web}}</a> </span>
         </div>
-        <div *ngIf="isEmpty(museum.email)">
+        <div *ngIf="isEmpty(museum.contact.email)">
             <ion-icon name="mail"></ion-icon>
             <strong>Email: </strong>
-            <span *ngFor="let email of museum.email"><a href="mailto:{{email}}">{{email}}</a> </span>
+            <span *ngFor="let email of museum.contact.email"><a href="mailto:{{email}}">{{email}}</a> </span>
         </div>
     </div>
     <div *ngIf="museum.description" class="description">
