@@ -8,7 +8,7 @@ feature 'Exhibition list' do
     expect(result).to be true
   end
 
-  scenario 'has items' do
+  xscenario 'has items' do
     list = Page::Exhibition.new
     result = list.has_items?
     expect(result).to be true
@@ -16,7 +16,7 @@ feature 'Exhibition list' do
 end
 
 feature 'Exhibition detail' do
-  scenario 'shows exhibition info' do
+  xscenario 'shows exhibition info' do
     list = Page::Exhibition.new
     result = list.has_extended_description?
     expect(result).to be true

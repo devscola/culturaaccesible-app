@@ -4,60 +4,74 @@
         <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Museum detail</ion-title>
-  </ion-navbar>
+</ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-    <h4>{{museum.name}}</h4>
+    <h4 id="name">{{museum.name}}</h4>
     <ion-icon name="pin"></ion-icon>
-    <div>
-        <p>{{museum.street}}, {{museum.postal}}, <span *ngIf="differentRegionCity">{{museum.city}},</span> {{museum.region}}.</p>
+    <div id="info">
+        <div>
+            <p>
+                <span *ngIf="museum.street">{{museum.street}}, </span>
+                <span *ngIf="museum.postal">{{museum.postal}}, </span>
+                <span *ngIf="differentRegionCity">{{museum.city}}, </span>
+                <span *ngIf="museum.region">{{museum.region}}.</span>
+            </p>
+        </div>
+        <div *ngIf="hasLocation" class="map">
+            <a showWhen="android, windows" href="{{museum.link}}">Show map</a>
+            <a showWhen="ios" href="{{iosMapLink}}">Show map</a>
+        </div>
     </div>
-    <div *ngIf="hasLocation" class="map">
-        <a showWhen="android, windows" href="{{museum.link}}">Show map</a>
-        <a showWhen="ios" href="{{iosMapLink}}">Show map</a>
-        <a showWhen="ios" [href]="iosGoogleMapLink">Show on GoogleMaps</a>
-    </div>
-    <div class="schedule">
+    <div *ngIf="museum.schedule" class="schedule">
         <ion-icon name="time"></ion-icon>
         <div *ngFor="let day of museum.schedule">
-            <span>{{day.day}}: </span>
-            <span *ngFor="let hour of day.hours">
-              {{hour}}
-            </span>
+            <div *ngIf="day.hours">
+                <span>{{day.day}}: </span>
+                <span *ngFor="let hour of day.hours">
+                    {{hour}}
+                </span>
+            </div>
         </div>
     </div>
     <div class="price">
         <ion-icon name="pricetags"></ion-icon>
-        <div>
+        <div *ngIf="museum.freeEntrance">
             <strong>Free entrance: </strong>
             <span *ngFor="let free of museum.freeEntrance">{{free}} </span>
         </div>
-        <div>
+        <div *ngIf="museum.general">
             <strong>General: </strong>
             <span *ngFor="let general of museum.general">{{general}} </span>
         </div>
-        <div>
+        <div *ngIf="museum.reduced">
             <strong>Reduced: </strong>
             <span *ngFor="let reduced of museum.reduced">{{reduced}} </span>
         </div>
     </div>
     <div class="contact">
-        <div>
+        <div *ngIf="museum.phone">
             <ion-icon name="call"></ion-icon>
             <strong>Phone: </strong>
             <span *ngFor="let phone of museum.phone"><a href="tel:{{phone}}">{{phone}}</a> </span>
         </div>
-        <div>
+        <div *ngIf="museum.web">
             <ion-icon name="link"></ion-icon>
             <strong>Web: </strong>
             <span *ngFor="let web of museum.web"><a href="{{web}}">{{web}}</a> </span>
         </div>
-        <div>
+        <div *ngIf="museum.email">
             <ion-icon name="mail"></ion-icon>
             <strong>Email: </strong>
             <span *ngFor="let email of museum.email"><a href="mailto:{{email}}">{{email}}</a> </span>
         </div>
+    </div>
+    <div *ngIf="museum.description" class="description">
+        <p>{{museum.description}}</p>
+    </div>
+    <div>
+        <button class="enter" ion-button color="danger" (click)="goToExhibitions()">Enter</button>
     </div>
 </ion-content>
