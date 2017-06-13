@@ -1,4 +1,4 @@
 export const devVariables = {
-    baseUrl: 'https://cuac-fake-api.herokuapp.com',
+    baseUrl: 'http://localhost:4567',
     environmentName: 'Development Environment'
 };
