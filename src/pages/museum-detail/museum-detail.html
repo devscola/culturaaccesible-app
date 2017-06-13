@@ -10,111 +10,144 @@
 
 <ion-content padding>
     <h4 id="name">{{info.name}}</h4>
-    <ion-icon name="pin"></ion-icon>
-    <div id="info">
-        <div>
-            <p>
+    <ion-row>
+        <ion-col col-1>
+            <ion-icon name="pin"></ion-icon>
+        </ion-col>
+        <ion-col col-11 id="info">
+            <div>
                 <span *ngIf="location.street">{{location.street}}, </span>
                 <span *ngIf="location.postal">{{location.postal}}, </span>
                 <span *ngIf="location.city">{{location.city}}, </span>
                 <span *ngIf="location.region">{{location.region}}.</span>
-            </p>
-        </div>
-        <div *ngIf="hasLocation" class="map">
-            <a showWhen="android, windows" href="{{location.link}}">Show map</a>
-            <a showWhen="ios" href="{{iosMapLink}}">Show map</a>
-        </div>
-    </div>
+            </div>
+            <div *ngIf="hasLocation" class="map">
+                <a showWhen="android, windows" href="{{location.link}}">Show map</a>
+                <a showWhen="ios" href="{{iosMapLink}}">Show map</a>
+            </div>
+        </ion-col>
+    </ion-row>
+    <hr>
     <div *ngIf="isEmpty(schedule)" class="schedule">
-        <ion-icon name="time"></ion-icon>
-        <div *ngIf="isEmpty(schedule.MON)">
-            <span>
-                Monday:
-                <span *ngFor="let hour of schedule.MON">
-                    <span>{{hour}} </span>
-                </span>
-            </span>
-        </div>
-        <div *ngIf="isEmpty(schedule.TUE)">
-            <span>
-                Tuesday:
-                <span *ngFor="let hour of schedule.TUE">
-                    <span>{{hour}} </span>
-                </span>
-            </span>
-        </div>
-        <div *ngIf="isEmpty(schedule.WED)">
-            <span>
-                Wednesday:
-                <span *ngFor="let hour of schedule.WED">
-                    <span>{{hour}} </span>
-                </span>
-            </span>
-        </div>
-        <div *ngIf="isEmpty(schedule.THU)">
-            <span>
-                Thursday:
-                <span *ngFor="let hour of schedule.THU">
-                    <span>{{hour}} </span>
-                </span>
-            </span>
-        </div>
-        <div *ngIf="isEmpty(schedule.FRI)">
-            <span>
-                Friday:
-                <span *ngFor="let hour of schedule.FRI">
-                    <span>{{hour}} </span>
-                </span>
-            </span>
-        </div>
-        <div *ngIf="isEmpty(schedule.SAT)">
-            <span>
-                Saturday:
-                <span *ngFor="let hour of schedule.SAT">
-                    <span>{{hour}} </span>
-                </span>
-            </span>
-        </div>
-        <div *ngIf="isEmpty(schedule.SUN)">
-            <span>
-                Sunday:
-                <span *ngFor="let hour of schedule.SUN">
-                    <span>{{hour}} </span>
-                </span>
-            </span>
-        </div>
+        <ion-row>
+            <ion-col col-1>
+                <ion-icon name="time"></ion-icon>
+            </ion-col>
+            <ion-col col-11 id="schedule">
+                <div *ngIf="isEmpty(schedule.MON)">
+                    <span>
+                        Monday:
+                        <span *ngFor="let hour of schedule.MON">
+                            <span>{{hour}} </span>
+                        </span>
+                    </span>
+                </div>
+                <div *ngIf="isEmpty(schedule.TUE)">
+                    <span>
+                        Tuesday:
+                        <span *ngFor="let hour of schedule.TUE">
+                            <span>{{hour}} </span>
+                        </span>
+                    </span>
+                </div>
+                <div *ngIf="isEmpty(schedule.WED)">
+                    <span>
+                        Wednesday:
+                        <span *ngFor="let hour of schedule.WED">
+                            <span>{{hour}} </span>
+                        </span>
+                    </span>
+                </div>
+                <div *ngIf="isEmpty(schedule.THU)">
+                    <span>
+                        Thursday:
+                        <span *ngFor="let hour of schedule.THU">
+                            <span>{{hour}} </span>
+                        </span>
+                    </span>
+                </div>
+                <div *ngIf="isEmpty(schedule.FRI)">
+                    <span>
+                        Friday:
+                        <span *ngFor="let hour of schedule.FRI">
+                            <span>{{hour}} </span>
+                        </span>
+                    </span>
+                </div>
+                <div *ngIf="isEmpty(schedule.SAT)">
+                    <span>
+                        Saturday:
+                        <span *ngFor="let hour of schedule.SAT">
+                            <span>{{hour}} </span>
+                        </span>
+                    </span>
+                </div>
+                <div *ngIf="isEmpty(schedule.SUN)">
+                    <span>
+                        Sunday:
+                        <span *ngFor="let hour of schedule.SUN">
+                            <span>{{hour}} </span>
+                        </span>
+                    </span>
+                </div>
+            </ion-col>
+        </ion-row>
+        <hr>
     </div>
     <div class="price" *ngIf="isEmpty(price)">
-        <ion-icon name="pricetags"></ion-icon>
-        <div *ngIf="isEmpty(price.freeEntrance)">
-            <strong>Free entrance: </strong>
-            <span *ngFor="let free of price.freeEntrance">{{free}} </span>
-        </div>
-        <div *ngIf="isEmpty(price.general)">
-            <strong>General: </strong>
-            <span *ngFor="let general of price.general">{{general}} </span>
-        </div>
-        <div *ngIf="isEmpty(price.reduced)">
-            <strong>Reduced: </strong>
-            <span *ngFor="let reduced of price.reduced">{{reduced}} </span>
-        </div>
+        <ion-row>
+            <ion-col col-1>
+                <ion-icon name="pricetags"></ion-icon>
+            </ion-col>
+            <ion-col col-11 id="price">
+                <div *ngIf="isEmpty(price.freeEntrance)">
+                    <strong>Free entrance: </strong>
+                    <span *ngFor="let free of price.freeEntrance">{{free}} </span>
+                </div>
+                <div *ngIf="isEmpty(price.general)">
+                    <strong>General: </strong>
+                    <span *ngFor="let general of price.general">{{general}} </span>
+                </div>
+                <div *ngIf="isEmpty(price.reduced)">
+                    <strong>Reduced: </strong>
+                    <span *ngFor="let reduced of price.reduced">{{reduced}} </span>
+                </div>
+            </ion-col>
+        </ion-row>
+        <hr>
     </div>
     <div class="contact" *ngIf="isEmpty(contact)">
         <div *ngIf="isEmpty(contact.phone)">
-            <ion-icon name="call"></ion-icon>
-            <strong>Phone: </strong>
-            <span *ngFor="let phone of contact.phone"><a href="tel:{{phone}}">{{phone}}</a> </span>
+            <ion-row>
+                <ion-col col-1>
+                    <ion-icon name="call"></ion-icon>
+                </ion-col>
+                <ion-col col-11 id="phone">
+                    <span *ngFor="let phone of contact.phone"><a href="tel:{{phone}}">{{phone}}</a> </span>
+                </ion-col>
+            </ion-row>
         </div>
         <div *ngIf="isEmpty(contact.web)">
-            <ion-icon name="link"></ion-icon>
-            <strong>Web: </strong>
-            <span *ngFor="let web of contact.web"><a href="{{web}}">{{web}}</a> </span>
+            <ion-row>
+                <ion-col col-1>
+                    <ion-icon name="link"></ion-icon>
+                </ion-col>
+                <ion-col col-11 id="web">
+                    <span *ngFor="let web of contact.web"><a href="{{web}}">{{web}}</a> </span>
+                </ion-col>
+            </ion-row>
         </div>
         <div *ngIf="isEmpty(contact.email)">
-            <ion-icon name="mail"></ion-icon>
-            <strong>Email: </strong>
-            <span *ngFor="let email of contact.email"><a href="mailto:{{email}}">{{email}}</a> </span>
+            <ion-row>
+                <ion-col col-1>
+                    <ion-icon name="mail"></ion-icon>
+                </ion-col>
+                <ion-col col-11 id="mail">
+                    <span *ngFor="let email of contact.email"><a href="mailto:{{email}}">{{email}}</a> </span>
+                </ion-col>
+            </ion-row>
         </div>
+        <hr>
     </div>
     <div *ngIf="info.description" class="description">
         <p>{{info.description}}</p>

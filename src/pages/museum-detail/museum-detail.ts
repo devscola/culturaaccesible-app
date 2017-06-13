@@ -37,7 +37,7 @@ export class MuseumDetail {
 
             this.hasLocation = this.allMuseums[0]['location']['link'].length > 0;
             this.composeMapLinks();
-        });    
+        });
     }
 
     extractSearchQuote() {
@@ -67,8 +67,3 @@ export class MuseumDetail {
     }
 
 }
-
-
-
-
-
