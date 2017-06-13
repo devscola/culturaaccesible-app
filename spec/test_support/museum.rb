@@ -17,6 +17,10 @@ module Page
       find('.enter').click
     end
 
+    def has_price?
+      has_css?('.price')
+    end
+
     private
 
     def go_to_museum_detail

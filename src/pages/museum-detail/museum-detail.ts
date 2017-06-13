@@ -35,22 +35,24 @@ export class MuseumDetail {
             this.price = museums[0].price;
             this.schedule = museums[0].schedule;
 
-            this.hasLocation = this.allMuseums[0]['location']['link'].length > 0;
+            this.hasLocation = this.location['link'].length > 0;
             this.composeMapLinks();
         });
     }
 
     extractSearchQuote() {
-            this.searchQuote = this.allMuseums[0]['location']['link'].split('@')[0].split('/')[5];
+        this.searchQuote = this.location['link'].split('@')[0].split('/')[5];
     }
 
     extractCoordinates() {
-            this.coordinates = this.allMuseums[0]['location']['link'].split('@')[1].split(',')[0] + ',' + this.allMuseums[0]['location']['link'].split('@')[1].split(',')[1];
+        this.coordinates = this.location['link'].split('@')[1].split(',')[0] + ',' + this.location['link'].split('@')[1].split(',')[1];
     }
 
     composeMapLinks() {
-        this.extractSearchQuote();
-        this.extractCoordinates();
+        if (this.hasLocation) {
+            this.extractSearchQuote();
+            this.extractCoordinates();
+        }
         this.iosMapLink = "http://maps.apple.com/?q=" + this.coordinates;
         this.iosGoogleMapLink = this.domSanitizer.bypassSecurityTrustResourceUrl("comgooglemaps://?q=" + this.searchQuote + "?center=" + this.coordinates + "&zoom=14&views=traffic")
     }
@@ -59,11 +61,17 @@ export class MuseumDetail {
         this.navCtrl.push(ExhibitionList);
     }
 
-    isEmpty(key) {
-        if(typeof(key) == 'object') {
-            return !(Object.keys(key).length === 0)
+    hasContent(data) {
+        if(typeof(data) == 'object') {
+            var keys = Object.keys(data)
+            keys.forEach(function(key) {
+                if (data[key] !== '' && data[key] !== []) {
+                    return true;
+                }
+            });
+            return false;
         }
-        return !(key.length === 0);
+        return (data.length !== 0);
     }
 
 }

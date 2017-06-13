@@ -1,5 +1,8 @@
 require 'spec_helper'
 require 'test_support/museum'
+require_relative 'test_support/museum_fixture'
+require_relative 'test_support/system_museum'
+
 
 feature 'Museum detail' do
   scenario 'has title' do
@@ -11,5 +14,11 @@ feature 'Museum detail' do
     current = Page::Museum.new
     current.enter_museum
     expect(current.title?('Exhibitions list')).to be(true)
+  end
+
+  scenario 'hides empty sections' do
+    current = Fixture::Museum.filled_with_basic_info
+
+    expect(current.has_price?). to be false
   end
 end

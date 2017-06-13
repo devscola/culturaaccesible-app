@@ -28,13 +28,13 @@
         </ion-col>
     </ion-row>
     <hr>
-    <div *ngIf="isEmpty(schedule)" class="schedule">
+    <div *ngIf="hasContent(schedule)" class="schedule">
         <ion-row>
             <ion-col col-1>
                 <ion-icon name="time"></ion-icon>
             </ion-col>
             <ion-col col-11 id="schedule">
-                <div *ngIf="isEmpty(schedule.MON)">
+                <div *ngIf="hasContent(schedule.MON)">
                     <span>
                         Monday:
                         <span *ngFor="let hour of schedule.MON">
@@ -42,7 +42,7 @@
                         </span>
                     </span>
                 </div>
-                <div *ngIf="isEmpty(schedule.TUE)">
+                <div *ngIf="hasContent(schedule.TUE)">
                     <span>
                         Tuesday:
                         <span *ngFor="let hour of schedule.TUE">
@@ -50,7 +50,7 @@
                         </span>
                     </span>
                 </div>
-                <div *ngIf="isEmpty(schedule.WED)">
+                <div *ngIf="hasContent(schedule.WED)">
                     <span>
                         Wednesday:
                         <span *ngFor="let hour of schedule.WED">
@@ -58,7 +58,7 @@
                         </span>
                     </span>
                 </div>
-                <div *ngIf="isEmpty(schedule.THU)">
+                <div *ngIf="hasContent(schedule.THU)">
                     <span>
                         Thursday:
                         <span *ngFor="let hour of schedule.THU">
@@ -66,7 +66,7 @@
                         </span>
                     </span>
                 </div>
-                <div *ngIf="isEmpty(schedule.FRI)">
+                <div *ngIf="hasContent(schedule.FRI)">
                     <span>
                         Friday:
                         <span *ngFor="let hour of schedule.FRI">
@@ -74,7 +74,7 @@
                         </span>
                     </span>
                 </div>
-                <div *ngIf="isEmpty(schedule.SAT)">
+                <div *ngIf="hasContent(schedule.SAT)">
                     <span>
                         Saturday:
                         <span *ngFor="let hour of schedule.SAT">
@@ -82,7 +82,7 @@
                         </span>
                     </span>
                 </div>
-                <div *ngIf="isEmpty(schedule.SUN)">
+                <div *ngIf="hasContent(schedule.SUN)">
                     <span>
                         Sunday:
                         <span *ngFor="let hour of schedule.SUN">
@@ -94,21 +94,21 @@
         </ion-row>
         <hr>
     </div>
-    <div class="price" *ngIf="isEmpty(price)">
+    <div class="price" *ngIf="hasContent(price)">
         <ion-row>
             <ion-col col-1>
                 <ion-icon name="pricetags"></ion-icon>
             </ion-col>
             <ion-col col-11 id="price">
-                <div *ngIf="isEmpty(price.freeEntrance)">
+                <div *ngIf="hasContent(price.freeEntrance)">
                     <strong>Free entrance: </strong>
                     <span *ngFor="let free of price.freeEntrance">{{free}} </span>
                 </div>
-                <div *ngIf="isEmpty(price.general)">
+                <div *ngIf="hasContent(price.general)">
                     <strong>General: </strong>
                     <span *ngFor="let general of price.general">{{general}} </span>
                 </div>
-                <div *ngIf="isEmpty(price.reduced)">
+                <div *ngIf="hasContent(price.reduced)">
                     <strong>Reduced: </strong>
                     <span *ngFor="let reduced of price.reduced">{{reduced}} </span>
                 </div>
@@ -116,8 +116,8 @@
         </ion-row>
         <hr>
     </div>
-    <div class="contact" *ngIf="isEmpty(contact)">
-        <div *ngIf="isEmpty(contact.phone)">
+    <div class="contact" *ngIf="hasContent(contact)">
+        <div *ngIf="hasContent(contact.phone)">
             <ion-row>
                 <ion-col col-1>
                     <ion-icon name="call"></ion-icon>
@@ -127,7 +127,7 @@
                 </ion-col>
             </ion-row>
         </div>
-        <div *ngIf="isEmpty(contact.web)">
+        <div *ngIf="hasContent(contact.web)">
             <ion-row>
                 <ion-col col-1>
                     <ion-icon name="link"></ion-icon>
@@ -137,7 +137,7 @@
                 </ion-col>
             </ion-row>
         </div>
-        <div *ngIf="isEmpty(contact.email)">
+        <div *ngIf="hasContent(contact.email)">
             <ion-row>
                 <ion-col col-1>
                     <ion-icon name="mail"></ion-icon>
