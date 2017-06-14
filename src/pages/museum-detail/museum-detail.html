@@ -94,13 +94,13 @@
         </ion-row>
         <hr>
     </div>
-    <div *ngIf="hasContent(price)" class="price" >
+    <div class="price" *ngIf="hasContent(price)">
         <ion-row>
             <ion-col col-1>
                 <ion-icon name="pricetags"></ion-icon>
             </ion-col>
             <ion-col col-11 id="price">
-                <div *ngIf="hasContent(price.free)">
+                <div *ngIf="hasContent(price.freeEntrance)">
                     <strong>Free entrance: </strong>
                     <span *ngFor="let free of price.freeEntrance">{{free}} </span>
                 </div>
