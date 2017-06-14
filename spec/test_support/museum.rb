@@ -25,6 +25,10 @@ module Page
       has_css?('.contact')
     end
 
+    def has_link?
+      has_content?('Show map')
+    end
+
     def back
       find('.back-button').click
     end

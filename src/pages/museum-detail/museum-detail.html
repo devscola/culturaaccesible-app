@@ -16,12 +16,14 @@
         </ion-col>
         <ion-col col-11 id="info">
             <div>
-                <span *ngIf="location.street">{{location.street}}, </span>
-                <span *ngIf="location.postal">{{location.postal}}, </span>
-                <span *ngIf="location.city">{{location.city}}, </span>
-                <span *ngIf="location.region">{{location.region}}.</span>
+                <span *ngIf="location.street">{{location.street}}</span>
+                <div>
+                    <span *ngIf="location.postal">{{location.postal}}, </span>
+                    <span *ngIf="(location.city !== location.region)">{{location.city}}, </span>
+                    <span *ngIf="location.region">{{location.region}}.</span>
+                </div>
             </div>
-            <div *ngIf="hasLocation" class="map">
+            <div *ngIf="validMapLink" class="map">
                 <a showWhen="android, windows" href="{{location.link}}">Show map</a>
                 <a showWhen="ios" href="{{iosMapLink}}">Show map</a>
             </div>

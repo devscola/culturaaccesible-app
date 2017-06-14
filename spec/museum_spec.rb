@@ -19,13 +19,13 @@ feature 'Museum detail' do
   scenario 'hides empty sections' do
     current = Fixture::Museum.filled_with_some_info
 
-    expect(current.has_price?). to be false
+    expect(current.has_price?).to be false
   end
 
   scenario 'shows filled sections' do
     current = Fixture::Museum.filled_with_some_info
 
-    expect(current.has_contact?). to be true
+    expect(current.has_contact?).to be true
   end
 
   scenario 'back button goes to exhibition list' do
@@ -33,4 +33,11 @@ feature 'Museum detail' do
     current.back
     expect(current.title?('Exhibitions detail'))
   end
+
+  scenario "doesn't shows the map link" do
+    current = Fixture::Museum.filled_with_link('invalid link')
+
+    expect(current.has_link?).to be false
+  end
 end
+
