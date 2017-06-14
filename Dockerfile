@@ -8,5 +8,3 @@ ENV HOME=/opt/app/culturaaccesible-app
 RUN mkdir -p $HOME
 ADD . $HOME
 WORKDIR $HOME
-
-RUN bundle install
