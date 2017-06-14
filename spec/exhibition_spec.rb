@@ -1,24 +1,20 @@
 require 'spec_helper'
 require 'test_support/exhibition'
+require 'test_support/exhibition_fixture'
+require 'test_support/system_exhibition'
 
 feature 'Exhibition list' do
-  scenario 'has title' do
-    list = Page::Exhibition.new
-    result = list.title?
-    expect(result).to be true
+  scenario 'has items' do
+    current = Fixture::Exhibition.filled_with_enough_info
+
+    expect(current.has_items?).to be true
   end
 
-  xscenario 'has items' do
-    list = Page::Exhibition.new
-    result = list.has_items?
-    expect(result).to be true
-  end
-end
+  scenario 'goes to exhibition detail' do
+    current = Fixture::Exhibition.filled_with_enough_info
 
-feature 'Exhibition detail' do
-  xscenario 'shows exhibition info' do
-    list = Page::Exhibition.new
-    result = list.has_extended_description?
-    expect(result).to be true
+    current.go_to_detail
+
+    expect(current.detail_page?).to be true
   end
 end

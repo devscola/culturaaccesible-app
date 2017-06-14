@@ -18,12 +18,11 @@ module Page
     end
 
     def go_to_detail
-      find('.exhibition-item', :match => :first, wait: 2).click
+      find('.exhibition-item', :match => :first, wait: 5).click
     end
 
-    def has_extended_description?
-      go_to_detail
-      has_css?('#extended-description', wait: 2)
+    def detail_page?
+      has_content?('Exhibition detail')
     end
 
     private

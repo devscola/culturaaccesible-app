@@ -6,12 +6,12 @@ require_relative 'test_support/system_museum'
 
 feature 'Museum detail' do
   scenario 'has title' do
-    current = Page::Museum.new
+    current = Fixture::Museum.initial_state
     expect(current.title?).to be true
   end
 
   scenario 'go to exhibition list page with enter button' do
-    current = Page::Museum.new
+    current = Fixture::Museum.initial_state
     current.enter_museum
     expect(current.title?('Exhibitions list')).to be(true)
   end
@@ -26,5 +26,11 @@ feature 'Museum detail' do
     current = Fixture::Museum.filled_with_some_info
 
     expect(current.has_contact?). to be true
+  end
+
+  scenario 'back button goes to exhibition list' do
+    current = Fixture::Museum.initial_state
+    current.back
+    expect(current.title?('Exhibitions detail'))
   end
 end

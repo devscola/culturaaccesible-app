@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MuseumProvider } from '../../providers/museum/museum'
 import { DomSanitizer } from '@angular/platform-browser';
-import { ExhibitionList } from '../exhibition-list/exhibition-list';
 
 @IonicPage()
 @Component({
@@ -10,7 +9,7 @@ import { ExhibitionList } from '../exhibition-list/exhibition-list';
     templateUrl: 'museum-detail.html',
 })
 export class MuseumDetail {
-    info: Object ={};
+    info: Object = {};
     location: Object = {};
     price: Object = {};
     contact: Object = {};
@@ -57,7 +56,7 @@ export class MuseumDetail {
     }
 
     goToExhibitions() {
-        this.navCtrl.push(ExhibitionList);
+        this.navCtrl.push('ExhibitionList');
     }
 
     hasContent(data) {
