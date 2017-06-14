@@ -6,10 +6,6 @@ import { EnvironmentsModule } from './environment-variables/environment-variable
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ExhibitionList } from '../pages/exhibition-list/exhibition-list';
-import { ExhibitionDetail } from '../pages/exhibition-detail/exhibition-detail';
-import { MuseumDetail } from '../pages/museum-detail/museum-detail';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -18,11 +14,7 @@ import { MuseumProvider } from '../providers/museum/museum';
 
 @NgModule({
     declarations: [
-        MyApp,
-        HomePage,
-        ExhibitionList,
-        ExhibitionDetail,
-        MuseumDetail
+        MyApp
     ],
     imports: [
         BrowserModule,
@@ -32,11 +24,7 @@ import { MuseumProvider } from '../providers/museum/museum';
     ],
     bootstrap: [IonicApp],
     entryComponents: [
-        MyApp,
-        HomePage,
-        ExhibitionList,
-        ExhibitionDetail,
-        MuseumDetail
+        MyApp
     ],
     providers: [
         StatusBar,

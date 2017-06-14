@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions'
-import { MuseumDetail } from '../museum-detail/museum-detail'
+import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions';
 
 @IonicPage()
 @Component({
@@ -16,6 +15,6 @@ export class ExhibitionDetail {
     }
 
     goToMuseum(){
-        this.navCtrl.push(MuseumDetail)
+        this.navCtrl.push('MuseumDetail')
     }
 }
