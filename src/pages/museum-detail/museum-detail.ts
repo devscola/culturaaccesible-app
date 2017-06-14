@@ -11,7 +11,7 @@ import { ExhibitionList } from '../exhibition-list/exhibition-list';
 })
 export class MuseumDetail {
     allMuseums: Array<Object>;
-    info: Object ={};
+    info: Object = {};
     location: Object = {};
     price: Object = {};
     contact: Object = {};

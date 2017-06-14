@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions'
+import { MuseumDetail } from '../museum-detail/museum-detail'
 
 @IonicPage()
 @Component({
@@ -12,5 +13,9 @@ export class ExhibitionDetail {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private service: ExhibitionsProvider) {
         this.exhibition = navParams.get("exhibition")
+    }
+
+    goToMuseum(){
+        this.navCtrl.push(MuseumDetail)
     }
 }

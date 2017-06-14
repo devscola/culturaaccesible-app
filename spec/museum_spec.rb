@@ -18,7 +18,12 @@ feature 'Museum detail' do
 
   scenario 'hides empty sections' do
     current = Fixture::Museum.filled_with_basic_info
-
     expect(current.has_price?). to be false
+  end
+
+  scenario 'back button goes to exhibition list' do
+    current = Page::Museum.new
+    current.back
+    expect(current.title?('Exhibitions detail'))
   end
 end

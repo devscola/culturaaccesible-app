@@ -21,16 +21,22 @@ module Page
       has_css?('.price')
     end
 
+    def back
+      find('.back-button').click
+    end
+
     private
 
     def go_to_museum_detail
       find('.bar-button-menutoggle').click
       sleep 1
-      find('#museum').click
+      find('#exhibitions').click
+      first('.exhibition-item').click
+      find('#enter-museum').click
     end
 
     def validate!
-      assert_selector('.bar-button-menutoggle')
+      assert_selector('.back-button')
       assert_selector('#museum', visible: false)
       assert_selector('#name')
       assert_selector('#info')
