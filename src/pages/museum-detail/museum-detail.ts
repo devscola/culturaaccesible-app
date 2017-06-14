@@ -10,7 +10,6 @@ import { ExhibitionList } from '../exhibition-list/exhibition-list';
     templateUrl: 'museum-detail.html',
 })
 export class MuseumDetail {
-    allMuseums: Array<Object>;
     info: Object ={};
     location: Object = {};
     price: Object = {};
@@ -28,12 +27,12 @@ export class MuseumDetail {
         private domSanitizer: DomSanitizer) {
 
         this.service.retrieveList().subscribe( museums => {
-            this.allMuseums = museums
-            this.info = museums[0].info;
-            this.location = museums[0].location;
-            this.contact = museums[0].contact;
-            this.price = museums[0].price;
-            this.schedule = museums[0].schedule;
+            let museum = museums[museums.length-1]
+            this.info = museum.info;
+            this.location = museum.location;
+            this.contact = museum.contact;
+            this.price = museum.price;
+            this.schedule = museum.schedule;
 
             this.hasLocation = this.location['link'].length > 0;
             this.composeMapLinks();
@@ -62,16 +61,24 @@ export class MuseumDetail {
     }
 
     hasContent(data) {
-        if(typeof(data) == 'object') {
-            var keys = Object.keys(data)
-            keys.forEach(function(key) {
-                if (data[key] !== '' && data[key] !== []) {
-                    return true;
-                }
-            });
-            return false;
+        let content = false;
+        if (data.constructor.name == 'Object') {
+            content = this.objectHasContent(data);
+        } else {
+            content = data.length !== 0;
         }
-        return (data.length !== 0);
+        return content;
+    }
+
+    objectHasContent(object) {
+        let content = false;
+        let keys = Object.keys(object)
+        keys.forEach(function(key) {
+            if (object[key].length > 0) {
+                content = true;
+            }
+        });
+        return content;
     }
 
 }

@@ -17,8 +17,14 @@ feature 'Museum detail' do
   end
 
   scenario 'hides empty sections' do
-    current = Fixture::Museum.filled_with_basic_info
+    current = Fixture::Museum.filled_with_some_info
 
     expect(current.has_price?). to be false
+  end
+
+  scenario 'shows filled sections' do
+    current = Fixture::Museum.filled_with_some_info
+
+    expect(current.has_contact?). to be true
   end
 end

@@ -21,6 +21,10 @@ module Page
       has_css?('.price')
     end
 
+    def has_contact?
+      has_css?('.contact')
+    end
+
     private
 
     def go_to_museum_detail
