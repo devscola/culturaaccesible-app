@@ -12,6 +12,7 @@ log.txt
 .vscode/
 npm-debug.log*
 
+.bundle/
 .idea/
 .sass-cache/
 .tmp/
@@ -29,6 +30,7 @@ plugins/ios.json
 www/
 $RECYCLE.BIN/
 vendor/
+.bundle/
 
 .DS_Store
 Thumbs.db

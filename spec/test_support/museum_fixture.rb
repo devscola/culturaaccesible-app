@@ -16,6 +16,16 @@ class Fixture
 
         initial_state
       end
+
+      def filled_with_link(link)
+        system_page = Page::SystemMuseum.new
+        system_page.add_museum
+        system_page.fill('name', 'Museum name')
+        system_page.fill('link', link)
+        system_page.save_museum
+
+        initial_state
+      end
     end
   end
 end

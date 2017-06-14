@@ -18,7 +18,7 @@ export class MuseumDetail {
     searchQuote;
     iosMapLink;
     iosGoogleMapLink;
-    hasLocation: boolean = false;
+    validMapLink: boolean = false;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -33,10 +33,11 @@ export class MuseumDetail {
             this.price = museum.price;
             this.schedule = museum.schedule;
 
-            this.hasLocation = this.location['link'].length > 0;
+            this.validMapLink = this.location['link'].substring(0, 28) == "https://www.google.es/maps/@";
             this.composeMapLinks();
         });
     }
+
 
     extractSearchQuote() {
         this.searchQuote = this.location['link'].split('@')[0].split('/')[5];
@@ -47,12 +48,12 @@ export class MuseumDetail {
     }
 
     composeMapLinks() {
-        if (this.hasLocation) {
+        if (this.validMapLink) {
             this.extractSearchQuote();
             this.extractCoordinates();
+            this.iosMapLink = "http://maps.apple.com/?q=" + this.coordinates;
+            this.iosGoogleMapLink = this.domSanitizer.bypassSecurityTrustResourceUrl("comgooglemaps://?q=" + this.searchQuote + "?center=" + this.coordinates + "&zoom=14&views=traffic")
         }
-        this.iosMapLink = "http://maps.apple.com/?q=" + this.coordinates;
-        this.iosGoogleMapLink = this.domSanitizer.bypassSecurityTrustResourceUrl("comgooglemaps://?q=" + this.searchQuote + "?center=" + this.coordinates + "&zoom=14&views=traffic")
     }
 
     goToExhibitions() {
