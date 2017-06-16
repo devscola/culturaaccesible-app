@@ -37,8 +37,9 @@ module Page
 
     def go_to_museum_detail
       find('.bar-button-menutoggle').click
-      sleep 1
+      sleep 0.5
       find('#exhibitions').click
+      sleep 0.5
       first('.exhibition-item', :match => :first, wait: 5).click
       find('#enter-museum').click
     end
