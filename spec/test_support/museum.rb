@@ -39,7 +39,9 @@ module Page
       find('.bar-button-menutoggle').click
       sleep 1
       find('#exhibitions').click
+      sleep 5
       first('.exhibition-item', :match => :first, wait: 5).click
+      sleep 5
       find('#enter-museum').click
     end
 

@@ -26,6 +26,17 @@ class Fixture
 
         initial_state
       end
+
+      def focus_in_field_without_fill_content
+        system_page = Page::SystemMuseum.new
+        system_page.add_museum
+        system_page.fill('name', 'Museum Name')
+        system_page.fill('street', 'Some street')
+        system_page.fill_in('web1', with: '')
+        system_page.save_museum
+
+        initial_state
+      end
     end
   end
 end

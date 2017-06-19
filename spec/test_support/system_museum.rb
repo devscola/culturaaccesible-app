@@ -18,5 +18,9 @@ module Page
     def save_museum
       find('#action').click
     end
+
+    def focus
+      find('web1').click
+    end
   end
 end

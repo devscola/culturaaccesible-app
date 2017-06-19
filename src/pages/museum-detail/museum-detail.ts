@@ -61,14 +61,14 @@ export class MuseumDetail {
     }
 
     hasContent(data) {
-        let content = false;
-        if (data.constructor.name == 'Object') {
-            content = this.objectHasContent(data);
-        } else {
-            content = data.length !== 0;
+            let content = false;
+            if (data.constructor.name == 'Object') {
+                content = this.objectHasContent(data);
+            } else {
+                content = data.length !== 0;
+            }
+            return content;
         }
-        return content;
-    }
 
     objectHasContent(object) {
         let content = false;

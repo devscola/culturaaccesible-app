@@ -39,5 +39,10 @@ feature 'Museum detail' do
 
     expect(current.has_link?).to be false
   end
-end
 
+  scenario "doesn't show blank field icon", :wip do
+    current = Fixture::Museum.focus_in_field_without_fill_content
+
+    expect(current.has_css?("[name='link']")).to be false
+  end
+end
