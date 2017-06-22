@@ -33,7 +33,7 @@ export class MuseumDetail {
             this.price = museum.price;
             this.schedule = museum.schedule;
 
-            this.validMapLink = this.location['link'].substring(0, 28) == "https://www.google.es/maps/@";
+            this.validMapLink = this.location['link'].substring(0, 27) == "https://www.google.es/maps/";
             this.composeMapLinks();
         });
     }
