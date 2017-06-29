@@ -4,6 +4,12 @@ require 'test_support/exhibition_fixture'
 require 'test_support/system_exhibition'
 
 feature 'Exhibition list' do
+  scenario 'alerts if there is not exhibitions' do
+    current = Page::Exhibition.new
+    expect(current.has_items?).to be false
+    expect(current.has_empty_list_alert?).to be true
+  end
+
   scenario 'has items' do
     current = Fixture::Exhibition.filled_with_enough_info
 

@@ -17,6 +17,10 @@ module Page
       has_css?('#exhibition-list', wait:2) && has_css?('.exhibition-item', wait:2)
     end
 
+    def has_empty_list_alert?
+      has_css?('.alert-message')
+    end
+
     def go_to_detail
       find('.exhibition-item', :match => :first, wait: 5).click
     end

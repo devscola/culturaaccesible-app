@@ -10,12 +10,22 @@ import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions';
 export class ExhibitionList {
     exhibitions: Array<Object>
     allExhibitions: Array<Object>
+    hasExhibitions: boolean
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private service: ExhibitionsProvider) {
         this.service.retrieveList().subscribe(exhibitions => {
-            this.allExhibitions = exhibitions
-            this.filterExhibitions()
+            if(exhibitions.length > 0){
+                this.hasExhibitions = true
+                this.allExhibitions = exhibitions
+                this.filterExhibitions()
+            }else {
+                this.showNoExhibitionMessage()
+            }
         })
+    }
+
+    showNoExhibitionMessage() {
+        this.hasExhibitions = false
     }
 
     filterExhibitions() {
