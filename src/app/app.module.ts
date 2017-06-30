@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { EnvironmentsModule } from './environment-variables/environment-variables.module.ts';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -12,6 +14,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ExhibitionsProvider } from '../providers/exhibitions/exhibitions';
 import { MuseumProvider } from '../providers/museum/museum';
 
+export function createTranslateLoader(http: Http) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 @NgModule({
     declarations: [
         MyApp
@@ -19,6 +25,13 @@ import { MuseumProvider } from '../providers/museum/museum';
     imports: [
         BrowserModule,
         IonicModule.forRoot(MyApp),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: createTranslateLoader,
+                deps: [Http]
+            }
+        }),
         HttpModule,
         EnvironmentsModule
     ],

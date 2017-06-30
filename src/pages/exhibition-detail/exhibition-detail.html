@@ -3,13 +3,13 @@
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>Exhibition detail</ion-title>
+        <ion-title>{{'EXHIBITIONS.DETAIL.TITLE' | translate}}</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
     <h2>{{exhibition.name}}</h2>
-    <p>Open from: {{exhibition.date_start}} - to: {{exhibition.date_finish}}</p>
+    <p>{{'EXHIBITIONS.DETAIL.FROM' | translate}} {{exhibition.date_start}} - {{'EXHIBITIONS.DETAIL.TO' | translate}} {{exhibition.date_finish}}</p>
     <p id="extended-description">{{exhibition.description}}</p>
-    <button id="enter-museum" ion-button (click)="goToMuseum()">Museum</button>
+    <button id="enter-museum" ion-button (click)="goToMuseum()">{{'EXHIBITIONS.DETAIL.BUTTONS.MUSEUM' | translate}}</button>
 </ion-content>

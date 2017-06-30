@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Museum detail</ion-title>
+    <ion-title>{{'MUSEUM.DETAIL.TITLE' | translate}}</ion-title>
 </ion-navbar>
 </ion-header>
 
@@ -24,8 +24,8 @@
                 </div>
             </div>
             <div *ngIf="validMapLink" class="map">
-                <a showWhen="android, windows" href="{{location.link}}">Show map</a>
-                <a showWhen="ios" href="{{iosMapLink}}">Show map</a>
+                <a showWhen="android, windows" href="{{location.link}}">{{'MUSEUM.DETAIL.MAP' | translate}}</a>
+                <a showWhen="ios" href="{{iosMapLink}}">{{'MUSEUM.DETAIL.MAP' | translate}}</a>
             </div>
         </ion-col>
     </ion-row>
@@ -38,7 +38,7 @@
             <ion-col col-11 id="schedule">
                 <div *ngIf="hasContent(schedule.MON)">
                     <span>
-                        Monday:
+                        {{'MUSEUM.DETAIL.DAYS.MONDAY' | translate}}
                         <span *ngFor="let hour of schedule.MON">
                             <span>{{hour}} </span>
                         </span>
@@ -46,7 +46,7 @@
                 </div>
                 <div *ngIf="hasContent(schedule.TUE)">
                     <span>
-                        Tuesday:
+                        {{'MUSEUM.DETAIL.DAYS.TUESDAY' | translate}}
                         <span *ngFor="let hour of schedule.TUE">
                             <span>{{hour}} </span>
                         </span>
@@ -54,7 +54,7 @@
                 </div>
                 <div *ngIf="hasContent(schedule.WED)">
                     <span>
-                        Wednesday:
+                        {{'MUSEUM.DETAIL.DAYS.WEDNESDAY' | translate}}
                         <span *ngFor="let hour of schedule.WED">
                             <span>{{hour}} </span>
                         </span>
@@ -62,7 +62,7 @@
                 </div>
                 <div *ngIf="hasContent(schedule.THU)">
                     <span>
-                        Thursday:
+                        {{'MUSEUM.DETAIL.DAYS.THURSDAY' | translate}}
                         <span *ngFor="let hour of schedule.THU">
                             <span>{{hour}} </span>
                         </span>
@@ -70,7 +70,7 @@
                 </div>
                 <div *ngIf="hasContent(schedule.FRI)">
                     <span>
-                        Friday:
+                        {{'MUSEUM.DETAIL.DAYS.FRIDAY' | translate}}
                         <span *ngFor="let hour of schedule.FRI">
                             <span>{{hour}} </span>
                         </span>
@@ -78,7 +78,7 @@
                 </div>
                 <div *ngIf="hasContent(schedule.SAT)">
                     <span>
-                        Saturday:
+                        {{'MUSEUM.DETAIL.DAYS.SATURDAY' | translate}}
                         <span *ngFor="let hour of schedule.SAT">
                             <span>{{hour}} </span>
                         </span>
@@ -86,7 +86,7 @@
                 </div>
                 <div *ngIf="hasContent(schedule.SUN)">
                     <span>
-                        Sunday:
+                        {{'MUSEUM.DETAIL.DAYS.SUNDAY' | translate}}
                         <span *ngFor="let hour of schedule.SUN">
                             <span>{{hour}} </span>
                         </span>
@@ -103,15 +103,15 @@
             </ion-col>
             <ion-col col-11 id="price">
                 <div *ngIf="hasContent(price.freeEntrance)">
-                    <strong>Free entrance: </strong>
+                    <strong>{{'MUSEUM.DETAIL.PRICE.FREE' | translate}} </strong>
                     <span *ngFor="let free of price.freeEntrance">{{free}} </span>
                 </div>
                 <div *ngIf="hasContent(price.general)">
-                    <strong>General: </strong>
+                    <strong>{{'MUSEUM.DETAIL.PRICE.GENERAL' | translate}} </strong>
                     <span *ngFor="let general of price.general">{{general}} </span>
                 </div>
                 <div *ngIf="hasContent(price.reduced)">
-                    <strong>Reduced: </strong>
+                    <strong>{{'MUSEUM.DETAIL.PRICE.REDUCED' | translate}} </strong>
                     <span *ngFor="let reduced of price.reduced">{{reduced}} </span>
                 </div>
             </ion-col>
@@ -155,6 +155,6 @@
         <p>{{info.description}}</p>
     </div>
     <div>
-        <button class="enter" ion-button color="danger" (click)="goToExhibitions()">Enter</button>
+        <button class="enter" ion-button color="danger" (click)="goToExhibitions()">{{'MUSEUM.DETAIL.BUTTONS.ENTER' | translate}}</button>
     </div>
 </ion-content>

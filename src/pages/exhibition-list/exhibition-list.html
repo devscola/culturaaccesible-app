@@ -3,7 +3,7 @@
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>Exhibitions list</ion-title>
+        <ion-title>{{'EXHIBITIONS.LIST.TITLE' | translate}}</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -21,5 +21,5 @@
             </div>
         </ion-card>
     </ion-list>
-    <span *ngIf="!hasExhibitions" class="alert-message">There is not exhibitions</span>
+    <span *ngIf="!hasExhibitions" class="alert-message">{{'EXHIBITIONS.LIST.EMPTY_ALERT' | translate}}</span>
 </ion-content>
