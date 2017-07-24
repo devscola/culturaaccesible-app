@@ -38,6 +38,8 @@
         }
     },
     "ITEM": {
-
+      "DETAIL": {
+        "TITLE" : "Item view"
+      }
     }
 }

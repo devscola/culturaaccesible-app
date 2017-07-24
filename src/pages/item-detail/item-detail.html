@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{'ITEM.DETAIL.TITLE' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <p>{{item.name}}</p>
+  <iframe width="100%" height="240" [src]="file" frameborder="0" allowfullscreen></iframe>
+  <ion-scroll class="scrollable" scrollY="true">
+    <p>{{item.description}}</p>
+  </ion-scroll>
+</ion-content>
