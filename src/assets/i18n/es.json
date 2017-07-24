@@ -1,0 +1,43 @@
+{
+    "MENU": "Menú",
+    "EXHIBITIONS": {
+        "DETAIL": {
+            "TITLE": "Información de la exposición",
+            "FROM": "Desde:",
+            "TO": "Hasta:",
+            "BUTTONS": {
+                "MUSEUM": "Museo"
+            }
+        },
+        "LIST": {
+            "TITLE": "Listado de exposiciones",
+            "EMPTY_ALERT": "No hay exposiciones"
+        }
+    },
+    "MUSEUM": {
+        "DETAIL" : {
+            "TITLE": "Información del museo",
+            "MAP": "Mostrar mapa",
+            "DAYS": {
+                "MONDAY": "Lunes:",
+                "TUESDAY": "Martes:",
+                "WEDNESDAY": "Miércoles:",
+                "THURSDAY": "Jueves:",
+                "FRIDAY": "Viernes:",
+                "SATURDAY": "Sábado:",
+                "SUNDAY": "Domingo:"
+            },
+            "PRICE": {
+                "FREE": "Entrada gratuita:",
+                "GENERAL": "General:",
+                "REDUCED": "Reducida:"
+            },
+            "BUTTONS": {
+                "ENTER": "Entrar"
+            }
+        }
+    },
+    "ITEM": {
+
+    }
+}
