@@ -13,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ExhibitionsProvider } from '../providers/exhibitions/exhibitions';
 import { MuseumProvider } from '../providers/museum/museum';
+import { ItemsProvider } from '../providers/items/items';
 
 export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -44,7 +45,8 @@ export function createTranslateLoader(http: Http) {
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         ExhibitionsProvider,
-        MuseumProvider
+        MuseumProvider,
+        ItemsProvider
     ]
 })
 export class AppModule {}

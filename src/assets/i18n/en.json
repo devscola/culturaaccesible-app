@@ -2,7 +2,7 @@
     "MENU": "Menu",
     "EXHIBITIONS": {
         "DETAIL": {
-            "TITLE": "Exhibitions Detail",
+            "TITLE": "Exhibition detail",
             "FROM": "Open from:",
             "TO": "To:",
             "BUTTONS": {

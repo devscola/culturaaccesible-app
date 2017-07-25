@@ -9,14 +9,15 @@
 
 
 <ion-content padding>
-  <p>{{item.name}}</p>
+  <p>{{item?.name}}</p>
   <video id="video" fullscreen="fullscreen" width="100%">
-    <source [src]="item.mediaFile" type="video/mp4">
+    <source [src]="item?.media_file" type="video/mp4">
   </video>
   <div class="media-controls">
-    <span (click)="togglePlay()"><ion-icon name="{{action}}"></ion-icon></span>
+    <span class="toggle-play {{action}}" (click)="togglePlay()"><ion-icon name="{{action}}"></ion-icon></span>
+    <span class="next" (click)="goToNextItem()"><ion-icon name="next"></ion-icon>next</span>
   </div>
   <ion-scroll class="scrollable" scrollY="true">
-    <p>{{item.description}}</p>
+    <p>{{item?.description}}</p>
   </ion-scroll>
 </ion-content>
