@@ -5,7 +5,7 @@ class Fixture
         current = Page::Museum.new
         current
       end
-      
+
       def filled_with_some_info
         system_page = Page::SystemMuseum.new
         system_page.add_museum

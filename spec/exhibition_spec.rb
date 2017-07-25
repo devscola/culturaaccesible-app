@@ -5,6 +5,7 @@ require 'test_support/system_exhibition'
 
 feature 'Exhibition list' do
   scenario 'alerts if there is not exhibitions' do
+    Fixture::Exhibition.pristine
     current = Page::Exhibition.new
     expect(current.has_items?).to be false
     expect(current.has_empty_list_alert?).to be true

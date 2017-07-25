@@ -22,11 +22,12 @@ module Page
     end
 
     def go_to_detail
+      has_css?('.exhibition-item', wait: 5)
       find('.exhibition-item', :match => :first, wait: 5).click
     end
 
     def detail_page?
-      has_content?('Exhibition detail')
+      has_css?('#exhibition-detail', wait: 5)
     end
 
     private
