@@ -14,6 +14,7 @@
     <source [src]="item?.media_file" type="video/mp4">
   </video>
   <div class="media-controls">
+    <span class="preview" (click)="goToPreviewItem()"><ion-icon name="preview"></ion-icon>preview</span>
     <span class="toggle-play {{action}}" (click)="togglePlay()"><ion-icon name="{{action}}"></ion-icon></span>
     <span class="next" (click)="goToNextItem()"><ion-icon name="next"></ion-icon>next</span>
   </div>

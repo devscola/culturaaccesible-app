@@ -23,7 +23,13 @@ module Page
     end
 
     def click_next
+      has_css?('.next', wait: 4)
       find('.next').click
+    end
+
+    def click_preview
+      has_css?('.preview', wait: 4)
+      find('.preview').click
     end
 
     private

@@ -48,4 +48,9 @@ export class ItemDetail {
     this.item = this.items[this.index]
   }
 
+  goToPreviewItem(){
+    this.index -= 1
+    this.item = this.items[this.index]
+  }
+
 }

@@ -20,10 +20,13 @@ feature 'Item detail' do
     expect(current.is_paused?).to be true
   end
 
-  scenario 'next button leads to next item', :wip do
+  scenario 'has navigation controls' do
     current = Fixture::Item.saved
-    current.click_next
 
+    current.click_next
     expect(has_content?(Fixture::Item::FIRST_NAME)).to be false
+
+    current.click_preview
+    expect(has_content?(Fixture::Item::FIRST_NAME)).to be true
   end
 end
