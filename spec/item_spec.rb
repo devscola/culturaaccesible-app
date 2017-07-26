@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'test_support/item'
 require 'test_support/system_item'
 require 'test_support/item_fixture'
+require 'test_support/exhibition_fixture'
 
 feature 'Item detail' do
   scenario 'has detail information' do
@@ -21,12 +22,14 @@ feature 'Item detail' do
   end
 
   scenario 'has navigation controls' do
+    Fixture::Exhibition.pristine
+
     current = Fixture::Item.saved
 
     current.click_next
-    expect(has_content?(Fixture::Item::FIRST_NAME)).to be false
+    expect(current.content?(Fixture::Item::FIRST_NAME)).to be false
 
     current.click_preview
-    expect(has_content?(Fixture::Item::FIRST_NAME)).to be true
+    expect(current.content?(Fixture::Item::FIRST_NAME)).to be true
   end
 end

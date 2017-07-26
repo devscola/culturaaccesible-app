@@ -14,6 +14,10 @@ module Page
       has_css?('.scrollable .scroll-content')
     end
 
+    def content?(text)
+      has_content?(text)
+    end
+
     def click_toggle_play
       find('.toggle-play').click
     end

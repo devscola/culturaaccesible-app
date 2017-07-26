@@ -14,6 +14,7 @@ module Page
     end
 
     def enter_museum
+      has_css?('.enter', wait: 10)
       find('.enter').click
     end
 
