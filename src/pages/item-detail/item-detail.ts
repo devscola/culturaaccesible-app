@@ -9,20 +9,35 @@ import { ItemsProvider } from '../../providers/items/items'
 })
 export class ItemDetail {
   index = 0;
+  previousButton;
+  nextButton;
   items;
   item;
   video;
   action = 'play';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private service: ItemsProvider) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private service: ItemsProvider) {
     service.retrieveList('fakeExhibitionId').subscribe(items => {
+      if(items.length > 1){
+        items[1].media_file = "https://s3.amazonaws.com/pruebas-cova/more3minutes.mp4"
+      }
       this.items = items
       this.item = items[this.index]
+      if(items.length <= 1)  {
+        this.nextButton.disabled = true
+      }
     })
   }
 
   ionViewDidLoad() {
-    this.video = document.getElementById("video");
+    this.video = document.getElementsByTagName("video")[0];
+    this.previousButton = document.getElementsByClassName('previous')[0]
+    if(this.index == 0)  {
+      this.previousButton.disabled = true
+    }
+    this.nextButton = document.getElementsByClassName('next')[0]
   }
 
   play() {
@@ -45,12 +60,24 @@ export class ItemDetail {
 
   goToNextItem(){
     this.index += 1
+    this.previousButton.disabled = false
+    if (this.items.length - 1 == this.index) {
+      this.nextButton.disabled = true
+    }
+    this.action = 'play'
     this.item = this.items[this.index]
+    this.video.load()
   }
 
   goToPreviewItem(){
     this.index -= 1
+    this.nextButton.disabled = false
+    if (this.index == 0) {
+      this.previousButton.disabled = true
+    }
+    this.action = 'play'
     this.item = this.items[this.index]
+    this.video.load()
   }
 
 }

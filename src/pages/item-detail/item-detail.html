@@ -10,13 +10,11 @@
 
 <ion-content padding>
   <p>{{item?.name}}</p>
-  <video id="video" fullscreen="fullscreen" width="100%">
-    <source [src]="item?.media_file" type="video/mp4">
-  </video>
+  <video src="{{item?.media_file}}" fullscreen="fullscreen" width="100%"></video>
   <div class="media-controls">
-    <span class="preview" (click)="goToPreviewItem()"><ion-icon name="preview"></ion-icon>preview</span>
-    <span class="toggle-play {{action}}" (click)="togglePlay()"><ion-icon name="{{action}}"></ion-icon></span>
-    <span class="next" (click)="goToNextItem()"><ion-icon name="next"></ion-icon>next</span>
+    <button ion-button class="previous" (click)="goToPreviewItem()"><ion-icon name="rewind"></ion-icon></button>
+    <button ion-button class="toggle-play {{action}}" (click)="togglePlay()"><ion-icon name="{{action}}"></ion-icon></button>
+    <button ion-button class="next" (click)="goToNextItem()"><ion-icon name="fastforward"></ion-icon></button>
   </div>
   <ion-scroll class="scrollable" scrollY="true">
     <p>{{item?.description}}</p>
