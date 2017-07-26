@@ -16,10 +16,22 @@ module Page
       system_page.save_exhibition
     end
 
-    def add_item(name)
+    def add_scene(name, author, date)
       has_css?('.plus-button', wait: 3)
       first('.plus-button').click
 
+      fill_in('name', with: name)
+      fill_in('author', with: author)
+      fill_in('date', with: date)
+
+      find('.submit').click
+    end
+
+    def add_room(name)
+      has_css?('.plus-button', wait: 3)
+      first('.plus-button').click
+
+      find('.room').click
       fill_in('name', with: name)
 
       find('.submit').click

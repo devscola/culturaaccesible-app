@@ -11,14 +11,21 @@ export class ItemDetail {
   index = 0;
   items;
   item;
+  fromExhibitionItem;
   video;
   action = 'play';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: ItemsProvider) {
-    service.retrieveList('fakeExhibitionId').subscribe(items => {
-      this.items = items
-      this.item = items[this.index]
-    })
+    this.fromExhibitionItem = navParams.get("item")
+    if(this.fromExhibitionItem) {
+      this.item = this.fromExhibitionItem
+    } else {
+      service.retrieveList('fakeExhibitionId').subscribe(items => {
+        this.items = items
+        this.item = items[this.index]
+      })
+
+    }
   }
 
   ionViewDidLoad() {
