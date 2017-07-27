@@ -6,7 +6,8 @@ require 'test_support/exhibition_fixture'
 
 feature 'Item detail' do
   scenario 'has detail information' do
-    current = Page::Item.new
+    current = Fixture::Item.one_item_saved
+
     expect(current.has_information?).to be true
   end
 

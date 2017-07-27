@@ -15,18 +15,17 @@ export class ExhibitionDetail {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private service: ExhibitionsProvider, private itemService: ItemsProvider ) {
         this.exhibition = navParams.get("exhibition")
-        itemService.retrieveList('fakeExhibitionId').subscribe(items => {
+        itemService.retrieveList(this.exhibition.id).subscribe(items => {
           this.hasItems = true
           this.items = items
         })
-
     }
 
     goToMuseum(){
         this.navCtrl.push('MuseumDetail')
     }
 
-    goToItemView(item) {
-        this.navCtrl.push('ItemDetail', {item: item})
+    goToItemView(item, index) {
+        this.navCtrl.push('ItemDetail', {index: index, exhibitionId: this.exhibition.id})
     }
 }

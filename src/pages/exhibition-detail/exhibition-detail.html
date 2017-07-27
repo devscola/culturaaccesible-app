@@ -16,7 +16,7 @@
     </div>
     <div class="item-list">
         <ion-list *ngIf="hasItems" id="item-list">
-            <ion-card class="item" *ngFor="let item of items" (click)="goToItemView(item)">
+            <ion-card class="item" *ngFor="let item of items; let index = index" (click)="goToItemView(item, index)">
                 <img src="https://source.unsplash.com/random/300x200"/>
                 <div class="item-info">
                     <ion-card-header>

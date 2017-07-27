@@ -8,7 +8,7 @@ import { ItemsProvider } from '../../providers/items/items'
   templateUrl: 'item-detail.html',
 })
 export class ItemDetail {
-  index = 0;
+  position = 0;
   previousButton;
   nextButton;
   items;
@@ -20,29 +20,34 @@ export class ItemDetail {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private service: ItemsProvider) {
-    this.fromExhibitionItem = navParams.get("item")
-    if(this.fromExhibitionItem) {
-        this.item = this.fromExhibitionItem
-    } else {
-        service.retrieveList('fakeExhibitionId').subscribe(items => {
-            if(items.length > 1){
-                items[1].media_file = "https://s3.amazonaws.com/pruebas-cova/more3minutes.mp4"
-            }
-            this.items = items
-            this.item = items[this.index]
-            if(items.length <= 1)  {
-                this.nextButton.disabled = true
-            }
-        })
+
+    let exhibitionId = navParams.get("exhibitionId")
+    let index = navParams.get("index")
+
+    if(index){
+      this.position = index
+    }
+
+    service.retrieveList(exhibitionId).subscribe(items => {
+        this.setFakeVideo(items)
+
+        this.items = items
+        this.item = items[this.position]
+
+        this.disableIfFirstItem()
+        this.disableIfLastItem()
+    })
+  }
+
+  setFakeVideo(items){
+    if(items.length > 1){
+        items[1].media_file = "https://s3.amazonaws.com/pruebas-cova/more3minutes.mp4"
     }
   }
 
   ionViewDidLoad() {
     this.video = document.getElementsByTagName("video")[0];
     this.previousButton = document.getElementsByClassName('previous')[0]
-    if(this.index == 0)  {
-      this.previousButton.disabled = true
-    }
     this.nextButton = document.getElementsByClassName('next')[0]
   }
 
@@ -64,25 +69,33 @@ export class ItemDetail {
     }
   }
 
-  goToNextItem(){
-    this.index += 1
-    this.previousButton.disabled = false
-    if (this.items.length - 1 == this.index) {
+  disableIfLastItem() {
+    if(this.items.length - 1 == this.position) {
       this.nextButton.disabled = true
     }
+  }
+
+  disableIfFirstItem(){
+    if(this.position == 0)  {
+      this.previousButton.disabled = true
+    }
+  }
+
+  goToNextItem(){
+    this.position += 1
+    this.previousButton.disabled = false
+    this.disableIfLastItem()
     this.action = 'play'
-    this.item = this.items[this.index]
+    this.item = this.items[this.position]
     this.video.load()
   }
 
   goToPreviewItem(){
-    this.index -= 1
+    this.position -= 1
     this.nextButton.disabled = false
-    if (this.index == 0) {
-      this.previousButton.disabled = true
-    }
+    this.disableIfFirstItem()
     this.action = 'play'
-    this.item = this.items[this.index]
+    this.item = this.items[this.position]
     this.video.load()
   }
 

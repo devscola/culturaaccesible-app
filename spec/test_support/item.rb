@@ -3,9 +3,16 @@ module Page
     include Capybara::DSL
 
     def initialize
-      url = '/#/item-detail'
+      url = '/#/exhibition-list/'
       visit(url)
+      go_to_item_detail
       validate!
+    end
+
+    def go_to_item_detail
+      first('.exhibition-item').click
+      has_css?('.item', wait: 4)
+      first('.item').click
     end
 
     def has_information?
@@ -52,7 +59,6 @@ module Page
     private
 
     def validate!
-      assert_selector('.bar-button-menutoggle')
       assert_selector('video')
     end
   end
