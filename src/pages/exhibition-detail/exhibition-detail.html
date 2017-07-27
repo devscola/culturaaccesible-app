@@ -14,4 +14,22 @@
         <p id="extended-description">{{exhibition.description}}</p>
         <button id="enter-museum" ion-button (click)="goToMuseum()">{{'EXHIBITIONS.DETAIL.BUTTONS.MUSEUM' | translate}}</button>
     </div>
+    <div class="item-list">
+        <ion-list *ngIf="hasItems" id="item-list">
+            <ion-card class="item" *ngFor="let item of items" (click)="goToItemView(item)">
+                <img src="https://source.unsplash.com/random/300x200"/>
+                <div class="item-info">
+                    <ion-card-header>
+                        {{item.name}}
+                    </ion-card-header>
+                    <ion-card-content *ngIf="item.author">
+                        {{item.author}}
+                    </ion-card-content>
+                    <ion-card-content *ngIf="item.date">
+                        {{item.date}}
+                    </ion-card-content>
+                </div>
+            </ion-card>
+        </ion-list>
+    </div>
 </ion-content>

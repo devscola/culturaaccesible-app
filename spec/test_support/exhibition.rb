@@ -17,6 +17,14 @@ module Page
       has_css?('#exhibition-list', wait:2) && has_css?('.exhibition-item', wait:2)
     end
 
+    def has_item_list?
+      has_css?('.item', wait:2)
+    end
+
+    def has_item_detail?
+      has_content?('Yturralde') && has_content?('1989')
+    end
+
     def has_empty_list_alert?
       has_css?('.alert-message')
     end
@@ -28,6 +36,14 @@ module Page
 
     def detail_page?
       has_css?('#exhibition-detail', wait: 5)
+    end
+
+    def go_to_item_view
+      first('.item-info').click
+    end
+
+    def is_item_page?
+      has_css?('.title')
     end
 
     private

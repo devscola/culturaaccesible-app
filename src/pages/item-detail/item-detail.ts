@@ -13,22 +13,28 @@ export class ItemDetail {
   nextButton;
   items;
   item;
+  fromExhibitionItem;
   video;
   action = 'play';
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private service: ItemsProvider) {
-    service.retrieveList('fakeExhibitionId').subscribe(items => {
-      if(items.length > 1){
-        items[1].media_file = "https://s3.amazonaws.com/pruebas-cova/more3minutes.mp4"
-      }
-      this.items = items
-      this.item = items[this.index]
-      if(items.length <= 1)  {
-        this.nextButton.disabled = true
-      }
-    })
+    this.fromExhibitionItem = navParams.get("item")
+    if(this.fromExhibitionItem) {
+        this.item = this.fromExhibitionItem
+    } else {
+        service.retrieveList('fakeExhibitionId').subscribe(items => {
+            if(items.length > 1){
+                items[1].media_file = "https://s3.amazonaws.com/pruebas-cova/more3minutes.mp4"
+            }
+            this.items = items
+            this.item = items[this.index]
+            if(items.length <= 1)  {
+                this.nextButton.disabled = true
+            }
+        })
+    }
   }
 
   ionViewDidLoad() {
