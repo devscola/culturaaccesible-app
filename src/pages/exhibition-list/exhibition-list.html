@@ -10,7 +10,7 @@
 <ion-content>
     <ion-list *ngIf="hasExhibitions" id="exhibition-list">
         <ion-card class="exhibition-item" *ngFor="let exhibition of exhibitions" (click)="goToDetail(exhibition)">
-            <img src="https://source.unsplash.com/random/300x200"/>
+            <img src={{exhibition.media}}/>
             <div class="info">
                 <ion-card-header>
                     {{exhibition.name}}
