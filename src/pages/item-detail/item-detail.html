@@ -10,7 +10,7 @@
 
 <ion-content padding>
   <p>{{item?.name}}</p>
-  <video src="{{item?.media_file}}" fullscreen="fullscreen" width="100%"></video>
+  <video src="{{item?.video}}" fullscreen="fullscreen" width="100%"></video>
   <div class="media-controls">
     <button ion-button class="previous" (click)="goToPreviewItem()"><ion-icon name="rewind"></ion-icon></button>
     <button ion-button class="toggle-play {{action}}" (click)="togglePlay()"><ion-icon name="{{action}}"></ion-icon></button>
