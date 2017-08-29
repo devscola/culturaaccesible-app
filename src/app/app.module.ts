@@ -5,6 +5,7 @@ import { EnvironmentsModule } from './environment-variables/environment-variable
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { IBeacon } from '@ionic-native/ibeacon';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
@@ -14,6 +15,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ExhibitionsProvider } from '../providers/exhibitions/exhibitions';
 import { MuseumProvider } from '../providers/museum/museum';
 import { ItemsProvider } from '../providers/items/items';
+import { BeaconProvider } from '../providers/beacons/beacons';
 
 export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -46,7 +48,9 @@ export function createTranslateLoader(http: Http) {
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         ExhibitionsProvider,
         MuseumProvider,
-        ItemsProvider
+        ItemsProvider,
+        BeaconProvider,
+        IBeacon
     ]
 })
 export class AppModule {}

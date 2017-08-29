@@ -1,0 +1,72 @@
+import { Injectable } from '@angular/core';
+import { Platform, Events } from 'ionic-angular';
+import { IBeacon } from '@ionic-native/ibeacon';
+
+@Injectable()
+export class BeaconProvider {
+
+  delegate: any;
+  region: any;
+
+  constructor(public platform: Platform, public events: Events, private ibeacon: IBeacon) {
+  }
+
+  initialise(): any {
+    let promise = new Promise((resolve, reject) => {
+      // we need to be running on a device
+      if (this.platform.is('cordova')) {
+
+        // Request permission to use location on iOS
+        this.ibeacon.requestAlwaysAuthorization();
+
+        // create a new delegate and register it with the native layer
+        this.delegate = this.ibeacon.Delegate();
+
+        this.delegate.didRangeBeaconsInRegion()
+          .subscribe(
+            data => this.events.publish('didRangeBeaconsInRegion', data),
+            error => console.error()
+          );
+        this.delegate.didStartMonitoringForRegion()
+          .subscribe(
+            data => console.log('didStartMonitoringForRegion: ', data),
+            error => console.error()
+          );
+        this.delegate.didEnterRegion()
+          .subscribe(
+            data => {
+              console.log('didEnterRegion: ', data);
+            }
+          );
+
+        // setup a beacon region
+        this.region = this.ibeacon.BeaconRegion('deskBeacon', '74278BDA-B644-4520-8F0C-720EAF059935');
+
+        this.ibeacon.getRangedRegions().then(
+          data => console.log(data),
+          error => console.error()
+        )
+        // start ranging
+        this.ibeacon.startRangingBeaconsInRegion(this.region)
+          .then(
+          () => {
+            resolve(true);
+          },
+          error => {
+            console.error('Failed to begin monitoring: ', error);
+            resolve(false);
+          }
+        );
+
+
+      } else {
+        console.error("This application needs to be running on a device");
+        resolve(false);
+      }
+    });
+
+    return promise;
+  }
+
+
+}
