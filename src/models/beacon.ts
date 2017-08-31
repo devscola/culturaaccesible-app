@@ -5,6 +5,7 @@ export class Beacon {
   minor: number;
   rssi: number;
   proximity: string;
+  accuracy: number;
   tx: number;
   distance: number;
 
@@ -15,6 +16,7 @@ export class Beacon {
     this.rssi = beacon.rssi;
     this.proximity = beacon.proximity;
     this.tx = beacon.tx
+    this.accuracy = beacon.accuracy;
     this.distance = this.calculateDistance()
   }
 

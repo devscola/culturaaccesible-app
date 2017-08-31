@@ -9,6 +9,13 @@ export class BeaconProvider {
   region: any;
 
   constructor(public platform: Platform, public events: Events, private ibeacon: IBeacon) {
+    events.subscribe('stopRanging', (result) => {
+      this.stopRanging()
+    })
+
+    events.subscribe('startRanging', (result) => {
+      this.startRanging()
+    })
   }
 
   initialise(): any {
@@ -27,25 +34,9 @@ export class BeaconProvider {
             data => this.events.publish('didRangeBeaconsInRegion', data),
             error => console.error()
           );
-        this.delegate.didStartMonitoringForRegion()
-          .subscribe(
-            data => console.log('didStartMonitoringForRegion: ', data),
-            error => console.error()
-          );
-        this.delegate.didEnterRegion()
-          .subscribe(
-            data => {
-              console.log('didEnterRegion: ', data);
-            }
-          );
-
         // setup a beacon region
         this.region = this.ibeacon.BeaconRegion('deskBeacon', '74278BDA-B644-4520-8F0C-720EAF059935');
 
-        this.ibeacon.getRangedRegions().then(
-          data => console.log(data),
-          error => console.error()
-        )
         // start ranging
         this.ibeacon.startRangingBeaconsInRegion(this.region)
           .then(
@@ -58,7 +49,6 @@ export class BeaconProvider {
           }
         );
 
-
       } else {
         console.error("This application needs to be running on a device");
         resolve(false);
@@ -68,5 +58,11 @@ export class BeaconProvider {
     return promise;
   }
 
+  stopRanging(){
+    this.ibeacon.stopRangingBeaconsInRegion(this.region)
+  }
 
+  startRanging(){
+    this.ibeacon.startRangingBeaconsInRegion(this.region)
+  }
 }
