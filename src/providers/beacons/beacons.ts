@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Platform, Events } from 'ionic-angular';
+import { Platform, Events, AlertController } from 'ionic-angular';
 import { IBeacon } from '@ionic-native/ibeacon';
+
+import { Beacon } from '../../models/beacon';
 
 @Injectable()
 export class BeaconProvider {
 
   delegate: any;
   region: any;
+  beacons: Beacon[] = [];
+  lastTriggeredBeaconNumber: number;
 
-  constructor(public platform: Platform, public events: Events, private ibeacon: IBeacon) {
+  constructor(public platform: Platform,
+              public events: Events,
+              public alertCtrl: AlertController,
+              private ibeacon: IBeacon) {
     events.subscribe('stopRanging', (result) => {
       this.stopRanging()
     })
@@ -83,5 +90,50 @@ export class BeaconProvider {
   startRanging(){
     this.ibeacon.startRangingBeaconsInRegion(this.region)
   }
+
+  listenToBeaconEvents(exhibitionId) {
+      this.events.subscribe('didRangeBeaconsInRegion', (data) => {
+
+        this.beacons = [];
+
+        let beaconList = data.beacons;
+        beaconList.forEach((beacon) => {
+          let beaconObject = new Beacon(beacon);
+          this.beacons.push(beaconObject);
+        });
+
+        let closestBeacon = this.beacons.filter(beacon => beacon.proximity == 'ProximityImmediate')[0]
+        if(closestBeacon && closestBeacon.minor != this.lastTriggeredBeaconNumber){
+          this.lastTriggeredBeaconNumber = closestBeacon.minor
+          let alert = this.alertCtrl.create({
+            title: 'You are close to artwork ' + closestBeacon.minor,
+            message: 'Do you want to know more?',
+            buttons: [
+              {
+                text: 'No',
+                role: 'cansel',
+                handler: () => {
+                  this.events.publish('startRanging')
+                  console.log('Cancel clicked');
+                  }
+                },
+                {
+                text: 'Yes',
+                handler: () => {
+                  this.retrieveItemByBeacon(closestBeacon.minor, exhibitionId)
+                  this.events.publish('startRanging')
+                }
+              }
+            ]
+          });
+          alert.present();
+          this.events.publish('stopRanging')
+        }
+      });
+    }
+
+    retrieveItemByBeacon(beaconNumber, exhibitionId) {
+      this.events.publish('retrieveItemByBeacon', {beaconNumber: beaconNumber, exhibitionId: exhibitionId})
+    }
 
 }
