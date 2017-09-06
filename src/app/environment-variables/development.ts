@@ -1,4 +1,4 @@
 export const devVariables = {
-    baseUrl: 'http://localhost:4567',
+    baseUrl: 'http://54.89.129.120:4567',
     environmentName: 'Development Environment'
 };

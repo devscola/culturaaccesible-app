@@ -9,6 +9,13 @@ export class BeaconProvider {
   region: any;
 
   constructor(public platform: Platform, public events: Events, private ibeacon: IBeacon) {
+    events.subscribe('stopRanging', (result) => {
+      this.stopRanging()
+    })
+
+    events.subscribe('startRanging', (result) => {
+      this.startRanging()
+    })
   }
 
   initialise(): any {
@@ -68,5 +75,13 @@ export class BeaconProvider {
     return promise;
   }
 
+  stopRanging(){
+    console.log('********************** he dejado de rastrear el rango')
+    this.ibeacon.stopRangingBeaconsInRegion(this.region)
+  }
+
+  startRanging(){
+    this.ibeacon.startRangingBeaconsInRegion(this.region)
+  }
 
 }
