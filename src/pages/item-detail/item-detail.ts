@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Platform, Events, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ItemsProvider } from '../../providers/items/items'
 import { BeaconProvider } from '../../providers/beacons/beacons'
@@ -18,6 +18,7 @@ export class ItemDetail {
   fromExhibitionItem;
   video;
   action = 'play';
+  ngZone;
 
   constructor(public navCtrl: NavController,
               public platform: Platform,
@@ -25,7 +26,18 @@ export class ItemDetail {
               public beaconProvider: BeaconProvider,
               public navParams: NavParams,
               private service: ItemsProvider) {
+    this.ngZone = new NgZone({enableLongStackTrace: false})
 
+    events.subscribe('refreshItemPage', (data) => {
+      this.ngZone.run(() => {
+        setTimeout(() => {
+          this.position = data.index
+          this.item = this.items[this.position]
+          this.disableIfFirstItem()
+          this.disableIfLastItem()
+        }, 1)
+      })
+    })
   }
 
   setFakeVideo(items){
@@ -86,12 +98,18 @@ export class ItemDetail {
   disableIfLastItem() {
     if(this.items.length - 1 == this.position) {
       this.nextButton.disabled = true
+      if(this.items.length > 1){
+        this.previousButton.disabled = false
+      }
     }
   }
 
   disableIfFirstItem(){
     if(this.position == 0)  {
       this.previousButton.disabled = true
+      if(this.items.length - 1 != this.position){
+        this.nextButton.disabled = false
+      }
     }
   }
 

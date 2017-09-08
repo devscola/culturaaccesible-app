@@ -50,8 +50,9 @@ export class ExhibitionDetail {
     goToItemView(index) {
         let activePage = this.navCtrl.getActive().component.name
         if('ItemDetail' == activePage){
-          this.navCtrl.pop()
+          this.events.publish('refreshItemPage', {index: index})
+        }else{
+          this.navCtrl.push('ItemDetail', {index: index, exhibitionId: this.exhibition.id})
         }
-        this.navCtrl.push('ItemDetail', {index: index, exhibitionId: this.exhibition.id})
     }
 }
