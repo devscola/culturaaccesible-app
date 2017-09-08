@@ -4,8 +4,6 @@ import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions';
 import { ItemsProvider } from '../../providers/items/items'
 import { BeaconProvider } from '../../providers/beacons/beacons'
 
-
-
 @IonicPage()
 @Component({
     selector: 'page-exhibition-detail',
@@ -15,7 +13,6 @@ export class ExhibitionDetail {
     exhibition;
     hasItems: boolean;
     items: Array<Object>;
-
 
     constructor(public navCtrl: NavController,
                 public alertCtrl: AlertController,
@@ -31,13 +28,12 @@ export class ExhibitionDetail {
           this.hasItems = true
           this.items = items
         })
-
-        events.subscribe('goToItemDetail', (data) => {
-          this.goToItemView(data.item, data.index)
-        })
     }
 
     ionViewDidLoad() {
+      this.events.subscribe('goToItemDetail', (data) => {
+        this.goToItemView(data.index)
+      })
       this.platform.ready().then(() => {
         this.beaconProvider.initialise().then((isInitialised) => {
           if (isInitialised) {
@@ -51,7 +47,11 @@ export class ExhibitionDetail {
         this.navCtrl.push('MuseumDetail')
     }
 
-    goToItemView(item, index) {
+    goToItemView(index) {
+        let activePage = this.navCtrl.getActive().component.name
+        if('ItemDetail' == activePage){
+          this.navCtrl.pop()
+        }
         this.navCtrl.push('ItemDetail', {index: index, exhibitionId: this.exhibition.id})
     }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Platform, Events, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ItemsProvider } from '../../providers/items/items'
+import { BeaconProvider } from '../../providers/beacons/beacons'
 
 @IonicPage()
 @Component({
@@ -11,6 +12,7 @@ export class ItemDetail {
   position = 0;
   previousButton;
   nextButton;
+  exhibitionId;
   items;
   item;
   fromExhibitionItem;
@@ -18,25 +20,12 @@ export class ItemDetail {
   action = 'play';
 
   constructor(public navCtrl: NavController,
+              public platform: Platform,
+              public events: Events,
+              public beaconProvider: BeaconProvider,
               public navParams: NavParams,
               private service: ItemsProvider) {
 
-    let exhibitionId = navParams.get("exhibitionId")
-    let index = navParams.get("index")
-
-    if(index){
-      this.position = index
-    }
-
-    service.retrieveList(exhibitionId).subscribe(items => {
-        this.setFakeVideo(items)
-
-        this.items = items
-        this.item = items[this.position]
-
-        this.disableIfFirstItem()
-        this.disableIfLastItem()
-    })
   }
 
   setFakeVideo(items){
@@ -46,9 +35,34 @@ export class ItemDetail {
   }
 
   ionViewDidLoad() {
+    this.exhibitionId = this.navParams.get("exhibitionId")
+    let index = this.navParams.get("index")
+
+    if(index){
+      this.position = index
+    }
+
+    this.service.retrieveList(this.exhibitionId).subscribe(items => {
+        this.setFakeVideo(items)
+
+        this.items = items
+        this.item = items[this.position]
+
+        this.disableIfFirstItem()
+        this.disableIfLastItem()
+    })
+
     this.video = document.getElementsByTagName("video")[0];
     this.previousButton = document.getElementsByClassName('previous')[0]
     this.nextButton = document.getElementsByClassName('next')[0]
+
+    this.platform.ready().then(() => {
+      this.beaconProvider.initialise().then((isInitialised) => {
+        if (isInitialised) {
+          this.beaconProvider.listenToBeaconEvents(this.exhibitionId);
+        }
+      });
+    });
   }
 
   play() {

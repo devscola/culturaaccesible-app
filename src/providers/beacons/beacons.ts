@@ -56,10 +56,6 @@ export class BeaconProvider {
         // setup a beacon region
         this.region = this.ibeacon.BeaconRegion('deskBeacon', '74278BDA-B644-4520-8F0C-720EAF059935');
 
-        this.ibeacon.getRangedRegions().then(
-          data => console.log(data),
-          error => console.error()
-        )
         // start ranging
         this.ibeacon.startRangingBeaconsInRegion(this.region)
           .then(
@@ -111,7 +107,7 @@ export class BeaconProvider {
             buttons: [
               {
                 text: 'No',
-                role: 'cansel',
+                role: 'cancel',
                 handler: () => {
                   this.events.publish('startRanging')
                   console.log('Cancel clicked');

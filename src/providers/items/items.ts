@@ -4,7 +4,6 @@ import 'rxjs/add/operator/map';
 import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 import { Events } from 'ionic-angular';
 
-
 @Injectable()
 export class ItemsProvider {
 
