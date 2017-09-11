@@ -29,6 +29,8 @@ export class ItemDetail {
     this.ngZone = new NgZone({enableLongStackTrace: false})
 
     events.subscribe('refreshItemPage', (data) => {
+      this.item = null
+
       this.ngZone.run(() => {
         setTimeout(() => {
           this.position = data.index
@@ -36,7 +38,7 @@ export class ItemDetail {
           this.enableNavButtons()
           this.disableIfFirstItem()
           this.disableIfLastItem()
-        }, 500)
+        }, 100)
       })
     })
   }
