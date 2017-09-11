@@ -33,9 +33,10 @@ export class ItemDetail {
         setTimeout(() => {
           this.position = data.index
           this.item = this.items[this.position]
+          this.enableNavButtons()
           this.disableIfFirstItem()
           this.disableIfLastItem()
-        }, 1)
+        }, 500)
       })
     })
   }
@@ -95,21 +96,20 @@ export class ItemDetail {
     }
   }
 
+  enableNavButtons() {
+    this.previousButton.disabled = false
+    this.nextButton.disabled = false
+  }
+
   disableIfLastItem() {
     if(this.items.length - 1 == this.position) {
       this.nextButton.disabled = true
-      if(this.items.length > 1){
-        this.previousButton.disabled = false
-      }
     }
   }
 
   disableIfFirstItem(){
     if(this.position == 0)  {
       this.previousButton.disabled = true
-      if(this.items.length - 1 != this.position){
-        this.nextButton.disabled = false
-      }
     }
   }
 
