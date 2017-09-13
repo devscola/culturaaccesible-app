@@ -17,6 +17,8 @@ import { MuseumProvider } from '../providers/museum/museum';
 import { ItemsProvider } from '../providers/items/items';
 import { BeaconProvider } from '../providers/beacons/beacons';
 
+import { NativeStorage } from '@ionic-native/native-storage';
+
 export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -50,7 +52,8 @@ export function createTranslateLoader(http: Http) {
         MuseumProvider,
         ItemsProvider,
         BeaconProvider,
-        IBeacon
+        IBeacon,
+        NativeStorage
     ]
 })
 export class AppModule {}

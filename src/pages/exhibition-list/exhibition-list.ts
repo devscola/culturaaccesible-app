@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @IonicPage()
 @Component({
@@ -15,7 +16,9 @@ export class ExhibitionList {
     constructor(public navCtrl: NavController,
                 public alertCtrl: AlertController,
                 public navParams: NavParams,
+                private nativeStorage: NativeStorage,
                 private service: ExhibitionsProvider) {
+
         this.service.retrieveList().subscribe(exhibitions => {
             if(exhibitions.length > 0){
                 this.hasExhibitions = true
@@ -42,46 +45,58 @@ export class ExhibitionList {
         this.exhibitions = activeExhibitions
     }
 
-    isDownloaded(exhibition) {
-      return false
-    }
-
-    askLenguaje(exhibition) {
-      exhibition.lenguajes = ['es', 'cat', 'en']
+    askLanguage(exhibition) {
+      exhibition.languages = ['es', 'cat', 'en']
       let alert = this.alertCtrl.create({
-        title: 'Choose lenguaje',
-        message: 'in which lenguaje do you want to listen',
+        title: 'Choose language',
+        message: 'in which language do you want to listen',
         buttons: [
-          {
-            text: 'No',
-            role: 'cancel',
-            handler: () => {
-              console.log('Cancel clicked');
+            {
+              text: 'No',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
               }
             },
             {
-            text: 'Yes',
-            handler: () => {
-              this.download(exhibition)
-            }
+              text: 'Yes',
+              handler: (isoCode) => {
+                this.download(exhibition, isoCode)
+              }
           }
         ]
       });
-      exhibition.lenguajes.forEach((locale) => {
+      exhibition.languages.forEach((locale) => {
         alert.addInput({type: 'radio', label: locale, value: locale})
       })
       alert.present();
     }
 
-    download(exhibition) {
-      console.log('starting download')
+    download(exhibition, isoCode) {
+      this.service.retrieve(exhibition.id, isoCode).subscribe(exhibition => {
+        this.saveInLocal(exhibition)
+      })
+    }
+
+    saveInLocal(exhibition) {
+      this.nativeStorage.setItem(exhibition.id, exhibition)
+          .then(
+            () => {
+              console.log('Stored item!')
+            },
+            error => console.error('Error storing item', error)
+          );
     }
 
     goToDetail(exhibition) {
-        if(this.isDownloaded(exhibition)){
+      this.nativeStorage.getItem(exhibition.id)
+        .then(
+          exhibition => {
             this.navCtrl.push('ExhibitionDetail', {exhibition: exhibition})
-        }else{
-            this.askLenguaje(exhibition)
-        }
+          })
+        .catch(
+          error => {
+            this.askLanguage(exhibition)
+          });
     }
 }

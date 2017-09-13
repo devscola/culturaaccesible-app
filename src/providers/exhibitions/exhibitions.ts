@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 
@@ -13,6 +13,16 @@ export class ExhibitionsProvider {
     retrieveList() {
         let url = `${this.envVariables.baseUrl}/api/exhibition/list`;
         return this.http.post(url, '').map(exhibitions =>
+            exhibitions.json()
+        )
+    }
+
+    retrieve(id, isoCode) {
+        let headers    = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+        let options    = new RequestOptions({ headers: headers });
+        let url = `${this.envVariables.baseUrl}/api/exhibition/retrieve`;
+        let payload = {"id": id, "iso_code": isoCode}
+        return this.http.post(url, payload, options).map(exhibitions =>
             exhibitions.json()
         )
     }
