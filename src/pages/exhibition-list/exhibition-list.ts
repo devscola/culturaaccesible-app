@@ -12,6 +12,7 @@ export class ExhibitionList {
     exhibitions: Array<Object>
     allExhibitions: Array<Object>
     hasExhibitions: boolean
+    storedData;
 
     constructor(public navCtrl: NavController,
                 public alertCtrl: AlertController,
@@ -28,10 +29,18 @@ export class ExhibitionList {
                 this.showNoExhibitionMessage()
             }
         })
+
+        this.nativeStorage.keys().then((data) => {
+          this.storedData = data
+        })
     }
 
     showNoExhibitionMessage() {
         this.hasExhibitions = false
+    }
+
+    isDownloaded(exhibition) {
+        return this.storedData.some(id => id === exhibition.id)
     }
 
     filterExhibitions() {
@@ -86,6 +95,10 @@ export class ExhibitionList {
             },
             error => console.error('Error storing item', error)
           );
+    }
+
+    delete(exhibition) {
+      this.nativeStorage.remove(exhibition.id)
     }
 
     goToDetail(exhibition) {

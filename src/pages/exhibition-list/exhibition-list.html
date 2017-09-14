@@ -17,6 +17,7 @@
                 </ion-card-header>
                 <ion-card-content>
                     {{exhibition.short_description}}
+                    <button ion-button *ngIf="isDownloaded(exhibition)" (click)="delete(exhibition)">Borrar</button>
                 </ion-card-content>
             </div>
         </ion-card>
