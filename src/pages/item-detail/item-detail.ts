@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { Platform, Events, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Platform, Events, IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 import { ItemsProvider } from '../../providers/items/items'
 import { BeaconProvider } from '../../providers/beacons/beacons'
 
@@ -21,6 +21,7 @@ export class ItemDetail {
   ngZone;
 
   constructor(public navCtrl: NavController,
+              public viewCtrl: ViewController,
               public platform: Platform,
               public events: Events,
               public beaconProvider: BeaconProvider,
@@ -41,12 +42,10 @@ export class ItemDetail {
         }, 100)
       })
     })
-  }
 
-  setFakeVideo(items){
-    if(items.length > 1){
-        items[1].media_file = "https://s3.amazonaws.com/pruebas-cova/more3minutes.mp4"
-    }
+    events.subscribe('stopVideo', (data) => {
+      this.viewCtrl.dismiss()
+    })
   }
 
   ionViewDidLoad() {
@@ -58,8 +57,6 @@ export class ItemDetail {
     }
 
     this.service.retrieveList(this.exhibitionId).subscribe(items => {
-        this.setFakeVideo(items)
-
         this.items = items
         this.item = items[this.position]
 
