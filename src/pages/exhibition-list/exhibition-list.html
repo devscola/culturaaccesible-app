@@ -9,15 +9,20 @@
 
 <ion-content>
     <ion-list *ngIf="hasExhibitions" id="exhibition-list">
-        <ion-card class="exhibition-item" *ngFor="let exhibition of exhibitions" (click)="goToDetail(exhibition)">
-            <img src={{exhibition.image}}/>
+        <ion-card class="exhibition-item" *ngFor="let exhibition of exhibitions">
+            <img (click)="goToDetail(exhibition)" src={{exhibition.image}}/>
             <div class="info">
-                <ion-card-header>
+                <ion-card-header (click)="goToDetail(exhibition)">
                     {{exhibition.name}}
                 </ion-card-header>
                 <ion-card-content>
                     {{exhibition.short_description}}
-                    <button ion-button *ngIf="isDownloaded(exhibition)" (click)="delete(exhibition)">Borrar</button>
+                    <button ion-button *ngIf="isDownloaded(exhibition)" (click)="delete(exhibition)">
+                        <ion-icon name="ios-trash-outline"></ion-icon>
+                    </button>
+                    <button ion-button *ngIf="!isDownloaded(exhibition)" (click)="goToDetail(exhibition)">
+                        <ion-icon name="ios-cloud-download-outline"></ion-icon>
+                    </button>
                 </ion-card-content>
             </div>
         </ion-card>
