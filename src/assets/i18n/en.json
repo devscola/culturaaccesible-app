@@ -1,5 +1,12 @@
 {
-    "MENU": "Menu",
+    "MENU": {
+      "TITLE": "Menu",
+      "HOME": "Home",
+      "EXHIBITIONS": "Exhibitions"
+    },
+    "HOME": {
+      "TITLE": "Home"
+    },
     "EXHIBITIONS": {
         "DETAIL": {
             "TITLE": "Exhibition detail",
@@ -11,7 +18,18 @@
         },
         "LIST": {
             "TITLE": "Exhibitions list",
-            "EMPTY_ALERT": "There is not exhibitions"
+            "EMPTY_ALERT": "There is not exhibitions",
+            "ALERT": {
+              "TITLE": "Choose your language",
+              "BODY": "in which language do you want to listen",
+              "BUTTONS": {
+                "YES": "Choose",
+                "NO": "Cancel"
+              }
+            }
+        },
+        "BUTTONS": {
+            "MUSEUM": "Museum"
         }
     },
     "MUSEUM": {
@@ -41,5 +59,15 @@
       "DETAIL": {
         "TITLE" : "Item view"
       }
+    },
+    "BEACONS": {
+        "ALERT": {
+            "TITLE": "You are close to artwork",
+            "BODY": "Do you want to know more?",
+            "BUTTONS": {
+                "YES": "Yes",
+                "NO": "No"
+              }
+        }
     }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Platform, Events, AlertController } from 'ionic-angular';
 import { IBeacon } from '@ionic-native/ibeacon';
+import { TranslateService } from '@ngx-translate/core';
 
 import { Beacon } from '../../models/beacon';
 
@@ -14,6 +15,7 @@ export class BeaconProvider {
 
   constructor(public platform: Platform,
               public events: Events,
+              public translate: TranslateService,
               public alertCtrl: AlertController,
               private ibeacon: IBeacon) {
     events.subscribe('stopRanging', (result) => {
@@ -88,28 +90,8 @@ export class BeaconProvider {
         this.lastTriggeredBeaconNumber = closestBeacon.minor
         this.events.publish('stopVideo')
 
-        let alert = this.alertCtrl.create({
-          title: 'You are close to artwork ' + closestBeacon.minor,
-          message: 'Do you want to know more?',
-          buttons: [
-            {
-              text: 'No',
-              role: 'cancel',
-              handler: () => {
-                this.events.publish('startRanging')
-                console.log('Cancel clicked');
-                }
-              },
-              {
-              text: 'Yes',
-              handler: () => {
-                this.retrieveItemByBeacon(closestBeacon.minor, exhibitionId)
-                this.events.publish('startRanging')
-              }
-            }
-          ]
-        });
-        alert.present();
+        this.presentAlert(closestBeacon.minor, exhibitionId)
+
         this.events.publish('stopRanging')
       }
     });
@@ -117,5 +99,36 @@ export class BeaconProvider {
 
   retrieveItemByBeacon(beaconNumber, exhibitionId) {
     this.events.publish('retrieveItemByBeacon', {beaconNumber: beaconNumber, exhibitionId: exhibitionId})
+  }
+
+  presentAlert(beaconNumber, exhibitionId) {
+    let messages;
+
+    this.translate.get('BEACONS.ALERT').subscribe(data => {
+      messages = data
+    })
+
+    let alert = this.alertCtrl.create({
+      title: messages['TITLE'] + ' ' + beaconNumber,
+      message: messages['BODY'],
+      buttons: [
+        {
+          text: messages['BUTTONS']['NO'],
+          role: 'cancel',
+          handler: () => {
+            this.events.publish('startRanging')
+            console.log('Cancel clicked');
+            }
+          },
+          {
+          text: messages['BUTTONS']['YES'],
+          handler: () => {
+            this.retrieveItemByBeacon(beaconNumber, exhibitionId)
+            this.events.publish('startRanging')
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

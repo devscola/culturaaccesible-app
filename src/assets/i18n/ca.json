@@ -1,0 +1,73 @@
+{
+    "MENU": {
+      "TITLE": "Menú",
+      "HOME": "Inici",
+      "EXHIBITIONS": "Exhibicions"
+    },
+    "HOME": {
+      "TITLE": "Inici"
+    },
+    "EXHIBITIONS": {
+        "DETAIL": {
+            "TITLE": "Informació de l'exposició",
+            "FROM": "Des de:",
+            "TO": "Fins a:",
+            "BUTTONS": {
+                "MUSEUM": "Museu"
+            }
+        },
+        "LIST": {
+            "TITLE": "Llistat d'exposicions",
+            "EMPTY_ALERT": "No hi han exposicions",
+            "ALERT": {
+              "TITLE": "Eligeix l'idioma",
+              "BODY": "en el que vullgues escoltar les obres",
+              "BUTTONS": {
+                "YES": "Elegir",
+                "NO": "Cancel·lar"
+              }
+            }
+        },
+        "BUTTONS": {
+            "MUSEUM": "Museu"
+        }
+    },
+    "MUSEUM": {
+        "DETAIL" : {
+            "TITLE": "Informació del museu",
+            "MAP": "Mostrar mapa",
+            "DAYS": {
+                "MONDAY": "Dilluns:",
+                "TUESDAY": "Dimarts:",
+                "WEDNESDAY": "Dimecres:",
+                "THURSDAY": "Dijous:",
+                "FRIDAY": "Divendres:",
+                "SATURDAY": "Dissabte:",
+                "SUNDAY": "Diumenge:"
+            },
+            "PRICE": {
+                "FREE": "Entrada gratuïta:",
+                "GENERAL": "General:",
+                "REDUCED": "Reduïda:"
+            },
+            "BUTTONS": {
+                "ENTER": "Entrar"
+            }
+        }
+    },
+    "ITEM": {
+      "DETAIL": {
+        "TITLE" : "Vista d'ítem"
+      }
+    },
+    "BEACONS": {
+        "ALERT": {
+            "TITLE": "Estàs prop de l'obra",
+            "BODY": "Vols saber més?",
+            "BUTTONS": {
+                "YES": "Sí",
+                "NO": "No"
+              }
+        }
+    }
+}

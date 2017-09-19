@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { TranslateService } from '@ngx-translate/core';
 
 @IonicPage()
 @Component({
@@ -18,6 +19,7 @@ export class ExhibitionList {
                 public alertCtrl: AlertController,
                 public navParams: NavParams,
                 private nativeStorage: NativeStorage,
+                public translate: TranslateService,
                 private service: ExhibitionsProvider) {
 
         this.service.retrieveList().subscribe(exhibitions => {
@@ -56,20 +58,26 @@ export class ExhibitionList {
     }
 
     askLanguage(exhibition) {
+      let messages;
+
+      this.translate.get('EXHIBITIONS.LIST.ALERT').subscribe(data => {
+        messages = data
+      });
+
       exhibition.languages = ['es', 'cat', 'en']
       let alert = this.alertCtrl.create({
-        title: 'Choose language',
-        message: 'in which language do you want to listen',
+        title: messages['TITLE'],
+        message: messages['BODY'],
         buttons: [
             {
-              text: 'No',
+              text: messages['BUTTONS']['NO'],
               role: 'cancel',
               handler: () => {
                 console.log('Cancel clicked');
               }
             },
             {
-              text: 'Yes',
+              text: messages['BUTTONS']['YES'],
               handler: (isoCode) => {
                 this.download(exhibition, isoCode)
               }

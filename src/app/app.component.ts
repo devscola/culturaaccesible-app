@@ -25,12 +25,15 @@ export class MyApp {
         translate.use(language);
 
         this.initializeApp();
-        // used for an example of ngFor and navigation
-        this.pages = [
-            { title: 'Home', component: 'HomePage', id: 'home' },
-            { title: 'Exhibitions', component: 'ExhibitionList', id: 'exhibitions' }
-        ];
 
+        translate.get('MENU').subscribe(data => {
+
+          this.pages = [
+              { title: data['HOME'], component: 'HomePage', id: 'home' },
+              { title: data['EXHIBITIONS'], component: 'ExhibitionList', id: 'exhibitions' }
+          ];
+
+        })
     }
 
     initializeApp() {

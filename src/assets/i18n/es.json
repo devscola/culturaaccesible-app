@@ -1,5 +1,12 @@
 {
-    "MENU": "Menú",
+    "MENU": {
+      "TITLE": "Menú",
+      "HOME": "Inicio",
+      "EXHIBITIONS": "Exhibiciones"
+    },
+    "HOME": {
+      "TITLE": "Inicio"
+    },
     "EXHIBITIONS": {
         "DETAIL": {
             "TITLE": "Información de la exposición",
@@ -11,7 +18,18 @@
         },
         "LIST": {
             "TITLE": "Listado de exposiciones",
-            "EMPTY_ALERT": "No hay exposiciones"
+            "EMPTY_ALERT": "No hay exposiciones",
+            "ALERT": {
+              "TITLE": "Elige el idioma",
+              "BODY": "en el que quieres escuchar las obras",
+              "BUTTONS": {
+                "YES": "Elegir",
+                "NO": "Cancelar"
+              }
+            }
+        },
+        "BUTTONS": {
+            "MUSEUM": "Museo"
         }
     },
     "MUSEUM": {
@@ -38,6 +56,18 @@
         }
     },
     "ITEM": {
-
+      "DETAIL": {
+        "TITLE" : "Vista de ítem"
+      }
+    },
+    "BEACONS": {
+        "ALERT": {
+            "TITLE": "Estás cerca de la obra",
+            "BODY": "¿Quieres saber más?",
+            "BUTTONS": {
+                "YES": "Sí",
+                "NO": "No"
+              }
+        }
     }
 }
