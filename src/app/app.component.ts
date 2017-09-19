@@ -19,8 +19,10 @@ export class MyApp {
         public splashScreen: SplashScreen,
         public translate: TranslateService) {
 
+        var language = navigator.language.split('-')[0]
+
         translate.setDefaultLang('en');
-        translate.use('en');
+        translate.use(language);
 
         this.initializeApp();
         // used for an example of ngFor and navigation

@@ -87,6 +87,7 @@ export class BeaconProvider {
       if(closestBeacon && closestBeacon.minor != this.lastTriggeredBeaconNumber){
         this.lastTriggeredBeaconNumber = closestBeacon.minor
         this.events.publish('stopVideo')
+
         let alert = this.alertCtrl.create({
           title: 'You are close to artwork ' + closestBeacon.minor,
           message: 'Do you want to know more?',
