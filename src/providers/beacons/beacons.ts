@@ -65,7 +65,6 @@ export class BeaconProvider {
   }
 
   stopRanging(){
-    console.log('********************** he dejado de rastrear el rango')
     this.ibeacon.stopRangingBeaconsInRegion(this.region)
   }
 

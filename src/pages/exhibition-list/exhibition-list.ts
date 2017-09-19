@@ -51,6 +51,7 @@ export class ExhibitionList {
                 activeExhibitions.push(exhibition)
             }
         }
+        console.log(activeExhibitions)
         this.exhibitions = activeExhibitions
     }
 
@@ -111,5 +112,9 @@ export class ExhibitionList {
           error => {
             this.askLanguage(exhibition)
           });
+    }
+
+    goToMuseum(museumId) {
+        this.navCtrl.push('MuseumDetail', {id: museumId})
     }
 }

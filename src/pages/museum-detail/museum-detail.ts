@@ -38,6 +38,12 @@ export class MuseumDetail {
         });
     }
 
+    ionViewDidLoad() {
+      let id = this.navParams.get('id')
+      this.service.retrieve(id).subscribe(museum => {
+
+      })
+    }
 
     extractSearchQuote() {
         this.searchQuote = this.location['link'].split('@')[0].split('/')[5];

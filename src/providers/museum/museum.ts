@@ -15,4 +15,9 @@ export class MuseumProvider {
       return this.http.post(url, '').map(museums => museums.json())
   }
 
+  retrieve(id) {
+      let url = `${this.envVariables.baseUrl}/api/museum/retrieve`;
+      return this.http.post(url, {"id": id}).map(museums => museums.json())
+  }
+
 }
