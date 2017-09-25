@@ -53,7 +53,6 @@ export class ExhibitionList {
                 activeExhibitions.push(exhibition)
             }
         }
-        console.log(activeExhibitions)
         this.exhibitions = activeExhibitions
     }
 

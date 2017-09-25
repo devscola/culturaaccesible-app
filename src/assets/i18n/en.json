@@ -61,13 +61,20 @@
       }
     },
     "BEACONS": {
-        "ALERT": {
-            "TITLE": "You are close to artwork",
-            "BODY": "Do you want to know more?",
-            "BUTTONS": {
-                "YES": "Yes",
-                "NO": "No"
-              }
+      "ALERT": {
+        "TITLE": "You are close to artwork",
+        "BODY": "Do you want to know more?",
+        "BUTTONS": {
+          "YES": "Yes",
+          "NO": "No"
         }
+      },
+      "EXHIBITION_UNLOCKED_ALERT": {
+        "TITLE": "Exhibition unlocked",
+        "BODY": "Now you can learn",
+        "BUTTONS": {
+          "OK": "Explore"
+        }
+      }
     }
 }

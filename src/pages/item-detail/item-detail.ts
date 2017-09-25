@@ -59,7 +59,6 @@ export class ItemDetail {
     this.service.retrieveList(this.exhibitionId).subscribe(items => {
         this.items = items
         this.item = items[this.position]
-
         this.disableIfFirstItem()
         this.disableIfLastItem()
     })

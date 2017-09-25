@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Platform, Events, AlertController } from 'ionic-angular';
 import { IBeacon } from '@ionic-native/ibeacon';
 import { TranslateService } from '@ngx-translate/core';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 import { Beacon } from '../../models/beacon';
 
@@ -17,6 +18,7 @@ export class BeaconProvider {
               public events: Events,
               public translate: TranslateService,
               public alertCtrl: AlertController,
+              private storage: NativeStorage,
               private ibeacon: IBeacon) {
     events.subscribe('stopRanging', (result) => {
       this.stopRanging()
@@ -74,10 +76,11 @@ export class BeaconProvider {
     this.ibeacon.startRangingBeaconsInRegion(this.region)
   }
 
-  listenToBeaconEvents(exhibitionId) {
+  listenToBeaconEvents(exhibition) {
     this.events.subscribe('didRangeBeaconsInRegion', (data) => {
 
       this.beacons = [];
+      let exhibitionBeaconNumber = parseInt(exhibition.beacon)
 
       let beaconList = data.beacons;
       beaconList.forEach((beacon) => {
@@ -86,19 +89,55 @@ export class BeaconProvider {
       });
 
       let closestBeacon = this.beacons.filter(beacon => beacon.proximity == 'ProximityImmediate')[0]
-      if(closestBeacon && closestBeacon.minor != this.lastTriggeredBeaconNumber){
+
+      if(exhibition.unlocked && closestBeacon && closestBeacon.minor != this.lastTriggeredBeaconNumber && closestBeacon.minor != exhibitionBeaconNumber){
         this.lastTriggeredBeaconNumber = closestBeacon.minor
         this.events.publish('stopVideo')
 
-        this.presentAlert(closestBeacon.minor, exhibitionId)
+        this.presentAlert(closestBeacon.minor, exhibition.id)
 
         this.events.publish('stopRanging')
+      }
+
+      if(closestBeacon && exhibitionBeaconNumber === closestBeacon.minor && closestBeacon.minor != this.lastTriggeredBeaconNumber){
+        this.lastTriggeredBeaconNumber = closestBeacon.minor
+        this.unlockExhibition(exhibition.id)
       }
     });
   }
 
   retrieveItemByBeacon(beaconNumber, exhibitionId) {
     this.events.publish('retrieveItemByBeacon', {beaconNumber: beaconNumber, exhibitionId: exhibitionId})
+  }
+
+  unlockExhibition(exhibitionId) {
+    this.storage.getItem(exhibitionId).then(exhibition => {
+      exhibition.unlocked = true
+      this.storage.setItem(exhibitionId, exhibition)
+      this.events.publish('exhibitionUnlocked')
+      this.presentExhibitionUnlockedAlert()
+    })
+  }
+
+  presentExhibitionUnlockedAlert() {
+    let messages;
+
+    this.translate.get('BEACONS.EXHIBITION_UNLOCKED_ALERT').subscribe(data => {
+      messages = data
+    })
+
+    let alert = this.alertCtrl.create({
+      title: messages['TITLE'],
+      message: messages['BODY'],
+      buttons: [
+        {
+          text: messages['BUTTONS']['OK'],
+          handler: () => {
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   presentAlert(beaconNumber, exhibitionId) {
