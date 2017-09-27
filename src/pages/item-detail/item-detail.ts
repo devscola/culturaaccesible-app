@@ -67,13 +67,13 @@ export class ItemDetail {
     this.previousButton = document.getElementsByClassName('previous')[0]
     this.nextButton = document.getElementsByClassName('next')[0]
 
-    this.platform.ready().then(() => {
-      this.beaconProvider.initialise().then((isInitialised) => {
-        if (isInitialised) {
-          this.beaconProvider.listenToBeaconEvents(this.exhibitionId);
-        }
-      });
-    });
+    // this.platform.ready().then(() => {
+    //   this.beaconProvider.initialise().then((isInitialised) => {
+    //     if (isInitialised) {
+    //       this.beaconProvider.listenToBeaconEvents(this.exhibitionId);
+    //     }
+    //   });
+    // });
   }
 
   play() {

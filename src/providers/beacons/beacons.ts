@@ -12,6 +12,7 @@ export class BeaconProvider {
   delegate: any;
   region: any;
   beacons: Beacon[] = [];
+  closestBeacon: Beacon;
   lastTriggeredBeaconNumber: number;
 
   constructor(public platform: Platform,
@@ -78,32 +79,44 @@ export class BeaconProvider {
 
   listenToBeaconEvents(exhibition) {
     this.events.subscribe('didRangeBeaconsInRegion', (data) => {
-
-      this.beacons = [];
-      let exhibitionBeaconNumber = parseInt(exhibition.beacon)
-
-      let beaconList = data.beacons;
-      beaconList.forEach((beacon) => {
-        let beaconObject = new Beacon(beacon);
-        this.beacons.push(beaconObject);
-      });
-
-      let closestBeacon = this.beacons.filter(beacon => beacon.proximity == 'ProximityImmediate')[0]
-
-      if(exhibition.unlocked && closestBeacon && closestBeacon.minor != this.lastTriggeredBeaconNumber && closestBeacon.minor != exhibitionBeaconNumber){
-        this.lastTriggeredBeaconNumber = closestBeacon.minor
-        this.events.publish('stopVideo')
-
-        this.presentAlert(closestBeacon.minor, exhibition.id)
-
-        this.events.publish('stopRanging')
-      }
-
-      if(closestBeacon && exhibitionBeaconNumber === closestBeacon.minor && closestBeacon.minor != this.lastTriggeredBeaconNumber){
-        this.lastTriggeredBeaconNumber = closestBeacon.minor
-        this.unlockExhibition(exhibition.id)
-      }
+      this.closestBeacon = this.getClosestBeacon(data)
+      this.listenToItemBeacons(exhibition)
+      this.listenToExhibitionBeacon(exhibition)
     });
+  }
+
+  getClosestBeacon(data) {
+    this.beacons = [];
+
+    let beaconList = data.beacons;
+    beaconList.forEach((beacon) => {
+      let beaconObject = new Beacon(beacon);
+      this.beacons.push(beaconObject);
+    });
+
+    return this.beacons.filter(beacon => beacon.proximity == 'ProximityImmediate')[0]
+  }
+
+  listenToItemBeacons(exhibition) {
+    let exhibitionBeaconNumber = parseInt(exhibition.beacon)
+
+    if(exhibition.unlocked && this.closestBeacon && this.closestBeacon.minor != this.lastTriggeredBeaconNumber && this.closestBeacon.minor != exhibitionBeaconNumber){
+      this.lastTriggeredBeaconNumber = this.closestBeacon.minor
+      this.events.publish('stopVideo')
+
+      this.presentAlert(this.closestBeacon.minor, exhibition.id)
+
+      this.events.publish('stopRanging')
+    }
+  }
+
+  listenToExhibitionBeacon(exhibition) {
+    let exhibitionBeaconNumber = parseInt(exhibition.beacon)
+
+    if(this.closestBeacon && exhibitionBeaconNumber === this.closestBeacon.minor && this.closestBeacon.minor != this.lastTriggeredBeaconNumber){
+      this.lastTriggeredBeaconNumber = this.closestBeacon.minor
+      this.unlockExhibition(exhibition.id)
+    }
   }
 
   retrieveItemByBeacon(beaconNumber, exhibitionId) {

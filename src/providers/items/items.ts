@@ -30,5 +30,4 @@ export class ItemsProvider {
         this.events.publish('goToItemDetail', {item: item, index: index})
       })
   }
-
 }
