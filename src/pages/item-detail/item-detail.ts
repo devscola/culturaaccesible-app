@@ -66,14 +66,6 @@ export class ItemDetail {
     this.video = document.getElementsByTagName("video")[0];
     this.previousButton = document.getElementsByClassName('previous')[0]
     this.nextButton = document.getElementsByClassName('next')[0]
-
-    // this.platform.ready().then(() => {
-    //   this.beaconProvider.initialise().then((isInitialised) => {
-    //     if (isInitialised) {
-    //       this.beaconProvider.listenToBeaconEvents(this.exhibitionId);
-    //     }
-    //   });
-    // });
   }
 
   play() {

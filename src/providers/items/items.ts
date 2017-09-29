@@ -27,6 +27,7 @@ export class ItemsProvider {
       this.retrieveList(exhibitionId).subscribe(items => {
         let item = items.find(item => item.beacon == beaconNumber )
         let index = items.indexOf(item)
+        console.log('JUAN')
         this.events.publish('goToItemDetail', {item: item, index: index})
       })
   }

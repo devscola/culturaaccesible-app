@@ -27,21 +27,25 @@ export class ExhibitionDetail {
                 private service: ExhibitionsProvider,
                 private storage: NativeStorage,
                 private itemService: ItemsProvider ) {
-    }
 
-    ionViewDidLoad() {
-      let exhibition = this.navParams.get('exhibition')
+        let exhibition = navParams.get('exhibition')
 
-      this.platform.ready().then(() => {
-        this.beaconProvider.initialise().then((isInitialised) => {
-          if (isInitialised) {
-            this.beaconProvider.listenToBeaconEvents(exhibition);
+        platform.ready().then(() => {
+          if(!beaconProvider.isInitialized){
+            beaconProvider.initialise().then((isInitialised) => {
+              if (isInitialised) {
+                beaconProvider.listenToBeaconEvents(exhibition);
+                beaconProvider.isInitialized = true
+              }
+            });
           }
         });
-      });
+    }
 
+    ionViewWillEnter() {
+      let exhibition = this.navParams.get('exhibition')
+      console.log('PEPE')
       this.events.subscribe('goToItemDetail', (data) => {
-        console.log('go to item detail se ha llamado')
         this.goToItemView(data.index)
       })
 
@@ -52,17 +56,16 @@ export class ExhibitionDetail {
       this.getExhibition(exhibition)
     }
 
+    ionViewWillLeave() {
+      this.events.unsubscribe('goToItemDetail')
+    }
+
     getExhibition(exhibition) {
       this.storage.getItem(exhibition.id).then(exhibition => {
-        this.itemService.retrieveList(exhibition.id).subscribe(items => {
-          this.hasItems = true
-          this.items = items
-        })
-        this.zone.run(() => {
-          setTimeout(() => {
-            this.exhibition = exhibition
-          }, 500)
-        })
+        this.exhibition = exhibition
+        this.items = exhibition.items
+        this.hasItems = true
+        this.beaconProvider.exhibition = exhibition
       })
     }
 

@@ -17,10 +17,20 @@ export class ExhibitionsProvider {
         )
     }
 
-    retrieve(id, isoCode) {
+    retrieve(id) {
         let headers    = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
         let options    = new RequestOptions({ headers: headers });
         let url = `${this.envVariables.baseUrl}/api/exhibition/retrieve`;
+        let payload = {"id": id}
+        return this.http.post(url, payload, options).map(exhibitions =>
+            exhibitions.json()
+        )
+    }
+
+    download(id, isoCode) {
+        let headers    = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+        let options    = new RequestOptions({ headers: headers });
+        let url = `${this.envVariables.baseUrl}/api/exhibition/download`;
         let payload = {"id": id, "iso_code": isoCode}
         return this.http.post(url, payload, options).map(exhibitions =>
             exhibitions.json()

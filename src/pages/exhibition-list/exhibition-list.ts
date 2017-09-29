@@ -90,7 +90,7 @@ export class ExhibitionList {
     }
 
     download(exhibition, isoCode) {
-      this.service.retrieve(exhibition.id, isoCode).subscribe(exhibition => {
+      this.service.download(exhibition.id, isoCode).subscribe(exhibition => {
         this.saveInLocal(exhibition)
       })
     }

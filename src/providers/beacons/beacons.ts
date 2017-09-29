@@ -14,6 +14,8 @@ export class BeaconProvider {
   beacons: Beacon[] = [];
   closestBeacon: Beacon;
   lastTriggeredBeaconNumber: number;
+  exhibition: any;
+  isInitialized: boolean = false;
 
   constructor(public platform: Platform,
               public events: Events,
@@ -39,7 +41,6 @@ export class BeaconProvider {
 
         // create a new delegate and register it with the native layer
         this.delegate = this.ibeacon.Delegate();
-
         this.delegate.didRangeBeaconsInRegion()
           .subscribe(
             data => this.events.publish('didRangeBeaconsInRegion', data),
@@ -78,11 +79,18 @@ export class BeaconProvider {
   }
 
   listenToBeaconEvents(exhibition) {
-    this.events.subscribe('didRangeBeaconsInRegion', (data) => {
-      this.closestBeacon = this.getClosestBeacon(data)
-      this.listenToItemBeacons(exhibition)
-      this.listenToExhibitionBeacon(exhibition)
-    });
+      this.exhibition = exhibition
+      this.events.subscribe('didRangeBeaconsInRegion', (data) => {
+        this.closestBeacon = this.getClosestBeacon(data)
+        let exhibitionBeaconNumber = parseInt(exhibition.beacon)
+
+        if( !this.closestBeacon || this.closestBeacon.minor == this.lastTriggeredBeaconNumber) { return }
+        if(this.closestBeacon.minor != exhibitionBeaconNumber){
+          this.listenToItemBeacons()
+        }else{
+          this.listenToExhibitionBeacon()
+        }
+      });
   }
 
   getClosestBeacon(data) {
@@ -97,25 +105,22 @@ export class BeaconProvider {
     return this.beacons.filter(beacon => beacon.proximity == 'ProximityImmediate')[0]
   }
 
-  listenToItemBeacons(exhibition) {
-    let exhibitionBeaconNumber = parseInt(exhibition.beacon)
-
-    if(exhibition.unlocked && this.closestBeacon && this.closestBeacon.minor != this.lastTriggeredBeaconNumber && this.closestBeacon.minor != exhibitionBeaconNumber){
+  listenToItemBeacons() {
+    if(this.exhibition.unlocked){
       this.lastTriggeredBeaconNumber = this.closestBeacon.minor
       this.events.publish('stopVideo')
 
-      this.presentAlert(this.closestBeacon.minor, exhibition.id)
+      this.presentAlert(this.closestBeacon.minor, this.exhibition.id)
 
       this.events.publish('stopRanging')
     }
   }
 
-  listenToExhibitionBeacon(exhibition) {
-    let exhibitionBeaconNumber = parseInt(exhibition.beacon)
-
-    if(this.closestBeacon && exhibitionBeaconNumber === this.closestBeacon.minor && this.closestBeacon.minor != this.lastTriggeredBeaconNumber){
+  listenToExhibitionBeacon() {
+    let exhibitionBeaconNumber = parseInt(this.exhibition.beacon)
+    if(exhibitionBeaconNumber === this.closestBeacon.minor){
       this.lastTriggeredBeaconNumber = this.closestBeacon.minor
-      this.unlockExhibition(exhibition.id)
+      this.unlockExhibition(this.exhibition.id)
     }
   }
 
