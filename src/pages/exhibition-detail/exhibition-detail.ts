@@ -44,7 +44,6 @@ export class ExhibitionDetail {
 
     ionViewWillEnter() {
       let exhibition = this.navParams.get('exhibition')
-      console.log('PEPE')
       this.events.subscribe('goToItemDetail', (data) => {
         this.goToItemView(data.index)
       })
