@@ -12,7 +12,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 })
 export class ExhibitionDetail {
     exhibition;
-    hasItems: boolean;
+    hasItems: boolean = false;
     items: Array<Object>;
     locked: boolean;
 
@@ -49,7 +49,7 @@ export class ExhibitionDetail {
       })
 
       this.events.subscribe('exhibitionUnlocked', (data) => {
-        this.getExhibition(exhibition)
+        this.unlockExhibition(exhibition)
       })
 
       this.getExhibition(exhibition)
@@ -57,14 +57,34 @@ export class ExhibitionDetail {
 
     ionViewWillLeave() {
       this.events.unsubscribe('goToItemDetail')
+      this.events.unsubscribe('exhibitionUnlocked')
     }
 
     getExhibition(exhibition) {
       this.storage.getItem(exhibition.id).then(exhibition => {
         this.exhibition = exhibition
-        this.items = exhibition.items
-        this.hasItems = true
-        this.beaconProvider.exhibition = exhibition
+        if(exhibition.items.length > 0){
+          this.items = exhibition.items
+          this.hasItems = true
+        }
+      })
+    }
+
+    unlockExhibition(exhibition) {
+      this.storage.getItem(exhibition.id).then(exhibition => {
+        this.zone.run(() => {
+          setTimeout(() => {
+            this.exhibition = null
+            this.exhibition = exhibition
+            if(exhibition.items.length > 0){
+              this.items = exhibition.items
+              this.hasItems = true
+            }
+            this.beaconProvider.exhibition = exhibition
+            this.beaconProvider.presentExhibitionUnlockedAlert()
+          },3000)
+        });
+
       })
     }
 
