@@ -73,18 +73,14 @@ export class ExhibitionDetail {
     unlockExhibition(exhibition) {
       this.storage.getItem(exhibition.id).then(exhibition => {
         this.zone.run(() => {
-          setTimeout(() => {
-            this.exhibition = null
-            this.exhibition = exhibition
-            if(exhibition.items.length > 0){
-              this.items = exhibition.items
-              this.hasItems = true
-            }
-            this.beaconProvider.exhibition = exhibition
-            this.beaconProvider.presentExhibitionUnlockedAlert()
-          },3000)
+          this.exhibition = null
+          this.exhibition = exhibition
+          if(exhibition.items.length > 0){
+            this.items = exhibition.items
+            this.hasItems = true
+          }
+          this.beaconProvider.exhibition = exhibition
         });
-
       })
     }
 

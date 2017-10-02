@@ -131,8 +131,10 @@ export class BeaconProvider {
   unlockExhibition(exhibitionId) {
     this.storage.getItem(exhibitionId).then(exhibition => {
       exhibition.unlocked = true
-      this.storage.setItem(exhibitionId, exhibition)
-      this.events.publish('exhibitionUnlocked')
+      this.storage.setItem(exhibitionId, exhibition).then(() => {
+        this.presentExhibitionUnlockedAlert()
+        this.events.publish('exhibitionUnlocked')
+      })
     })
   }
 
