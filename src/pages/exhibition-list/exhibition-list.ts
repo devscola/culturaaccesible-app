@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, LoadingController } from 'ionic-angular';
 import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,23 +18,30 @@ export class ExhibitionList {
     constructor(public navCtrl: NavController,
                 public alertCtrl: AlertController,
                 public navParams: NavParams,
+                public loadingCtrl: LoadingController,
                 private nativeStorage: NativeStorage,
                 public translate: TranslateService,
                 private service: ExhibitionsProvider) {
+      this.getStoredData()
+      this.setExhibtitions()
+    }
 
-        this.service.retrieveList().subscribe(exhibitions => {
-            if(exhibitions.length > 0){
-                this.hasExhibitions = true
-                this.allExhibitions = exhibitions
-                this.filterExhibitions()
-            }else {
-                this.showNoExhibitionMessage()
-            }
-        })
+    getStoredData() {
+      this.nativeStorage.keys().then((data) => {
+        this.storedData = data
+      })
+    }
 
-        this.nativeStorage.keys().then((data) => {
-          this.storedData = data
-        })
+    setExhibtitions() {
+      this.service.retrieveList().subscribe(exhibitions => {
+        if(exhibitions.length > 0){
+          this.hasExhibitions = true
+          this.allExhibitions = exhibitions
+          this.filterExhibitions()
+        }else {
+          this.showNoExhibitionMessage()
+        }
+      })
     }
 
     showNoExhibitionMessage() {
@@ -89,6 +96,18 @@ export class ExhibitionList {
       alert.present();
     }
 
+    presentLoading() {
+      const loading = this.loadingCtrl.create({
+        content: 'Please wait...'
+      });
+
+      loading.present();
+
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
+    }
+
     download(exhibition, isoCode) {
       this.service.download(exhibition.id, isoCode).subscribe(exhibition => {
         this.saveInLocal(exhibition)
@@ -99,6 +118,8 @@ export class ExhibitionList {
       this.nativeStorage.setItem(exhibition.id, exhibition)
           .then(
             () => {
+              this.presentLoading()
+              this.getStoredData()
               console.log('Stored item!')
             },
             error => console.error('Error storing item', error)
@@ -106,7 +127,10 @@ export class ExhibitionList {
     }
 
     delete(exhibition) {
-      this.nativeStorage.remove(exhibition.id)
+      this.nativeStorage.remove(exhibition.id).then(() => {
+        this.presentLoading()
+        this.getStoredData()
+      })
     }
 
     goToDetail(exhibition) {

@@ -17,7 +17,7 @@
                 </ion-card-header>
                 <ion-card-content>
                     {{exhibition.short_description}}
-                    <button ion-button *ngIf="isDownloaded(exhibition)" (click)="delete(exhibition)">
+                    <button ion-button color="danger" *ngIf="isDownloaded(exhibition)" (click)="delete(exhibition)">
                         <ion-icon name="ios-trash-outline"></ion-icon>
                     </button>
                     <button ion-button *ngIf="!isDownloaded(exhibition)" (click)="goToDetail(exhibition)">
