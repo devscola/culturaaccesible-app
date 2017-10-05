@@ -29,6 +29,9 @@ export class BeaconProvider {
     events.subscribe('startRanging', (result) => {
       this.startRanging()
     })
+    events.subscribe('cleanLastTriggeredBeacon', (result) => {
+      this.lastTriggeredBeaconNumber = null
+    })
   }
 
   initialise(): any {
@@ -83,7 +86,6 @@ export class BeaconProvider {
       this.events.subscribe('didRangeBeaconsInRegion', (data) => {
         this.closestBeacon = this.getClosestBeacon(data)
         let exhibitionBeaconNumber = parseInt(exhibition.beacon)
-
         if( !this.closestBeacon || this.closestBeacon.minor == this.lastTriggeredBeaconNumber) { return }
         if(this.closestBeacon.minor != exhibitionBeaconNumber){
           this.listenToItemBeacons()
@@ -117,8 +119,11 @@ export class BeaconProvider {
   }
 
   listenToExhibitionBeacon() {
+    if(this.exhibition.unlocked === undefined){
+      this.exhibition.unlocked = false
+    }
     let exhibitionBeaconNumber = parseInt(this.exhibition.beacon)
-    if(exhibitionBeaconNumber === this.closestBeacon.minor){
+    if(!this.exhibition.unlocked && exhibitionBeaconNumber === this.closestBeacon.minor){
       this.lastTriggeredBeaconNumber = this.closestBeacon.minor
       this.unlockExhibition(this.exhibition.id)
     }

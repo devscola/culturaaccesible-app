@@ -44,6 +44,8 @@ export class ExhibitionDetail {
 
     ionViewWillEnter() {
       let exhibition = this.navParams.get('exhibition')
+      this.beaconProvider.startRanging()
+
       this.events.subscribe('goToItemDetail', (data) => {
         this.goToItemView(data.index)
       })
@@ -62,6 +64,7 @@ export class ExhibitionDetail {
 
     getExhibition(exhibition) {
       this.storage.getItem(exhibition.id).then(exhibition => {
+        this.beaconProvider.listenToBeaconEvents(exhibition)
         this.exhibition = exhibition
         if(exhibition.items.length > 0){
           this.items = exhibition.items
