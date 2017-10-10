@@ -11,8 +11,12 @@ export class ExhibitionsProvider {
                 @Inject(EnvVariables) private envVariables) {}
 
     retrieveList() {
-        let url = `${this.envVariables.baseUrl}/api/exhibition/list`;
-        return this.http.post(url, '').map(exhibitions =>
+        let headers    = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+        let options    = new RequestOptions({ headers: headers });
+        let isoCode = navigator.language.split('-')[0]
+        let payload = {"iso_code": isoCode}
+        let url = `${this.envVariables.baseUrl}/api/exhibition/translated-list`;
+        return this.http.post(url, payload, options).map(exhibitions =>
             exhibitions.json()
         )
     }
