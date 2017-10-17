@@ -76,7 +76,12 @@ export class ExhibitionList {
         messages = data
       });
 
-      exhibition.languages = ['es', 'cat', 'en']
+      var isoCodeTranslations = {
+        'es': 'Castellano',
+        'cat': 'Català',
+        'en': 'English'
+      }
+
       let alert = this.alertCtrl.create({
         title: messages['TITLE'],
         message: messages['BODY'],
@@ -96,8 +101,8 @@ export class ExhibitionList {
           }
         ]
       });
-      exhibition.languages.forEach((locale) => {
-        alert.addInput({type: 'radio', label: locale, value: locale})
+      exhibition.iso_codes.forEach((locale) => {
+        alert.addInput({type: 'radio', label: isoCodeTranslations[locale], value: locale})
       })
       alert.present();
     }
