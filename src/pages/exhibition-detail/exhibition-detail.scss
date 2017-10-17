@@ -1,3 +1,23 @@
 page-exhibition-detail {
+  #exhibition-detail{
+    color: white;
+  }
+  .item-list{
+    margin-top: 30px;
+  }
 
+  .item{
+    margin-bottom: 10px
+  }
+
+  .author-date{
+    p{
+      color: map-get($colors, background) !important
+    }
+  }
+
+  .name{
+    color: map-get($colors, background);
+    font-size: 20px !important
+  }
 }

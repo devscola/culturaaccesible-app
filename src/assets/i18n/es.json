@@ -13,7 +13,7 @@
             "FROM": "Desde:",
             "TO": "Hasta:",
             "BUTTONS": {
-                "MUSEUM": "Museo"
+                "MUSEUM": "Info museo"
             }
         },
         "LIST": {

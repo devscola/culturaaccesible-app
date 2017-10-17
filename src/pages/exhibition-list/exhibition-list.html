@@ -7,25 +7,42 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="blue-background">
     <ion-list *ngIf="hasExhibitions" id="exhibition-list">
         <ion-card class="exhibition-item" *ngFor="let exhibition of exhibitions">
-            <img (click)="goToDetail(exhibition)" src={{exhibition.image}}/>
-            <div class="info">
-                <ion-card-header (click)="goToDetail(exhibition)">
+            <ion-grid>
+              <ion-row>
+                <ion-col col-5 class="image-col">
+                  <img (click)="goToDetail(exhibition)" src={{exhibition.image}}/>
+                </ion-col>
+                <ion-col col-7 class="info-col">
+                  <h2 (click)="goToDetail(exhibition)">
                     {{exhibition.name}}
-                </ion-card-header>
-                <ion-card-content>
-                    {{exhibition.short_description}}
-                    <button ion-button color="danger" *ngIf="isDownloaded(exhibition)" (click)="delete(exhibition)">
-                        <ion-icon name="ios-trash-outline"></ion-icon>
-                    </button>
-                    <button ion-button *ngIf="!isDownloaded(exhibition)" (click)="goToDetail(exhibition)">
-                        <ion-icon name="ios-cloud-download-outline"></ion-icon>
-                    </button>
-                </ion-card-content>
-                <button ion-button (click)="goToMuseum(exhibition.museum_id)">{{'EXHIBITIONS.BUTTONS.MUSEUM' | translate}}</button>
-            </div>
+                  </h2>
+                  <span>
+                    {{exhibition.general_description}}
+                  </span>
+                </ion-col>
+              </ion-row>
+              <ion-row class="actions">
+                <ion-col col-6>
+                  <button ion-button clear color="background" *ngIf="isDownloaded(exhibition)" (click)="delete(exhibition)">
+                      <ion-icon name="ios-trash"></ion-icon>
+                  </button>
+                </ion-col >
+                <ion-col col-6 class="right">
+                  <button ion-button clear color="background" *ngIf="!isDownloaded(exhibition)" (click)="goToDetail(exhibition)">
+                      <ion-icon name="ios-cloud-download"></ion-icon>
+                  </button>
+                  <button ion-button clear color="background" class="enter-button" *ngIf="isDownloaded(exhibition)" (click)="goToDetail(exhibition)">
+                      <ion-icon name="arrow-forward"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                  <button ion-button block color="active" (click)="goToMuseum(exhibition.museum_id)">{{'EXHIBITIONS.BUTTONS.MUSEUM' | translate}}</button>
+              </ion-row>
+            </ion-grid>
         </ion-card>
     </ion-list>
     <span *ngIf="!hasExhibitions" class="alert-message">{{'EXHIBITIONS.LIST.EMPTY_ALERT' | translate}}</span>

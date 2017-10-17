@@ -1,15 +1,24 @@
 page-exhibition-list {
-  ion-card{
-    text-align: center;
-  }
-  ion-card img {
-    display: inline-block;
-    width: 48%;
+  .right{
+    text-align: right;
   }
 
-  .info{
-    text-align: left;
-    display: inline-block;
-    width: 48%;
+  .image-col{
+    border-right: 1px solid map-get($colors, background);
+  }
+
+  .info-col{
+    color: map-get($colors, background);
+    h2{
+      font-size: 1.5em;
+    }
+  }
+
+  .actions{
+    button{
+      ion-icon{
+        font-size: 30px
+      }
+    }
   }
 }

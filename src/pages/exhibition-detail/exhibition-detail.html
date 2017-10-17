@@ -7,30 +7,29 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
-    <div *ngIf="exhibition?.unlocked">
+<ion-content padding class="blue-background">
+    <div>
       <div id="exhibition-detail">
           <h2>{{exhibition?.name}}</h2>
           <p>{{'EXHIBITIONS.DETAIL.FROM' | translate}} {{exhibition?.date_start}} - {{'EXHIBITIONS.DETAIL.TO' | translate}} {{exhibition?.date_finish}}</p>
-          <p id="extended-description">{{exhibition?.description}}</p>
-          <button id="enter-museum" ion-button (click)="goToMuseum()">{{'EXHIBITIONS.DETAIL.BUTTONS.MUSEUM' | translate}}</button>
+          <p id="extended-description">{{exhibition?.extended_description}}</p>
+          <button id="enter-museum" ion-button block round outline color="light" (click)="goToMuseum()">{{'EXHIBITIONS.DETAIL.BUTTONS.MUSEUM' | translate}}</button>
       </div>
       <div class="item-list">
-          <ion-list *ngIf="hasItems" id="item-list">
-              <ion-card class="item" *ngFor="let item of items; let index = index" (click)="goToItemView(index)">
-                  <img src="{{item.image}}"/>
-                  <div class="item-info">
-                      <ion-card-header>
-                          {{item.name}}
-                      </ion-card-header>
-                      <ion-card-content *ngIf="item.author">
-                          {{item.author}}
-                      </ion-card-content>
-                      <ion-card-content *ngIf="item.date">
-                          {{item.date}}
-                      </ion-card-content>
-                  </div>
-              </ion-card>
+          <ion-list no-lines *ngIf="hasItems" id="item-list">
+            <ion-item class="item" *ngFor="let item of items; let index = index" (click)="goToItemView(index)">
+              <ion-thumbnail item-start>
+                <img src="{{item.image}}">
+              </ion-thumbnail>
+              <h2 class="name">{{item.name}}</h2>
+              <div class="author-date">
+                <p>{{item.author}}</p>
+                <p>{{item.date}}</p>
+              </div>
+              <button ion-button clear item-end>
+                <ion-icon name="arrow-forward"></ion-icon>
+              </button>
+            </ion-item>
           </ion-list>
       </div>
     </div>
