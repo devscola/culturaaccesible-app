@@ -13,7 +13,7 @@
             "FROM": "Open from:",
             "TO": "To:",
             "BUTTONS": {
-                "MUSEUM": "Museum"
+                "MUSEUM": "Museum info"
             }
         },
         "LIST": {

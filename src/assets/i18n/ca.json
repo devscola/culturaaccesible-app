@@ -13,7 +13,7 @@
             "FROM": "Des de:",
             "TO": "Fins a:",
             "BUTTONS": {
-                "MUSEUM": "Museu"
+                "MUSEUM": "Info museu"
             }
         },
         "LIST": {
