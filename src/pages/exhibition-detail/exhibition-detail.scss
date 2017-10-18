@@ -20,4 +20,31 @@ page-exhibition-detail {
     color: map-get($colors, background);
     font-size: 20px !important
   }
+
+  .bluetooth{
+    text-align: center;
+    .wrapper{
+      background-color: white;
+      width: 90%;
+      margin-left: 5%;
+      padding: 5%;
+      .message{
+        margin-top: 40px;
+        color: map-get($colors, active);
+        line-height: 2;
+      }
+      .icon{
+        font-size: 30px;
+        color: map-get($colors, background);
+      }
+    }
+    .image{
+        background-color: white;
+        border-radius: 100px;
+        width: 80px;
+        padding: 5%;
+        bottom: -40px;
+        position: relative
+    }
+  }
 }

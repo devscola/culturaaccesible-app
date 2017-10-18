@@ -65,9 +65,10 @@
             "TITLE": "Estàs prop de l'obra",
             "BODY": "Vols saber més?",
             "BUTTONS": {
-                "YES": "Sí",
-                "NO": "No"
-              }
+              "YES": "Sí",
+              "NO": "No"
+            },
+            "BLUETOOTH": "Per a obrir la porta"
         }
     }
 }

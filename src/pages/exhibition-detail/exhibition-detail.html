@@ -15,7 +15,16 @@
           <p id="extended-description">{{exhibition?.extended_description}}</p>
           <button id="enter-museum" ion-button block round outline color="light" (click)="goToMuseum()">{{'EXHIBITIONS.DETAIL.BUTTONS.MUSEUM' | translate}}</button>
       </div>
-      <div class="item-list">
+      <div *ngIf="locked" class="bluetooth">
+          <img class="image" src="https://trello-attachments.s3.amazonaws.com/58e4c7c3c40db2d4f44c74aa/592d2b06ccd804051d2bd314/9126f357c17774b961ed645becdc6a0c/favicon.png">
+          <div class="wrapper">
+            <h5 class="message">
+              {{'BEACONS.ALERT.BLUETOOTH' | translate}}
+            </h5>
+            <ion-icon class="icon" name="bluetooth"></ion-icon>
+          </div>
+      </div>
+      <div class="item-list" *ngIf="!locked">
           <ion-list no-lines *ngIf="hasItems" id="item-list">
             <ion-item class="item" *ngFor="let item of items; let index = index" (click)="goToItemView(index)">
               <ion-thumbnail item-start>
