@@ -24,7 +24,7 @@
             <ion-icon class="icon" name="bluetooth"></ion-icon>
           </div>
       </div>
-      <div class="item-list" *ngIf="!locked">
+      <div *ngIf="!locked" class="item-list">
           <ion-list no-lines *ngIf="hasItems" id="item-list">
             <ion-item class="item" *ngFor="let item of items; let index = index" (click)="goToItemView(index)">
               <ion-thumbnail item-start>

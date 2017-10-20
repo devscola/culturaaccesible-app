@@ -2,6 +2,7 @@ import { Component, NgZone } from '@angular/core';
 import { Platform, Events, IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 import { ItemsProvider } from '../../providers/items/items'
 import { BeaconProvider } from '../../providers/beacons/beacons'
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @IonicPage()
 @Component({
@@ -24,6 +25,7 @@ export class ItemDetail {
               public viewCtrl: ViewController,
               public platform: Platform,
               public events: Events,
+              public storage: NativeStorage,
               public beaconProvider: BeaconProvider,
               public navParams: NavParams,
               private service: ItemsProvider) {
@@ -56,11 +58,13 @@ export class ItemDetail {
       this.position = index
     }
 
-    this.service.retrieveList(this.exhibitionId).subscribe(items => {
-        this.items = items
-        this.item = items[this.position]
+    this.storage.getItem(this.exhibitionId).then(exhibition => {
+      if(exhibition.items.length > 0){
+        this.items = exhibition.items
+        this.item = this.items[this.position]
         this.disableIfFirstItem()
         this.disableIfLastItem()
+      }
     })
 
     this.video = document.getElementsByTagName("video")[0];

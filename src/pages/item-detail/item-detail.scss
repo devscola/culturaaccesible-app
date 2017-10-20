@@ -1,16 +1,22 @@
 page-item-detail {
+  text-align: center;
+  h3{
+    color: white
+  }
+
   .scrollable{
     width: 90%;
     height: 140px;
+    font-size: 1.5em;
     position: fixed;
     bottom: 16px;
-    text-align: center
+    line-height: 2;
+    color: white;
   }
 
   .media-controls{
     width: 100%;
     height: 40px;
-    text-align: center;
     font-size: 3em;
   }
 

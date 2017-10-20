@@ -8,13 +8,14 @@
 </ion-header>
 
 
-<ion-content padding>
-  <p>{{item?.name}}</p>
-  <video src="{{item?.video}}" fullscreen="fullscreen" width="100%"></video>
+<ion-content padding class="blue-background">
+  <h3>{{item?.name}}</h3>
+  <video src="{{item?.video}}" width="100%" webkit-playsinline></video>
   <div class="media-controls">
-    <button ion-button class="previous" (click)="goToPreviewItem()"><ion-icon name="rewind"></ion-icon></button>
-    <button ion-button class="toggle-play {{action}}" (click)="togglePlay()"><ion-icon name="{{action}}"></ion-icon></button>
-    <button ion-button class="next" (click)="goToNextItem()"><ion-icon name="fastforward"></ion-icon></button>
+    <button ion-button round outline color="light" class="previous" (click)="goToPreviewItem()"><ion-icon name="rewind"></ion-icon></button>
+    <button ion-button round outline color="light" class="toggle-play {{action}}" (click)="togglePlay()">  <ion-icon name="{{action}}"></ion-icon>
+    </button>
+    <button ion-button round outline color="light" class="next" (click)="goToNextItem()"><ion-icon name="fastforward"></ion-icon></button>
   </div>
   <ion-scroll class="scrollable" scrollY="true">
     <p>{{item?.description}}</p>

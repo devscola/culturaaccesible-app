@@ -14,7 +14,7 @@ export class ExhibitionDetail {
     exhibition;
     hasItems: boolean = false;
     items: Array<Object>;
-    locked: boolean;
+    locked: boolean = true;
 
     constructor(public navCtrl: NavController,
                 public alertCtrl: AlertController,
@@ -45,6 +45,10 @@ export class ExhibitionDetail {
     ionViewWillEnter() {
       let exhibition = this.navParams.get('exhibition')
       this.beaconProvider.startRanging()
+
+      setTimeout(() => {
+        this.locked = false
+      }, 3000)
 
       this.events.subscribe('goToItemDetail', (data) => {
         this.goToItemView(data.index)
