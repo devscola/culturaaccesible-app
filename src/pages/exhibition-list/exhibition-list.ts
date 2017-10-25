@@ -23,11 +23,10 @@ export class ExhibitionList {
                 private nativeStorage: NativeStorage,
                 public translate: TranslateService,
                 private service: ExhibitionsProvider) {
-      this.getStoredData()
-      this.setExhibtitions()
     }
 
     ionViewWillEnter() {
+      this.getStoredData()
       this.events.publish('stopRanging')
       this.events.publish('cleanLastTriggeredBeacon')
     }
@@ -35,6 +34,7 @@ export class ExhibitionList {
     getStoredData() {
       this.nativeStorage.keys().then((data) => {
         this.storedData = data
+        this.setExhibtitions()
       })
     }
 
@@ -66,6 +66,7 @@ export class ExhibitionList {
                 activeExhibitions.push(exhibition)
             }
         }
+
         this.exhibitions = activeExhibitions
     }
 

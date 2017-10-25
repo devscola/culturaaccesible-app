@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-    rootPage: any = 'HomePage';
+    rootPage: any = 'ExhibitionList';
 
     pages: Array<{title: string, component: any, id: string}>;
 
