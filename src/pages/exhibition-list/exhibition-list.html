@@ -45,5 +45,13 @@
             </ion-grid>
         </ion-card>
     </ion-list>
-    <span *ngIf="!hasExhibitions" class="alert-message">{{'EXHIBITIONS.LIST.EMPTY_ALERT' | translate}}</span>
+    <div *ngIf="!hasExhibitions" class="message-container">
+        <img class="image" src="https://trello-attachments.s3.amazonaws.com/58e4c7c3c40db2d4f44c74aa/592d2b06ccd804051d2bd314/9126f357c17774b961ed645becdc6a0c/favicon.png">
+        <div class="wrapper">
+          <h5 class="message">
+            {{'EXHIBITIONS.LIST.EMPTY_ALERT' | translate}}
+          </h5>
+          <ion-icon class="icon" name="list"></ion-icon>
+        </div>
+    </div>
 </ion-content>
