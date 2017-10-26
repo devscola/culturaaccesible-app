@@ -24,7 +24,7 @@
             <ion-icon class="icon" name="bluetooth"></ion-icon>
           </div>
       </div>
-      <div *ngIf="exhibition?.unlocked" class="item-list">
+      <!-- <div *ngIf="exhibition?.unlocked" class="item-list">
           <ion-list no-lines *ngIf="hasItems" id="item-list">
             <ion-item class="item" *ngFor="let item of items; let index = index" (click)="goToItemView(index)">
               <ion-thumbnail item-start>
@@ -40,6 +40,15 @@
               </button>
             </ion-item>
           </ion-list>
+      </div> -->
+      <div *ngIf="exhibition?.unlocked" class="message-container">
+        <img class="image" src="https://trello-attachments.s3.amazonaws.com/58e4c7c3c40db2d4f44c74aa/592d2b06ccd804051d2bd314/9126f357c17774b961ed645becdc6a0c/favicon.png">
+        <div class="wrapper">
+          <h5 class="message">
+            {{'BEACONS.ALERT.NAVIGATE' | translate}}
+          </h5>
+          <ion-icon class="icon" name="bluetooth"></ion-icon>
+        </div>
       </div>
     </div>
 </ion-content>

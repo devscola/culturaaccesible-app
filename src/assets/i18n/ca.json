@@ -68,7 +68,8 @@
               "YES": "Sí",
               "NO": "No"
             },
-            "BLUETOOTH": "Per a obrir la porta"
+            "BLUETOOTH": "Per a obrir la porta",
+            "NAVIGATE": "Donat un paseig per la sala per a ver les obres"
         }
     }
 }

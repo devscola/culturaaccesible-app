@@ -79,7 +79,7 @@ export class ExhibitionList {
 
       var isoCodeTranslations = {
         'es': 'Castellano',
-        'cat': 'Català',
+        'cat': 'Valencià',
         'en': 'English'
       }
 

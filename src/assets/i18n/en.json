@@ -68,7 +68,8 @@
           "YES": "Yes",
           "NO": "No"
         },
-        "BLUETOOTH": "To display the content you have to activate the bluetooth and aproach the front door of exhibition/museum"
+        "BLUETOOTH": "To display the content you have to activate the bluetooth and aproach the front door of exhibition/museum",
+        "NAVIGATE": "Navigate arround the room and discover the artworks"
       },
       "EXHIBITION_UNLOCKED_ALERT": {
         "TITLE": "Exhibition unlocked",
