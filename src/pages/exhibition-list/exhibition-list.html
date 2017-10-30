@@ -40,7 +40,9 @@
                 </ion-col>
               </ion-row>
               <ion-row>
-                  <button ion-button block color="active" (click)="goToMuseum(exhibition.museum_id)">{{'EXHIBITIONS.BUTTONS.MUSEUM' | translate}}</button>
+                  <button ion-button block color="active" (click)="goToMuseum(exhibition.museum_id)">
+                    {{exhibition.museum.name}}
+                  </button>
               </ion-row>
             </ion-grid>
         </ion-card>
