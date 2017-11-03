@@ -41,7 +41,7 @@ export class BeaconProvider {
 
         // Request permission to use location on iOS
         this.ibeacon.requestAlwaysAuthorization();
-
+        this.ibeacon.requestWhenInUseAuthorization();
         // create a new delegate and register it with the native layer
         this.delegate = this.ibeacon.Delegate();
         this.delegate.didRangeBeaconsInRegion()
@@ -82,17 +82,17 @@ export class BeaconProvider {
   }
 
   listenToBeaconEvents(exhibition) {
-      this.exhibition = exhibition
-      this.events.subscribe('didRangeBeaconsInRegion', (data) => {
-        this.closestBeacon = this.getClosestBeacon(data)
-        let exhibitionBeaconNumber = parseInt(exhibition.beacon)
-        if( !this.closestBeacon || this.closestBeacon.minor == this.lastTriggeredBeaconNumber) { return }
-        if(this.closestBeacon.minor != exhibitionBeaconNumber){
-          this.listenToItemBeacons()
-        }else{
-          this.listenToExhibitionBeacon()
-        }
-      });
+    this.exhibition = exhibition
+    this.events.subscribe('didRangeBeaconsInRegion', (data) => {
+      this.closestBeacon = this.getClosestBeacon(data)
+      let exhibitionBeaconNumber = parseInt(exhibition.beacon)
+      if( !this.closestBeacon || this.closestBeacon.minor == this.lastTriggeredBeaconNumber) { return }
+      if(this.closestBeacon.minor != exhibitionBeaconNumber){
+        this.listenToItemBeacons()
+      }else{
+        this.listenToExhibitionBeacon()
+      }
+    });
   }
 
   getClosestBeacon(data) {

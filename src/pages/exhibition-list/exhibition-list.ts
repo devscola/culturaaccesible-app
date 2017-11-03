@@ -127,7 +127,7 @@ export class ExhibitionList {
     download(exhibition, isoCode) {
       this.service.download(exhibition.id, isoCode).subscribe(exhibition => {
         this.saveInLocal(exhibition)
-        this.downloadImage(exhibition.image)
+        this.downloadMedia(exhibition)
       })
     }
 
@@ -143,13 +143,30 @@ export class ExhibitionList {
           );
     }
 
-    downloadImage(image) {
-      let fileTransfer = this.transfer.create();
-      fileTransfer.download(image, this.file.dataDirectory + 'file.pdf').then((entry) => {
-        console.log('download complete: ' + entry.toURL());
-      }, (error) => {
-        console.log(error)
-      });
+    extractMedia(exhibition){
+      let media = []
+      media.push(exhibition.image)
+      exhibition.items.forEach(function(item){
+        media.push(item.image)
+        item.children.forEach(function(child){
+          media.push(child.image)
+        })
+      })
+      return media
+    }
+
+    downloadMedia(exhibition) {
+      let media = this.extractMedia(exhibition)
+      let counter = 0
+      media.forEach(function(image){
+        let fileTransfer: FileTransferObject = this.transfer.create();
+        counter += 1
+        fileTransfer.download(image, this.file.dataDirectory + 'image-' + counter + '.jpg').then((entry) => {
+          console.log('download complete: ' + entry.toURL());
+        }, (error) => {
+          console.log(error)
+        });
+      }.bind(this))
     }
 
     delete(exhibition) {
