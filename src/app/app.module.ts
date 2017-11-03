@@ -18,6 +18,7 @@ import { ItemsProvider } from '../providers/items/items';
 import { BeaconProvider } from '../providers/beacons/beacons';
 
 import { NativeStorage } from '@ionic-native/native-storage';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -53,7 +54,8 @@ export function createTranslateLoader(http: Http) {
         ItemsProvider,
         BeaconProvider,
         IBeacon,
-        NativeStorage
+        NativeStorage,
+        FileTransfer
     ]
 })
 export class AppModule {}

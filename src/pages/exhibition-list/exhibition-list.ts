@@ -3,6 +3,8 @@ import { IonicPage, NavController, AlertController, NavParams, LoadingController
 import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { TranslateService } from '@ngx-translate/core';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
@@ -22,7 +24,9 @@ export class ExhibitionList {
                 public loadingCtrl: LoadingController,
                 private nativeStorage: NativeStorage,
                 public translate: TranslateService,
-                private service: ExhibitionsProvider) {
+                private service: ExhibitionsProvider,
+                private transfer: FileTransfer,
+                private file: File) {
     }
 
     ionViewWillEnter() {
@@ -123,6 +127,7 @@ export class ExhibitionList {
     download(exhibition, isoCode) {
       this.service.download(exhibition.id, isoCode).subscribe(exhibition => {
         this.saveInLocal(exhibition)
+        this.downloadImage(exhibition.image)
       })
     }
 
@@ -136,6 +141,15 @@ export class ExhibitionList {
             },
             error => console.error('Error storing item', error)
           );
+    }
+
+    downloadImage(image) {
+      let fileTransfer = this.transfer.create();
+      fileTransfer.download(image, this.file.dataDirectory + 'file.pdf').then((entry) => {
+        console.log('download complete: ' + entry.toURL());
+      }, (error) => {
+        console.log(error)
+      });
     }
 
     delete(exhibition) {
