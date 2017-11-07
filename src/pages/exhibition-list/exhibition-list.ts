@@ -126,8 +126,22 @@ export class ExhibitionList {
 
     download(exhibition, isoCode) {
       this.service.download(exhibition.id, isoCode).subscribe(exhibition => {
-        this.saveInLocal(exhibition)
-        this.downloadMedia(exhibition)
+        exhibition.items.map((item) => {
+          this.downloadMedia(item.name, item.video).then((entry) => {
+            console.log('download complete: ' + entry.toURL());
+            item.video = entry.toURL()
+          }, (error) => {
+            console.log(error)
+          });
+          return item
+        })
+
+        // this.downloadAllMedia(exhibition)
+        setTimeout(() => {
+          console.log("exhibition.items[0].video")
+          console.log(exhibition.items[0].video)
+          this.saveInLocal(exhibition)
+        }, 3000)
       })
     }
 
@@ -143,30 +157,23 @@ export class ExhibitionList {
           );
     }
 
-    extractMedia(exhibition){
-      let media = []
-      media.push(exhibition.image)
-      exhibition.items.forEach(function(item){
-        media.push(item.image)
-        item.children.forEach(function(child){
-          media.push(child.image)
-        })
-      })
-      return media
+    downloadAllMedia(exhibition){
+      exhibition.items.forEach(function(item, index){
+        this.downloadMedia(item.name, item.video)
+
+        // item.children.forEach(function(child){
+        //   this.downloadMedia(item.name, child.video)
+        //   child.children.forEach(function(subchild){
+        //     this.downloadMedia(item.name, subchild.video)
+        //   })
+        // })
+      }.bind(this))
     }
 
-    downloadMedia(exhibition) {
-      let media = this.extractMedia(exhibition)
-      let counter = 0
-      media.forEach(function(image){
-        let fileTransfer: FileTransferObject = this.transfer.create();
-        counter += 1
-        fileTransfer.download(image, this.file.dataDirectory + 'image-' + counter + '.jpg').then((entry) => {
-          console.log('download complete: ' + entry.toURL());
-        }, (error) => {
-          console.log(error)
-        });
-      }.bind(this))
+    downloadMedia(name, source) {
+      console.log('he entrado en download media souuuuuuuurce - ' + source)
+      let fileTransfer: FileTransferObject = this.transfer.create();
+      return fileTransfer.download(source, this.file.dataDirectory + 'video-' + name + '.mp4')
     }
 
     delete(exhibition) {

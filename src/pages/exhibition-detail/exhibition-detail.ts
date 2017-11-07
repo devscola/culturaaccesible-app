@@ -63,6 +63,7 @@ export class ExhibitionDetail {
 
     getExhibition(exhibition) {
       this.storage.getItem(exhibition.id).then(exhibition => {
+        console.log(exhibition.items[0].video)
         this.beaconProvider.listenToBeaconEvents(exhibition)
         this.exhibition = exhibition
         if(exhibition.items.length > 0){

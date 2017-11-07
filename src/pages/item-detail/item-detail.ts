@@ -62,6 +62,7 @@ export class ItemDetail {
       if(exhibition.items.length > 0){
         this.items = exhibition.items
         this.item = this.items[this.position]
+        this.item.video = 'file:///var/mobile/Containers/Data/Application/F6A9497A-3862-46BA-A7F4-80AE3F85554B/Library/NoCloud/video-fasfd.mp4'
         this.disableIfFirstItem()
         this.disableIfLastItem()
       }
