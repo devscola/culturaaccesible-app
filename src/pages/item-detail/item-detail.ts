@@ -62,6 +62,7 @@ export class ItemDetail {
       if(exhibition.items.length > 0){
         this.items = exhibition.items
         this.item = this.items[this.position]
+        console.log(this.item.video, '****************************************************')
         this.disableIfFirstItem()
         this.disableIfLastItem()
       }

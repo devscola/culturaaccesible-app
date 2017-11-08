@@ -16,10 +16,10 @@ import { ExhibitionsProvider } from '../providers/exhibitions/exhibitions';
 import { MuseumProvider } from '../providers/museum/museum';
 import { ItemsProvider } from '../providers/items/items';
 import { BeaconProvider } from '../providers/beacons/beacons';
+import { DownloadProvider } from '../providers/downloader/downloader';
 
 import { NativeStorage } from '@ionic-native/native-storage';
 import { FileTransfer } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
 
 export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -54,10 +54,10 @@ export function createTranslateLoader(http: Http) {
         MuseumProvider,
         ItemsProvider,
         BeaconProvider,
+        DownloadProvider,
         IBeacon,
         NativeStorage,
-        FileTransfer,
-        File
+        FileTransfer
     ]
 })
 export class AppModule {}

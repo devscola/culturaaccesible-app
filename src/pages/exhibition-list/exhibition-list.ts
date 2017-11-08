@@ -3,8 +3,8 @@ import { IonicPage, NavController, AlertController, NavParams, LoadingController
 import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { TranslateService } from '@ngx-translate/core';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
+import { DownloadProvider } from '../../providers/downloader/downloader';
+
 
 @IonicPage()
 @Component({
@@ -25,8 +25,7 @@ export class ExhibitionList {
                 private nativeStorage: NativeStorage,
                 public translate: TranslateService,
                 private service: ExhibitionsProvider,
-                private transfer: FileTransfer,
-                private file: File) {
+                private downloader: DownloadProvider) {
     }
 
     ionViewWillEnter() {
@@ -126,8 +125,10 @@ export class ExhibitionList {
 
     download(exhibition, isoCode) {
       this.service.download(exhibition.id, isoCode).subscribe(exhibition => {
-        this.saveInLocal(exhibition)
-        this.downloadMedia(exhibition)
+        this.downloadMedia(exhibition).then((exhibition) => {
+          console.log(exhibition)
+          this.saveInLocal(exhibition)
+        })
       })
     }
 
@@ -156,17 +157,17 @@ export class ExhibitionList {
     }
 
     downloadMedia(exhibition) {
-      let media = this.extractMedia(exhibition)
-      let counter = 0
-      media.forEach(function(image){
-        let fileTransfer: FileTransferObject = this.transfer.create();
-        counter += 1
-        fileTransfer.download(image, this.file.dataDirectory + 'image-' + counter + '.jpg').then((entry) => {
-          console.log('download complete: ' + entry.toURL());
-        }, (error) => {
-          console.log(error)
+      return Promise.all(exhibition.items.map((object) => {
+        return this.downloader.download(object.video, object.id).then((source) => {
+          object.video = source
+          return object
+        })
+      })).then(items => {
+        exhibition.items = items
+        return new Promise<Object>((resolve) => {
+            resolve(exhibition);
         });
-      }.bind(this))
+      })
     }
 
     delete(exhibition) {
