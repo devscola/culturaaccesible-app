@@ -3,12 +3,14 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 import { Events } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @Injectable()
 export class ItemsProvider {
 
   constructor(public http: Http,
               public events: Events,
+              private storage: NativeStorage,
               @Inject(EnvVariables) private envVariables) {
     events.subscribe('retrieveItemByBeacon', (data) => {
       this.retrieveByBeacon(data.beaconNumber, data.exhibitionId)
@@ -24,9 +26,9 @@ export class ItemsProvider {
   }
 
   retrieveByBeacon(beaconNumber, exhibitionId) {
-      this.retrieveList(exhibitionId).subscribe(items => {
-        let item = items.find(item => item.beacon == beaconNumber )
-        let index = items.indexOf(item)
+      this.storage.getItem(exhibitionId).then(exhibition => {
+        let item = exhibition.items.find(item => item.beacon == beaconNumber )
+        let index = exhibition.items.indexOf(item)
         this.events.publish('goToItemDetail', {item: item, index: index})
       })
   }

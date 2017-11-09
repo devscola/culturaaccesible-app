@@ -61,8 +61,7 @@ export class ItemDetail {
     this.storage.getItem(this.exhibitionId).then(exhibition => {
       if(exhibition.items.length > 0){
         this.items = exhibition.items
-        this.item = this.items[this.position]
-        console.log(this.item.video, '****************************************************')
+        this.item = exhibition.items[this.position]
         this.disableIfFirstItem()
         this.disableIfLastItem()
       }
