@@ -73,6 +73,55 @@ export class ExhibitionList {
         this.exhibitions = activeExhibitions
     }
 
+    download(exhibition, isoCode) {
+      this.service.download(exhibition.id, isoCode).subscribe(exhibition => {
+        this.extractItems(exhibition)
+        this.saveInLocal(exhibition)
+      })
+    }
+
+    saveInLocal(exhibition) {
+      this.nativeStorage.setItem(exhibition.id, exhibition)
+          .then(
+            () => {
+              this.presentLoading()
+              this.getStoredData()
+              console.log('Stored item!')
+            },
+            error => console.error('Error storing item', error)
+          );
+    }
+
+    extractItems(exhibition){
+      let items = []
+      exhibition.items.forEach(item => {
+        items.push(item)
+        item.children.forEach(child => {
+          items.push(child)
+          child.children.forEach(subchild => {
+            items.push(subchild)
+          })
+        })
+      })
+      setTimeout(()=>{
+        this.nativeStorage.setItem(exhibition.id + '-items', items)
+        this.downloadMedia(items)
+      }, 1500)
+    }
+
+    downloadMedia(items) {
+      items.forEach((object) => {
+        this.downloader.download(object.video, object.id)
+      })
+    }
+
+    delete(exhibition) {
+      this.nativeStorage.remove(exhibition.id).then(() => {
+        this.presentLoading()
+        this.getStoredData()
+      })
+    }
+
     askLanguage(exhibition) {
       let messages;
 
@@ -120,61 +169,7 @@ export class ExhibitionList {
 
       setTimeout(() => {
         loading.dismiss();
-      }, 1000);
-    }
-
-    download(exhibition, isoCode) {
-      this.service.download(exhibition.id, isoCode).subscribe(exhibition => {
-        this.downloadMedia(exhibition).then((exhibition) => {
-          console.log(exhibition)
-          this.saveInLocal(exhibition)
-        })
-      })
-    }
-
-    saveInLocal(exhibition) {
-      this.nativeStorage.setItem(exhibition.id, exhibition)
-          .then(
-            () => {
-              this.presentLoading()
-              this.getStoredData()
-              console.log('Stored item!')
-            },
-            error => console.error('Error storing item', error)
-          );
-    }
-
-    extractMedia(exhibition){
-      let media = []
-      media.push(exhibition.image)
-      exhibition.items.forEach(function(item){
-        media.push(item.image)
-        item.children.forEach(function(child){
-          media.push(child.image)
-        })
-      })
-      return media
-    }
-
-    downloadMedia(exhibition) {
-      return Promise.all(exhibition.items.map((object) => {
-        return this.downloader.download(object.video, object.id).then((source) => {
-          object.video = source
-          return object
-        })
-      })).then(items => {
-        exhibition.items = items
-        return new Promise<Object>((resolve) => {
-            resolve(exhibition);
-        });
-      })
-    }
-
-    delete(exhibition) {
-      this.nativeStorage.remove(exhibition.id).then(() => {
-        this.presentLoading()
-        this.getStoredData()
-      })
+      }, 3000);
     }
 
     goToDetail(exhibition) {

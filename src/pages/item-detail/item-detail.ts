@@ -2,6 +2,7 @@ import { Component, NgZone } from '@angular/core';
 import { Platform, Events, IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 import { ItemsProvider } from '../../providers/items/items'
 import { BeaconProvider } from '../../providers/beacons/beacons'
+import { DownloadProvider } from '../../providers/downloader/downloader'
 import { NativeStorage } from '@ionic-native/native-storage';
 
 @IonicPage()
@@ -27,6 +28,7 @@ export class ItemDetail {
               public events: Events,
               public storage: NativeStorage,
               public beaconProvider: BeaconProvider,
+              private downloader: DownloadProvider,
               public navParams: NavParams,
               private service: ItemsProvider) {
     this.ngZone = new NgZone({enableLongStackTrace: false})
@@ -58,10 +60,12 @@ export class ItemDetail {
       this.position = index
     }
 
-    this.storage.getItem(this.exhibitionId).then(exhibition => {
-      if(exhibition.items.length > 0){
-        this.items = exhibition.items
-        this.item = exhibition.items[this.position]
+    this.storage.getItem(this.exhibitionId + '-items').then(items => {
+      if(items.length > 0){
+        this.item = items[this.position]
+        if(this.downloader.checkFile(this.item.id)){
+          this.item.video = this.downloader.storageDirectory + this.item.id + '-video.mp4'
+        }
         this.disableIfFirstItem()
         this.disableIfLastItem()
       }
@@ -70,6 +74,9 @@ export class ItemDetail {
     this.video = document.getElementsByTagName("video")[0];
     this.previousButton = document.getElementsByClassName('previous')[0]
     this.nextButton = document.getElementsByClassName('next')[0]
+    setTimeout(()=> {
+      this.video.load()
+    }, 500)
   }
 
   play() {

@@ -26,10 +26,10 @@ export class ItemsProvider {
   }
 
   retrieveByBeacon(beaconNumber, exhibitionId) {
-      this.storage.getItem(exhibitionId).then(exhibition => {
-        let item = exhibition.items.find(item => item.beacon == beaconNumber )
-        let index = exhibition.items.indexOf(item)
-        this.events.publish('goToItemDetail', {item: item, index: index})
+      this.storage.getItem(exhibitionId + '-items').then(items => {
+          let item = items.find(item => item.beacon == beaconNumber )
+          let index = items.indexOf(item)
+          this.events.publish('goToItemDetail', {item: item, index: index})
       })
   }
 }
