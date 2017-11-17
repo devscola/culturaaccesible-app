@@ -3,28 +3,29 @@
     <name>app</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html"/>
-    <access origin="*"/>
-    <access launch-external="yes" origin="comgooglemaps://*"/>
-    <allow-navigation href="http://ionic.local/*"/>
-    <allow-intent href="http://*/*"/>
-    <allow-intent href="https://*/*"/>
-    <allow-intent href="tel:*"/>
-    <allow-intent href="sms:*"/>
-    <allow-intent href="mailto:*"/>
-    <allow-intent href="geo:*"/>
-    <allow-intent href="comgooglemaps:*"/>
-    <preference name="AllowInlineMediaPlayback" value="true"/>
-    <preference name="webviewbounce" value="false"/>
-    <preference name="UIWebViewBounce" value="false"/>
-    <preference name="DisallowOverscroll" value="true"/>
-    <preference name="android-minSdkVersion" value="16"/>
-    <preference name="BackupWebStorage" value="none"/>
-    <preference name="SplashMaintainAspectRatio" value="true"/>
-    <preference name="FadeSplashScreenDuration" value="300"/>
-    <preference name="SplashShowOnlyFirstTime" value="false"/>
-    <preference name="SplashScreen" value="screen"/>
-    <preference name="SplashScreenDelay" value="3000"/>
+    <content src="index.html" />
+    <access origin="*" />
+    <access launch-external="yes" origin="comgooglemaps://*" />
+    <allow-navigation href="http://ionic.local/*" />
+    <allow-navigation href="http://192.168.1.202:8100" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <allow-intent href="comgooglemaps:*" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="16" />
+    <preference name="BackupWebStorage" value="none" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="FadeSplashScreenDuration" value="300" />
+    <preference name="SplashShowOnlyFirstTime" value="false" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="3000" />
     <platform name="android">
         <allow-intent href="market:*"/>
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png"/>

@@ -53,4 +53,16 @@ export class DownloadProvider {
         return false
       });
   }
+
+  deleteMedia(items){
+    items.forEach(item => {
+      if(this.checkFile(item.id)){
+        this.deleteFile(item.id)
+      }
+    })
+  }
+
+  deleteFile(id){
+    this.file.removeFile(this.storageDirectory, id + '-video.mp4')
+  }
 }

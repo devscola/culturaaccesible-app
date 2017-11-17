@@ -38,12 +38,12 @@ export class BeaconProvider {
     let promise = new Promise((resolve, reject) => {
       // we need to be running on a device
       if (this.platform.is('cordova')) {
-
         // Request permission to use location on iOS
         this.ibeacon.requestAlwaysAuthorization();
         this.ibeacon.requestWhenInUseAuthorization();
         // create a new delegate and register it with the native layer
         this.delegate = this.ibeacon.Delegate();
+
         this.delegate.didRangeBeaconsInRegion()
           .subscribe(
             data => this.events.publish('didRangeBeaconsInRegion', data),
@@ -123,7 +123,7 @@ export class BeaconProvider {
       this.exhibition.unlocked = false
     }
     let exhibitionBeaconNumber = parseInt(this.exhibition.beacon)
-    if(!this.exhibition.unlocked && exhibitionBeaconNumber === this.closestBeacon.minor){
+    if(!this.exhibition.unlocked && exhibitionBeaconNumber == this.closestBeacon.minor){
       this.lastTriggeredBeaconNumber = this.closestBeacon.minor
       this.unlockExhibition(this.exhibition.id)
     }

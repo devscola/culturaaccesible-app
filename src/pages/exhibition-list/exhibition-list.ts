@@ -77,6 +77,8 @@ export class ExhibitionList {
       this.service.download(exhibition.id, isoCode).subscribe(exhibition => {
         this.extractItems(exhibition)
         this.saveInLocal(exhibition)
+      }, error => {
+        console.log(JSON.stringify(error))
       })
     }
 
@@ -88,7 +90,9 @@ export class ExhibitionList {
               this.getStoredData()
               console.log('Stored item!')
             },
-            error => console.error('Error storing item', error)
+            error => {
+              console.error('Error storing item', error)
+            }
           );
     }
 
@@ -120,6 +124,10 @@ export class ExhibitionList {
         this.presentLoading()
         this.getStoredData()
       })
+      this.nativeStorage.getItem(exhibition.id + '-items').then(items => {
+        this.downloader.deleteMedia(items)
+      })
+      this.nativeStorage.remove(exhibition.id + '-items')
     }
 
     askLanguage(exhibition) {
