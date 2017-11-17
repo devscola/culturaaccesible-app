@@ -65,8 +65,11 @@ export class ExhibitionDetail {
       this.storage.getItem(exhibition.id).then(exhibition => {
         this.beaconProvider.listenToBeaconEvents(exhibition)
         this.exhibition = exhibition
-        if(exhibition.items.length > 0){
-          this.items = exhibition.items
+      })
+
+      this.storage.getItem(this.exhibition.id + '-items').then(items => {
+        if(items.length > 0){
+          this.items = items
           this.hasItems = true
         }
       })
@@ -76,11 +79,14 @@ export class ExhibitionDetail {
       this.storage.getItem(exhibition.id).then(exhibition => {
         this.exhibition = null
         this.exhibition = exhibition
-        if(exhibition.items.length > 0){
-          this.items = exhibition.items
+        this.beaconProvider.exhibition = exhibition
+      })
+
+      this.storage.getItem(this.exhibition.id + '-items').then(items => {
+        if(items.length > 0){
+          this.items = items
           this.hasItems = true
         }
-        this.beaconProvider.exhibition = exhibition
       })
     }
 
