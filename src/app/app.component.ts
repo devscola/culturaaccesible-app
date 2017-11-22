@@ -29,7 +29,6 @@ export class MyApp {
         translate.get('MENU').subscribe(data => {
 
           this.pages = [
-              { title: data['HOME'], component: 'HomePage', id: 'home' },
               { title: data['EXHIBITIONS'], component: 'ExhibitionList', id: 'exhibitions' }
           ];
 
