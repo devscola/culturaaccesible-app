@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { EnvVariables } from '../../app/environment-variables/environment-variables.token';
 
@@ -17,7 +17,9 @@ export class MuseumProvider {
 
   retrieve(id) {
       let url = `${this.envVariables.baseUrl}/api/museum/retrieve`;
-      return this.http.post(url, {"id": id}).map(museums => museums.json())
+      let headers    = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+      let options    = new RequestOptions({ headers: headers });
+      return this.http.post(url, {"id": id}, options).map(museums => museums.json())
   }
 
 }

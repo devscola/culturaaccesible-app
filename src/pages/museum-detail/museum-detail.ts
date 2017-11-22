@@ -26,23 +26,20 @@ export class MuseumDetail {
         private domSanitizer: DomSanitizer) {
 
         this.service.retrieveList().subscribe( museums => {
-            let museum = museums[museums.length-1]
-            this.info = museum.info;
-            this.location = museum.location;
-            this.contact = museum.contact;
-            this.price = museum.price;
-            this.schedule = museum.schedule;
+            let museum = museums.find(museum => {
+                return museum.id == this.navParams.get('id')
+            })
+            setTimeout(() => {
+                this.info = museum.info;
+                this.location = museum.location;
+                this.contact = museum.contact;
+                this.price = museum.price;
+                this.schedule = museum.schedule;
 
-            this.validMapLink = this.location['link'].substring(0, 27) == "https://www.google.es/maps/";
-            this.composeMapLinks();
+                this.validMapLink = this.location['link'].substring(0, 27) == "https://www.google.es/maps/";
+                this.composeMapLinks();
+            }, 500)
         });
-    }
-
-    ionViewDidLoad() {
-      let id = this.navParams.get('id')
-      this.service.retrieve(id).subscribe(museum => {
-
-      })
     }
 
     extractSearchQuote() {
