@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams, LoadingController, Events } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, LoadingController, Events, Platform } from 'ionic-angular';
 import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,6 +21,7 @@ export class ExhibitionList {
                 public alertCtrl: AlertController,
                 public navParams: NavParams,
                 public events: Events,
+                public platform: Platform,
                 public loadingCtrl: LoadingController,
                 private nativeStorage: NativeStorage,
                 public translate: TranslateService,
@@ -35,10 +36,15 @@ export class ExhibitionList {
     }
 
     getStoredData() {
-      this.nativeStorage.keys().then((data) => {
-        this.storedData = data
+      if (this.platform.is('cordova')) {
+        this.nativeStorage.keys().then((data) => {
+          this.storedData = data
+          this.setExhibtitions()
+        })
+      }else {
+        this.storedData = []
         this.setExhibtitions()
-      })
+      }
     }
 
     setExhibtitions() {
