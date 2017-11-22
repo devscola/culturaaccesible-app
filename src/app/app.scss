@@ -20,7 +20,13 @@
 }
 
 .toolbar-title{
-  color: map-get($colors, active)
+  color: map-get($colors, light)
+}
+
+.toolbar-background {
+  color: map-get($colors, light);
+  background-color: map-get($colors, background);
+  border: none;
 }
 
 .message-container{
@@ -48,4 +54,18 @@
       bottom: -40px;
       position: relative
   }
+}
+
+
+ion-header ion-icon.back-button-icon{
+    color: map-get($colors, light);
+}
+
+ion-header ion-icon {
+    color: map-get($colors, light);
+}
+
+.back-button-md,
+.back-button-ios {
+  color: map-get($colors, light);
 }
