@@ -8,153 +8,155 @@
 </ion-header>
 
 
-<ion-content padding>
-    <h4 id="name">{{info.name}}</h4>
-    <ion-row>
-        <ion-col col-1>
-            <ion-icon name="pin"></ion-icon>
-        </ion-col>
-        <ion-col col-11 id="info">
-            <div>
-                <span *ngIf="location.street">{{location.street}}</span>
+<ion-content padding id="content">
+    <div class="wrapper">
+        <h4 id="name">{{info.name}}</h4>
+        <ion-row>
+            <ion-col col-1>
+                <ion-icon name="pin"></ion-icon>
+            </ion-col>
+            <ion-col col-11 id="info">
                 <div>
-                    <span *ngIf="location.postal">{{location.postal}}, </span>
-                    <span *ngIf="(location.city !== location.region)">{{location.city}}, </span>
-                    <span *ngIf="location.region">{{location.region}}.</span>
+                    <span *ngIf="location.street">{{location.street}}</span>
+                    <div>
+                        <span *ngIf="location.postal">{{location.postal}}, </span>
+                        <span *ngIf="(location.city !== location.region)">{{location.city}}, </span>
+                        <span *ngIf="location.region">{{location.region}}.</span>
+                    </div>
                 </div>
-            </div>
-            <div *ngIf="validMapLink" class="map">
-                <a showWhen="android, windows" href="{{location.link}}">{{'MUSEUM.DETAIL.MAP' | translate}}</a>
-                <a showWhen="ios" href="{{iosMapLink}}">{{'MUSEUM.DETAIL.MAP' | translate}}</a>
-            </div>
-        </ion-col>
-    </ion-row>
-    <hr>
-    <div  *ngIf="hasContent(schedule)" class="schedule">
-        <ion-row>
-            <ion-col col-1>
-                <ion-icon name="time"></ion-icon>
-            </ion-col>
-            <ion-col col-11 id="schedule">
-                <div *ngIf="hasContent(schedule.MON)">
-                    <span>
-                        {{'MUSEUM.DETAIL.DAYS.MONDAY' | translate}}
-                        <span *ngFor="let hour of schedule.MON">
-                            <span>{{hour}} </span>
-                        </span>
-                    </span>
-                </div>
-                <div *ngIf="hasContent(schedule.TUE)">
-                    <span>
-                        {{'MUSEUM.DETAIL.DAYS.TUESDAY' | translate}}
-                        <span *ngFor="let hour of schedule.TUE">
-                            <span>{{hour}} </span>
-                        </span>
-                    </span>
-                </div>
-                <div *ngIf="hasContent(schedule.WED)">
-                    <span>
-                        {{'MUSEUM.DETAIL.DAYS.WEDNESDAY' | translate}}
-                        <span *ngFor="let hour of schedule.WED">
-                            <span>{{hour}} </span>
-                        </span>
-                    </span>
-                </div>
-                <div *ngIf="hasContent(schedule.THU)">
-                    <span>
-                        {{'MUSEUM.DETAIL.DAYS.THURSDAY' | translate}}
-                        <span *ngFor="let hour of schedule.THU">
-                            <span>{{hour}} </span>
-                        </span>
-                    </span>
-                </div>
-                <div *ngIf="hasContent(schedule.FRI)">
-                    <span>
-                        {{'MUSEUM.DETAIL.DAYS.FRIDAY' | translate}}
-                        <span *ngFor="let hour of schedule.FRI">
-                            <span>{{hour}} </span>
-                        </span>
-                    </span>
-                </div>
-                <div *ngIf="hasContent(schedule.SAT)">
-                    <span>
-                        {{'MUSEUM.DETAIL.DAYS.SATURDAY' | translate}}
-                        <span *ngFor="let hour of schedule.SAT">
-                            <span>{{hour}} </span>
-                        </span>
-                    </span>
-                </div>
-                <div *ngIf="hasContent(schedule.SUN)">
-                    <span>
-                        {{'MUSEUM.DETAIL.DAYS.SUNDAY' | translate}}
-                        <span *ngFor="let hour of schedule.SUN">
-                            <span>{{hour}} </span>
-                        </span>
-                    </span>
+                <div *ngIf="validMapLink" class="map">
+                    <a showWhen="android, windows" href="{{location.link}}">{{'MUSEUM.DETAIL.MAP' | translate}}</a>
+                    <a showWhen="ios" href="{{iosMapLink}}">{{'MUSEUM.DETAIL.MAP' | translate}}</a>
                 </div>
             </ion-col>
         </ion-row>
         <hr>
-    </div>
-    <div class="price" *ngIf="hasContent(price)">
-        <ion-row>
-            <ion-col col-1>
-                <ion-icon name="pricetags"></ion-icon>
-            </ion-col>
-            <ion-col col-11 id="price">
-                <div *ngIf="hasContent(price.freeEntrance)">
-                    <strong>{{'MUSEUM.DETAIL.PRICE.FREE' | translate}} </strong>
-                    <span *ngFor="let free of price.freeEntrance">{{free}} </span>
-                </div>
-                <div *ngIf="hasContent(price.general)">
-                    <strong>{{'MUSEUM.DETAIL.PRICE.GENERAL' | translate}} </strong>
-                    <span *ngFor="let general of price.general">{{general}} </span>
-                </div>
-                <div *ngIf="hasContent(price.reduced)">
-                    <strong>{{'MUSEUM.DETAIL.PRICE.REDUCED' | translate}} </strong>
-                    <span *ngFor="let reduced of price.reduced">{{reduced}} </span>
-                </div>
-            </ion-col>
-        </ion-row>
-        <hr>
-    </div>
-    <div class="contact" *ngIf="hasContent(contact)">
-        <div *ngIf="hasContent(contact.phone)">
+        <div  *ngIf="hasContent(schedule)" class="schedule">
             <ion-row>
                 <ion-col col-1>
-                    <ion-icon name="call"></ion-icon>
+                    <ion-icon name="time"></ion-icon>
                 </ion-col>
-                <ion-col col-11 id="phone">
-                    <span *ngFor="let phone of contact.phone"><a href="tel:{{phone}}">{{phone}}</a> </span>
+                <ion-col col-11 id="schedule">
+                    <div *ngIf="hasContent(schedule.MON)">
+                        <span>
+                            {{'MUSEUM.DETAIL.DAYS.MONDAY' | translate}}
+                            <span *ngFor="let hour of schedule.MON">
+                                <span>{{hour}} </span>
+                            </span>
+                        </span>
+                    </div>
+                    <div *ngIf="hasContent(schedule.TUE)">
+                        <span>
+                            {{'MUSEUM.DETAIL.DAYS.TUESDAY' | translate}}
+                            <span *ngFor="let hour of schedule.TUE">
+                                <span>{{hour}} </span>
+                            </span>
+                        </span>
+                    </div>
+                    <div *ngIf="hasContent(schedule.WED)">
+                        <span>
+                            {{'MUSEUM.DETAIL.DAYS.WEDNESDAY' | translate}}
+                            <span *ngFor="let hour of schedule.WED">
+                                <span>{{hour}} </span>
+                            </span>
+                        </span>
+                    </div>
+                    <div *ngIf="hasContent(schedule.THU)">
+                        <span>
+                            {{'MUSEUM.DETAIL.DAYS.THURSDAY' | translate}}
+                            <span *ngFor="let hour of schedule.THU">
+                                <span>{{hour}} </span>
+                            </span>
+                        </span>
+                    </div>
+                    <div *ngIf="hasContent(schedule.FRI)">
+                        <span>
+                            {{'MUSEUM.DETAIL.DAYS.FRIDAY' | translate}}
+                            <span *ngFor="let hour of schedule.FRI">
+                                <span>{{hour}} </span>
+                            </span>
+                        </span>
+                    </div>
+                    <div *ngIf="hasContent(schedule.SAT)">
+                        <span>
+                            {{'MUSEUM.DETAIL.DAYS.SATURDAY' | translate}}
+                            <span *ngFor="let hour of schedule.SAT">
+                                <span>{{hour}} </span>
+                            </span>
+                        </span>
+                    </div>
+                    <div *ngIf="hasContent(schedule.SUN)">
+                        <span>
+                            {{'MUSEUM.DETAIL.DAYS.SUNDAY' | translate}}
+                            <span *ngFor="let hour of schedule.SUN">
+                                <span>{{hour}} </span>
+                            </span>
+                        </span>
+                    </div>
                 </ion-col>
             </ion-row>
+            <hr>
         </div>
-        <div *ngIf="hasContent(contact.web)">
+        <div class="price" *ngIf="hasContent(price)">
             <ion-row>
                 <ion-col col-1>
-                    <ion-icon name="link"></ion-icon>
+                    <ion-icon name="pricetags"></ion-icon>
                 </ion-col>
-                <ion-col col-11 id="web">
-                    <span *ngFor="let web of contact.web"><a href="{{web}}">{{web}}</a> </span>
+                <ion-col col-11 id="price">
+                    <div *ngIf="hasContent(price.freeEntrance)">
+                        <strong>{{'MUSEUM.DETAIL.PRICE.FREE' | translate}} </strong>
+                        <span *ngFor="let free of price.freeEntrance">{{free}} </span>
+                    </div>
+                    <div *ngIf="hasContent(price.general)">
+                        <strong>{{'MUSEUM.DETAIL.PRICE.GENERAL' | translate}} </strong>
+                        <span *ngFor="let general of price.general">{{general}} </span>
+                    </div>
+                    <div *ngIf="hasContent(price.reduced)">
+                        <strong>{{'MUSEUM.DETAIL.PRICE.REDUCED' | translate}} </strong>
+                        <span *ngFor="let reduced of price.reduced">{{reduced}} </span>
+                    </div>
                 </ion-col>
             </ion-row>
+            <hr>
         </div>
-        <div *ngIf="hasContent(contact.email)">
-            <ion-row>
-                <ion-col col-1>
-                    <ion-icon name="mail"></ion-icon>
-                </ion-col>
-                <ion-col col-11 id="mail">
-                    <span *ngFor="let email of contact.email"><a href="mailto:{{email}}">{{email}}</a> </span>
-                </ion-col>
-            </ion-row>
+        <div class="contact" *ngIf="hasContent(contact)">
+            <div *ngIf="hasContent(contact.phone)">
+                <ion-row>
+                    <ion-col col-1>
+                        <ion-icon name="call"></ion-icon>
+                    </ion-col>
+                    <ion-col col-11 id="phone">
+                        <span *ngFor="let phone of contact.phone"><a href="tel:{{phone}}">{{phone}}</a> </span>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <div *ngIf="hasContent(contact.web)">
+                <ion-row>
+                    <ion-col col-1>
+                        <ion-icon name="link"></ion-icon>
+                    </ion-col>
+                    <ion-col col-11 id="web">
+                        <span *ngFor="let web of contact.web"><a href="{{web}}">{{web}}</a> </span>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <div *ngIf="hasContent(contact.email)">
+                <ion-row>
+                    <ion-col col-1>
+                        <ion-icon name="mail"></ion-icon>
+                    </ion-col>
+                    <ion-col col-11 id="mail">
+                        <span *ngFor="let email of contact.email"><a href="mailto:{{email}}">{{email}}</a> </span>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <hr>
         </div>
-        <hr>
-    </div>
-    <div *ngIf="info.description" class="description">
-        <p>{{info.description}}</p>
-    </div>
-    <div>
-        <button class="enter" ion-button color="danger" (click)="goToExhibitions()">{{'MUSEUM.DETAIL.BUTTONS.ENTER' | translate}}</button>
+        <div *ngIf="info.description" class="description">
+            <p>{{info.description}}</p>
+        </div>
+        <div>
+            <button class="enter" ion-button block color="active" (click)="goToExhibitions()">{{'MUSEUM.DETAIL.BUTTONS.ENTER' | translate}}</button>
+        </div>
     </div>
 </ion-content>
