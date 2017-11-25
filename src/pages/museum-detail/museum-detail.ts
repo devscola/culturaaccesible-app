@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { MuseumProvider } from '../../providers/museum/museum'
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -22,24 +22,29 @@ export class MuseumDetail {
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
+        private loadingCtrl: LoadingController,
         private service: MuseumProvider,
         private domSanitizer: DomSanitizer) {
 
-        this.service.retrieveList().subscribe( museums => {
-            let museum = museums.find(museum => {
-                return museum.id == this.navParams.get('id')
-            })
-            setTimeout(() => {
-                this.info = museum.info;
-                this.location = museum.location;
-                this.contact = museum.contact;
-                this.price = museum.price;
-                this.schedule = museum.schedule;
-
-                this.validMapLink = this.location['link'].substring(0, 27) == "https://www.google.es/maps/";
-                this.composeMapLinks();
-            }, 500)
+        let loading = this.loadingCtrl.create({
+            content: '...'
         });
+
+        loading.present()
+
+        this.service.retrieve(this.navParams.get('id')).subscribe(museum => {
+            this.setInfo(museum)
+            this.composeMapLinks()
+            loading.dismiss()
+        });
+    }
+
+    setInfo(museum){
+        this.info = museum.info;
+        this.location = museum.location;
+        this.contact = museum.contact;
+        this.price = museum.price;
+        this.schedule = museum.schedule;
     }
 
     extractSearchQuote() {
@@ -51,7 +56,7 @@ export class MuseumDetail {
     }
 
     composeMapLinks() {
-        if (this.validMapLink) {
+        if (this.location['link'].substring(0, 27) == "https://www.google.es/maps/") {
             this.extractSearchQuote();
             this.extractCoordinates();
             this.iosMapLink = "http://maps.apple.com/?q=" + this.coordinates;

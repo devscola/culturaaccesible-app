@@ -1,4 +1,22 @@
 page-item-detail {
+  .toolbar-title{
+    color: map-get($colors, active)
+  }
+
+  .toolbar-background {
+    color: map-get($colors, active);
+    background-color: map-get($colors, light);
+    border: none;
+  }
+
+  ion-header ion-icon.back-button-icon{
+      color: map-get($colors, active);
+  }
+
+  ion-header ion-icon {
+      color: map-get($colors, active);
+  }
+
   text-align: center;
   h3{
     color: white
