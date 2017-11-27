@@ -91,7 +91,7 @@ export class ExhibitionDetail {
     }
 
     goToMuseum(){
-        this.navCtrl.push('MuseumDetail', {id: this.exhibition.museum.id})
+        this.navCtrl.push('MuseumDetail', {id: this.exhibition.museum_id})
     }
 
     goToItemView(index) {

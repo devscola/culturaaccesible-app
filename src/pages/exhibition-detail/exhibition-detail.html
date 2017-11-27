@@ -12,7 +12,7 @@
       <div id="exhibition-detail">
           <h2>{{exhibition?.name}}</h2>
           <p>{{'EXHIBITIONS.DETAIL.FROM' | translate}} {{exhibition?.date_start}} - {{'EXHIBITIONS.DETAIL.TO' | translate}} {{exhibition?.date_finish}}</p>
-          <p id="extended-description">{{exhibition?.extended_description}}</p>
+          <p id="extended-description">{{exhibition?.extended_description || exhibition?.general_description}}</p>
           <button id="enter-museum" ion-button block round outline color="light" (click)="goToMuseum()">{{'EXHIBITIONS.DETAIL.BUTTONS.MUSEUM' | translate}}</button>
       </div>
       <div *ngIf="!exhibition?.unlocked" class="message-container">
