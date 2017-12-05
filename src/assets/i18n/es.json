@@ -2,7 +2,7 @@
     "MENU": {
       "TITLE": "Menú",
       "HOME": "Inicio",
-      "EXHIBITIONS": "Exhibiciones"
+      "EXHIBITIONS": "Exposiciones"
     },
     "HOME": {
       "TITLE": "Inicio"
@@ -68,7 +68,7 @@
               "YES": "Sí",
               "NO": "No"
             },
-            "BLUETOOTH": "Para ver el contenido tienes que activar el bluetooth y situarte en la puerta de la exhibición",
+            "BLUETOOTH": "Para ver el contenido tienes que activar el bluetooth y situarte en la puerta de la exposición",
             "NAVIGATE": "Desplázate por la sala y espera a que la obra te cuente sobre ella"
         }
     }
