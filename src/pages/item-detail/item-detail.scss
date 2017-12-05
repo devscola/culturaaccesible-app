@@ -19,12 +19,13 @@ page-item-detail {
 
   text-align: center;
   h3{
-    color: white
+    color: white;
+    margin: 25px 0px;
   }
 
   .scrollable{
     width: 90%;
-    height: 140px;
+    height: 40%;
     font-size: 1.5em;
     position: fixed;
     bottom: 16px;
