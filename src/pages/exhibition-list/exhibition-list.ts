@@ -16,6 +16,7 @@ export class ExhibitionList {
     allExhibitions: Array<Object>
     hasExhibitions: boolean
     storedData;
+    loading;
 
     constructor(public navCtrl: NavController,
                 public alertCtrl: AlertController,
@@ -120,8 +121,12 @@ export class ExhibitionList {
     }
 
     downloadMedia(items) {
-      items.forEach((object) => {
-        this.downloader.download(object.video, object.id)
+      Promise.all(
+        items.map((object) => {
+          return this.downloader.download(object.video, object.id)
+        })
+      ).then(() => {
+        this.loading.dismiss();
       })
     }
 
@@ -133,7 +138,9 @@ export class ExhibitionList {
       this.nativeStorage.getItem(exhibition.id + '-items').then(items => {
         this.downloader.deleteMedia(items)
       })
-      this.nativeStorage.remove(exhibition.id + '-items')
+      this.nativeStorage.remove(exhibition.id + '-items').then(done => {
+        this.loading.dismiss();
+      })
     }
 
     askLanguage(exhibition) {
@@ -175,15 +182,11 @@ export class ExhibitionList {
     }
 
     presentLoading() {
-      const loading = this.loadingCtrl.create({
+      this.loading = this.loadingCtrl.create({
         content: 'Please wait...'
       });
 
-      loading.present();
-
-      setTimeout(() => {
-        loading.dismiss();
-      }, 3000);
+      this.loading.present();
     }
 
     goToDetail(exhibition) {
