@@ -94,7 +94,6 @@ export class ExhibitionList {
           .then(
             () => {
               this.presentLoading()
-              this.getStoredData()
               console.log('Stored item!')
             },
             error => {
@@ -126,6 +125,7 @@ export class ExhibitionList {
           return this.downloader.download(object.video, object.id)
         })
       ).then(() => {
+        this.getStoredData()
         this.loading.dismiss();
       })
     }
