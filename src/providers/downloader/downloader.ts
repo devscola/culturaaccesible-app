@@ -38,8 +38,8 @@ export class DownloadProvider {
       return fileTransfer.download(source, this.storageDirectory + id + '-video.mp4').then((entry) => {
         this.downloadedVideos.push({id: id, source: entry.toURL()})
         return entry.toURL()
-      }, (error) => {
-      	console.log(error)
+      }).catch((error) => {
+        throw error
       });
     });
   }

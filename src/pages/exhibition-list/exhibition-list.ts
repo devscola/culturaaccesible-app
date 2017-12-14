@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams, LoadingController, Events, Platform } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, LoadingController, ToastController, Events, Platform } from 'ionic-angular';
 import { ExhibitionsProvider } from '../../providers/exhibitions/exhibitions';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { TranslateService } from '@ngx-translate/core';
@@ -24,6 +24,7 @@ export class ExhibitionList {
                 public events: Events,
                 public platform: Platform,
                 public loadingCtrl: LoadingController,
+                public toastCtrl: ToastController,
                 private nativeStorage: NativeStorage,
                 public translate: TranslateService,
                 private service: ExhibitionsProvider,
@@ -81,9 +82,9 @@ export class ExhibitionList {
     }
 
     download(exhibition, isoCode) {
+      this.presentLoading()
       this.service.download(exhibition.id, isoCode).subscribe(exhibition => {
         this.extractItems(exhibition)
-        this.saveInLocal(exhibition)
       }, error => {
         console.log(JSON.stringify(error))
       })
@@ -93,7 +94,6 @@ export class ExhibitionList {
       this.nativeStorage.setItem(exhibition.id, exhibition)
           .then(
             () => {
-              this.presentLoading()
               console.log('Stored item!')
             },
             error => {
@@ -115,18 +115,22 @@ export class ExhibitionList {
       })
       setTimeout(()=>{
         this.nativeStorage.setItem(exhibition.id + '-items', items)
-        this.downloadMedia(items)
+        this.downloadMedia(exhibition, items)
       }, 1500)
     }
 
-    downloadMedia(items) {
+    downloadMedia(exhibition, items) {
       Promise.all(
         items.map((object) => {
           return this.downloader.download(object.video, object.id)
         })
-      ).then(() => {
+      ).then((items) => {
+        this.saveInLocal(exhibition)
         this.getStoredData()
-        this.loading.dismiss();
+        this.loading.dismiss()
+      }).catch((error) => {
+        this.loading.dismiss()
+        this.presentError()
       })
     }
 
@@ -187,6 +191,17 @@ export class ExhibitionList {
       });
 
       this.loading.present();
+    }
+
+    presentError() {
+      let toast = this.toastCtrl.create({
+        message: 'Ha habido un error',
+        duration: 3000,
+        position: 'bottom',
+        cssClass: 'active'
+      });
+
+      toast.present();
     }
 
     goToDetail(exhibition) {

@@ -72,3 +72,10 @@ ion-header ion-icon {
 .back-button-ios {
   color: map-get($colors, light);
 }
+
+ion-toast.success .toast-container{
+  background-color: map-get($colors, success)
+}
+ion-toast.danger .toast-container{
+  background-color: map-get($colors, danger)
+}
