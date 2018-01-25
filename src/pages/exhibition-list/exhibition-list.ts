@@ -174,6 +174,7 @@ export class ExhibitionList {
             {
               text: messages['BUTTONS']['YES'],
               handler: (isoCode) => {
+                this.nativeStorage.setItem(isoCode, isoCode)
                 this.download(exhibition, isoCode)
               }
           }
