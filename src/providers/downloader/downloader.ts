@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NavController, Platform, AlertController } from 'ionic-angular';
+import { Platform, AlertController } from 'ionic-angular';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 

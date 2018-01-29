@@ -30,7 +30,7 @@ export class BeaconProvider {
       this.startRanging()
     })
     events.subscribe('cleanLastTriggeredBeacon', (result) => {
-      this.lastTriggeredBeaconNumber = null
+      this.cleanLastTriggeredBeacon()
     })
   }
 
@@ -38,19 +38,7 @@ export class BeaconProvider {
     let promise = new Promise((resolve, reject) => {
       // we need to be running on a device
       if (this.platform.is('cordova')) {
-        // Request permission to use location on iOS
-        this.ibeacon.requestAlwaysAuthorization();
-        this.ibeacon.requestWhenInUseAuthorization();
-        // create a new delegate and register it with the native layer
-        this.delegate = this.ibeacon.Delegate();
-
-        this.delegate.didRangeBeaconsInRegion()
-          .subscribe(
-            data => this.events.publish('didRangeBeaconsInRegion', data),
-            error => console.error()
-          );
-        // setup a beacon region
-        this.region = this.ibeacon.BeaconRegion('deskBeacon', '74278BDA-B644-4520-8F0C-720EAF059935');
+        this.setBeaconsEnvironment()
 
         // start ranging
         this.ibeacon.startRangingBeaconsInRegion(this.region)
@@ -73,6 +61,12 @@ export class BeaconProvider {
     return promise;
   }
 
+  setBeaconsEnvironment() {
+    this.askForAuthorizations()
+    this.setRegion()
+    this.subscribeBeaconsInRange()
+  }
+
   stopRanging(){
     this.ibeacon.stopRangingBeaconsInRegion(this.region)
   }
@@ -81,21 +75,25 @@ export class BeaconProvider {
     this.ibeacon.startRangingBeaconsInRegion(this.region)
   }
 
+  subscribeBeaconsInRange() {
+    this.delegate = this.ibeacon.Delegate();
+
+    this.delegate.didRangeBeaconsInRegion()
+      .subscribe(
+        data => this.events.publish('didRangeBeaconsInRegion', data),
+        error => console.error()
+      );
+  }
+
   listenToBeaconEvents(exhibition) {
     this.exhibition = exhibition
     this.events.subscribe('didRangeBeaconsInRegion', (data) => {
-      this.closestBeacon = this.getClosestBeacon(data)
-      let exhibitionBeaconNumber = parseInt(exhibition.beacon)
-      if( !this.closestBeacon || this.closestBeacon.minor == this.lastTriggeredBeaconNumber) { return }
-      if(this.closestBeacon.minor != exhibitionBeaconNumber){
-        this.listenToItemBeacons()
-      }else{
-        this.listenToExhibitionBeacon()
-      }
+      this.initializeBeacons(data)
+      this.chooseListenAction(parseInt(exhibition.beacon))
     });
   }
 
-  getClosestBeacon(data) {
+  initializeBeacons(data) {
     this.beacons = [];
 
     let beaconList = data.beacons;
@@ -103,47 +101,92 @@ export class BeaconProvider {
       let beaconObject = new Beacon(beacon);
       this.beacons.push(beaconObject);
     });
-
-    return this.beacons.filter(beacon => beacon.proximity == 'ProximityImmediate')[0]
+    this.setClosestBeacon(data)
   }
 
-  listenToItemBeacons() {
+  chooseListenAction(exhibitionBeaconNumber) {
+    if( this.noBeaconAvailable() ) { return }
+    if(this.closestBeacon.minor != exhibitionBeaconNumber){
+      this.presentItem()
+    }else{
+      this.presentUnlockExhibition()
+    }
+  }
+
+  noBeaconAvailable() {
+    return !this.closestBeacon || this.closestBeacon.minor == this.lastTriggeredBeaconNumber
+  }
+
+  setClosestBeacon(data) {
+    this.closestBeacon = this.beacons.filter(beacon => beacon.proximity == 'ProximityImmediate')[0]
+  }
+
+  presentItem() {
     if(this.exhibition.unlocked){
-      this.lastTriggeredBeaconNumber = this.closestBeacon.minor
-      this.events.publish('stopVideo')
-
-      this.presentAlert(this.closestBeacon.minor, this.exhibition.id)
-
-      this.events.publish('stopRanging')
+      this.setLastTriggeredBeacon()
+      this.showOpenItemAlert(this.closestBeacon.minor, this.exhibition.id)
+      this.stopItemBeaconActions()
     }
   }
 
-  listenToExhibitionBeacon() {
-    if(this.exhibition.unlocked === undefined){
-      this.exhibition.unlocked = false
-    }
-    let exhibitionBeaconNumber = parseInt(this.exhibition.beacon)
-    if(!this.exhibition.unlocked && exhibitionBeaconNumber == this.closestBeacon.minor){
-      this.lastTriggeredBeaconNumber = this.closestBeacon.minor
+  stopItemBeaconActions() {
+    this.events.publish('stopVideo')
+    this.events.publish('stopRanging')
+  }
+
+
+  presentUnlockExhibition() {
+    this.setDefaultLockedValue()
+    if(this.isLocked()){
+      this.setLastTriggeredBeacon()
       this.unlockExhibition(this.exhibition.id)
     }
   }
 
-  retrieveItemByBeacon(beaconNumber, exhibitionId) {
-    this.events.publish('retrieveItemByBeacon', {beaconNumber: beaconNumber, exhibitionId: exhibitionId})
+  setDefaultLockedValue() {
+    if(this.exhibition.unlocked === undefined){
+      this.exhibition.unlocked = false
+    }
+  }
+
+  isLocked() {
+    let exhibitionBeaconNumber = parseInt(this.exhibition.beacon)
+    return !this.exhibition.unlocked && exhibitionBeaconNumber == this.closestBeacon.minor
   }
 
   unlockExhibition(exhibitionId) {
     this.storage.getItem(exhibitionId).then(exhibition => {
       exhibition.unlocked = true
       this.storage.setItem(exhibitionId, exhibition).then(() => {
-        this.presentExhibitionUnlockedAlert()
+        this.showExhibitionUnlockedAlert()
         this.events.publish('exhibitionUnlocked')
       })
     })
   }
 
-  presentExhibitionUnlockedAlert() {
+  setLastTriggeredBeacon() {
+    this.lastTriggeredBeaconNumber = this.closestBeacon.minor
+  }
+
+  retrieveItemByBeacon(beaconNumber, exhibitionId) {
+    this.events.publish('retrieveItemByBeacon', {beaconNumber: beaconNumber, exhibitionId: exhibitionId})
+  }
+
+
+  askForAuthorizations() {
+    this.ibeacon.requestAlwaysAuthorization();
+    this.ibeacon.requestWhenInUseAuthorization();
+  }
+
+  setRegion() {
+    this.region = this.ibeacon.BeaconRegion('deskBeacon', '74278BDA-B644-4520-8F0C-720EAF059935');
+  }
+
+  cleanLastTriggeredBeacon() {
+    this.lastTriggeredBeaconNumber = null
+  }
+
+  showExhibitionUnlockedAlert() {
     let messages;
 
     this.translate.get('BEACONS.EXHIBITION_UNLOCKED_ALERT').subscribe(data => {
@@ -164,7 +207,7 @@ export class BeaconProvider {
     alert.present();
   }
 
-  presentAlert(beaconNumber, exhibitionId) {
+  showOpenItemAlert(beaconNumber, exhibitionId) {
     let messages;
 
     this.translate.get('BEACONS.ALERT').subscribe(data => {
@@ -194,4 +237,5 @@ export class BeaconProvider {
     });
     alert.present();
   }
+
 }

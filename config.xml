@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="itbook.culturaaccesible" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.itbook.audioguias" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Cultura Accesible</name>
     <description>Cultura accesible para todos</description>
     <author email="hola@devscola.org" href="http://devscola.org/">Devscola</author>
