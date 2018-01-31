@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { MuseumProvider } from '../../providers/museum/museum'
 import { DomSanitizer } from '@angular/platform-browser';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @IonicPage()
 @Component({
@@ -24,19 +25,33 @@ export class MuseumDetail {
         public navParams: NavParams,
         private loadingCtrl: LoadingController,
         private service: MuseumProvider,
-        private domSanitizer: DomSanitizer) {
+        private domSanitizer: DomSanitizer,
+        private storage: NativeStorage,
+      ) {
 
         let loading = this.loadingCtrl.create({
             content: '...'
         });
 
         loading.present()
-
-        this.service.retrieve(this.navParams.get('id')).subscribe(museum => {
-            this.setInfo(museum)
-            this.composeMapLinks()
-            loading.dismiss()
-        });
+        this.storage.keys().then((keys) => {
+          if(keys.indexOf('isoCode')>=0){
+            this.storage.getItem('isoCode').then(
+              (iso_code) => {
+                this.service.retrieve(this.navParams.get('id'), iso_code).subscribe(museum => {
+                  this.setInfo(museum)
+                  this.composeMapLinks()
+                  loading.dismiss()
+                })
+              })
+          }else{
+            this.service.retrieve(this.navParams.get('id')).subscribe(museum => {
+              this.setInfo(museum)
+              this.composeMapLinks()
+              loading.dismiss()
+            })
+          }
+        })
     }
 
     setInfo(museum){

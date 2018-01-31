@@ -173,8 +173,12 @@ export class ExhibitionList {
             },
             {
               text: messages['BUTTONS']['YES'],
-              handler: (isoCode) => {
-                this.download(exhibition, isoCode)
+              handler: (iso_code) => {
+                this.nativeStorage.setItem("isoCode", iso_code).then(
+                  () => console.log('Itemm storred'),
+                  error => console.error('Error storing item', error)
+                )
+                this.download(exhibition, iso_code)
               }
           }
         ]
