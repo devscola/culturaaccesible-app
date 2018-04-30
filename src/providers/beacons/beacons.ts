@@ -208,6 +208,28 @@ export class BeaconProvider {
   }
 
   showOpenItemAlert(beaconNumber, exhibitionId) {
+    this.getItemByBeacon(beaconNumber, exhibitionId).then((item) => {
+      this.presentAlert(item, beaconNumber, exhibitionId)
+    }).catch(error => {
+      console.error(error)
+    })
+  }
+
+  getItemByBeacon(beaconNumber, exhibitionId){
+    let result = new Promise((resolve, reject) => {
+      this.storage.getItem(exhibitionId + '-items').then(items => {
+        let item = items.find(item => item.beacon == beaconNumber )
+        if(item){
+          resolve(item)
+        }else{
+          reject('Error')
+        }
+      })
+    })
+    return result
+  }
+
+  presentAlert(item, beaconNumber, exhibitionId){
     let messages;
 
     this.translate.get('BEACONS.ALERT').subscribe(data => {
