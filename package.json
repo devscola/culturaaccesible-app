@@ -39,6 +39,7 @@
         "cordova-plugin-device": "^1.1.4",
         "cordova-plugin-file": "^5.0.0",
         "cordova-plugin-file-transfer": "^1.6.3",
+        "cordova-plugin-ionic": "^4.1.7",
         "cordova-plugin-nativestorage": "^2.2.2",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.2",
@@ -87,7 +88,12 @@
             "com.unarin.cordova.beacon": {},
             "cordova-plugin-file": {},
             "cordova-plugin-file-transfer": {},
-            "cordova-plugin-nativestorage": {}
+            "cordova-plugin-nativestorage": {},
+            "cordova-plugin-ionic": {
+                "APP_ID": "e51df5bc",
+                "CHANNEL_NAME": "Master",
+                "UPDATE_METHOD": "auto"
+            }
         },
         "platforms": [
             "android",
