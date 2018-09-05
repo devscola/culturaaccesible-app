@@ -33,13 +33,14 @@
         "com.unarin.cordova.beacon": "^3.7.0",
         "cordova-android": "7.0.0",
         "cordova-browser": "~4.1.0",
-        "cordova-ios": "^4.4.0",
+        "cordova-ios": "4.5.5",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-console": "^1.1.0",
         "cordova-plugin-device": "^2.0.2",
         "cordova-plugin-file": "^6.0.1",
         "cordova-plugin-file-transfer": "^1.7.1",
-        "cordova-plugin-ionic": "^4.1.7",
+        "cordova-plugin-ionic": "^4.2.0",
+        "cordova-plugin-ionic-webview": "^2.1.1",
         "cordova-plugin-nativestorage": "^2.3.2",
         "cordova-plugin-splashscreen": "^5.0.2",
         "cordova-plugin-statusbar": "^2.4.2",
@@ -92,7 +93,12 @@
             "cordova-plugin-ionic": {
                 "APP_ID": "e51df5bc",
                 "CHANNEL_NAME": "Master",
-                "UPDATE_METHOD": "auto"
+                "UPDATE_METHOD": "auto",
+                "WARN_DEBUG": "true",
+                "UPDATE_API": "https://api.ionicjs.com",
+                "MAX_STORE": "2",
+                "ROLLBACK_TIMEOUT": "10",
+                "MIN_BACKGROUND_DURATION": "30"
             }
         },
         "platforms": [
