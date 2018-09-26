@@ -33,7 +33,7 @@ export class ExhibitionList {
 
     ionViewWillEnter() {
       this.getStoredData()
-      this.events.publish('stopRanging')
+      if(this.platform.is('cordova')){this.events.publish('stopRanging')}
       this.events.publish('cleanLastTriggeredBeacon')
     }
 
@@ -120,18 +120,27 @@ export class ExhibitionList {
     }
 
     downloadMedia(exhibition, items) {
-      Promise.all(
-        items.map((object) => {
-          return this.downloader.download(object.video, object.id)
+      if(!this.platform.is('cordova')){
+        this.simulateSave(exhibition.id)
+        this.loading.dismiss()
+      }else{
+        Promise.all(
+          items.map((object) => {
+            return this.downloader.download(object.video, object.id)
+          })
+        ).then((items) => {
+          this.saveInLocal(exhibition)
+          this.getStoredData()
+          this.loading.dismiss()
+        }).catch((error) => {
+          this.loading.dismiss()
+          this.presentError()
         })
-      ).then((items) => {
-        this.saveInLocal(exhibition)
-        this.getStoredData()
-        this.loading.dismiss()
-      }).catch((error) => {
-        this.loading.dismiss()
-        this.presentError()
-      })
+      }
+    }
+
+    simulateSave(exhibitionId){
+      this.storedData.push(exhibitionId)
     }
 
     delete(exhibition) {
@@ -205,15 +214,23 @@ export class ExhibitionList {
     }
 
     goToDetail(exhibition) {
-      this.nativeStorage.getItem(exhibition.id)
-        .then(
-          exhibition => {
-            this.navCtrl.push('ExhibitionDetail', {exhibition: exhibition})
-          })
-        .catch(
-          error => {
-            this.askLanguage(exhibition)
-          });
+      if(!this.platform.is('cordova')){
+        if(this.storedData.includes(exhibition.id)){
+          this.navCtrl.push('ExhibitionDetail', {exhibition: exhibition})
+        }else{
+          this.askLanguage(exhibition)
+        }
+      }else{
+        this.nativeStorage.getItem(exhibition.id)
+          .then(
+            exhibition => {
+              this.navCtrl.push('ExhibitionDetail', {exhibition: exhibition})
+            })
+          .catch(
+            error => {
+              this.askLanguage(exhibition)
+            });
+      }
     }
 
     goToMuseum(museumId) {

@@ -28,22 +28,23 @@ export class ExhibitionDetail {
                 private itemService: ItemsProvider ) {
 
         let exhibition = navParams.get('exhibition')
-
-        platform.ready().then(() => {
-          if(!beaconProvider.isInitialized){
-            beaconProvider.initialise().then((isInitialised) => {
-              if (isInitialised) {
-                beaconProvider.listenToBeaconEvents(exhibition);
-                beaconProvider.isInitialized = true
-              }
-            });
-          }
-        });
+        if(platform.is('cordova')){
+          platform.ready().then(() => {
+            if(!beaconProvider.isInitialized){
+              beaconProvider.initialise().then((isInitialised) => {
+                if (isInitialised) {
+                  beaconProvider.listenToBeaconEvents(exhibition);
+                  beaconProvider.isInitialized = true
+                }
+              });
+            }
+          });
+        }    
     }
 
     ionViewWillEnter() {
       let exhibition = this.navParams.get('exhibition')
-      this.beaconProvider.startRanging()
+      if(this.platform.is('cordova')){this.beaconProvider.startRanging()}
 
       this.events.subscribe('goToItemDetail', (data) => {
         this.goToItemView(data.index)
@@ -52,7 +53,6 @@ export class ExhibitionDetail {
       this.events.subscribe('exhibitionUnlocked', (data) => {
         this.unlockExhibition(exhibition)
       })
-
       this.getExhibition(exhibition)
     }
 
@@ -62,17 +62,23 @@ export class ExhibitionDetail {
     }
 
     getExhibition(exhibition) {
-      this.storage.getItem(exhibition.id).then(exhibition => {
-        this.beaconProvider.listenToBeaconEvents(exhibition)
-        this.exhibition = exhibition
-      })
+      if(this.platform.is('cordova')){ 
+        this.storage.getItem(exhibition.id).then(exhibition => {
+          if(this.platform.is('cordova')){this.beaconProvider.listenToBeaconEvents(exhibition)}
+          this.exhibition = exhibition
+        })
 
-      this.storage.getItem(this.exhibition.id + '-items').then(items => {
-        if(items.length > 0){
-          this.items = items
-          this.hasItems = true
-        }
-      })
+        this.storage.getItem(this.exhibition.id + '-items').then(items => {
+          if(items.length > 0){
+            this.items = items
+            this.hasItems = true
+          }
+        })
+      }else{
+        this.exhibition = exhibition
+        this.items = exhibition.items
+        this.hasItems = true
+      }
     }
 
     unlockExhibition(exhibition) {

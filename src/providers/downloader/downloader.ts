@@ -32,16 +32,20 @@ export class DownloadProvider {
   }
 
   download(source, id){
-  	return this.platform.ready().then(() => {
-      const fileTransfer: FileTransferObject = this.transfer.create();
+    if(!this.platform.is('cordova')){
+      return
+    }else{
+    	return this.platform.ready().then(() => {
+        const fileTransfer: FileTransferObject = this.transfer.create();
 
-      return fileTransfer.download(source, this.storageDirectory + id + '-video.mp4').then((entry) => {
-        this.downloadedVideos.push({id: id, source: entry.toURL()})
-        return entry.toURL()
-      }).catch((error) => {
-        throw error
+        return fileTransfer.download(source, this.storageDirectory + id + '-video.mp4').then((entry) => {
+          this.downloadedVideos.push({id: id, source: entry.toURL()})
+          return entry.toURL()
+        }).catch((error) => {
+          throw error
+        });
       });
-    });
+    }
   }
 
   checkFile(id){
